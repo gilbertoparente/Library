@@ -11,18 +11,13 @@
     <artifactId>bll</artifactId>
 
     <dependencies>
-        <!-- Spring Data JPA: Este módulo já traz o Hibernate e o Jakarta Persistence configurados -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>3.2.2</version>
         </dependency>
-
-        <!-- PostgreSQL Driver -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.7.3</version>
         </dependency>
     </dependencies>
 

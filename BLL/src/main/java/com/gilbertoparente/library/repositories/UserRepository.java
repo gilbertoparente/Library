@@ -4,23 +4,24 @@ import com.gilbertoparente.library.entities.EntityUsers;
 import com.gilbertoparente.library.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-public class UserRepository extends GenericRepository<EntityUsers> {
+@Repository
+public class UserRepository extends GenericRepository<EntityUsers> implements IUserRepository {
 
     public UserRepository() {
         super(EntityUsers.class);
     }
 
-    // Buscar usuário por ID
+    @Override
     public EntityUsers findById(int id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.get(EntityUsers.class, id);
         }
     }
 
-    // Buscar usuário por email
+    @Override
     public EntityUsers findByEmail(String email) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery(
@@ -30,14 +31,14 @@ public class UserRepository extends GenericRepository<EntityUsers> {
         }
     }
 
-    // Listar todos os usuários
+    @Override
     public List<EntityUsers> findAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("from EntityUsers", EntityUsers.class).list();
         }
     }
 
-    // Atualizar nome
+    @Override
     public void updateName(int id, String name) {
         Transaction tx = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -51,7 +52,7 @@ public class UserRepository extends GenericRepository<EntityUsers> {
         }
     }
 
-    // Atualizar email
+    @Override
     public void updateEmail(int id, String email) {
         Transaction tx = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -65,7 +66,7 @@ public class UserRepository extends GenericRepository<EntityUsers> {
         }
     }
 
-    // Atualizar senha
+    @Override
     public void updatePassword(int id, String password) {
         Transaction tx = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -79,7 +80,7 @@ public class UserRepository extends GenericRepository<EntityUsers> {
         }
     }
 
-    // Atualizar admin
+    @Override
     public void updateAdminStatus(int id, boolean isAdmin) {
         Transaction tx = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -93,7 +94,7 @@ public class UserRepository extends GenericRepository<EntityUsers> {
         }
     }
 
-    // Deletar usuário (remove cascata de autores e compras)
+    @Override
     public void deleteById(int id) {
         Transaction tx = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

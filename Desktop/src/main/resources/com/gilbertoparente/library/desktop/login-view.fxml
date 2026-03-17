@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="15" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.gilbertoparente.library.desktop.LoginController"
+      style="-fx-background-color: #f4f4f4;">
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+    <Label text="Admin Login" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+    <TextField fx:id="emailField" promptText="Email" prefHeight="35"/>
+    <PasswordField fx:id="passwordField" promptText="Password" prefHeight="35"/>
+    <Button text="Entrar" onAction="#handleLogin" prefWidth="200" prefHeight="35"
+            style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold;"/>
+    <Label fx:id="errorLabel" text="" style="-fx-text-fill: red;"/>
+</VBox>

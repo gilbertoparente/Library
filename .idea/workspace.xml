@@ -5,7 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="217472e6-7739-4771-9092-c617e6abfdfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/IUserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/AdminDashboardController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/DesktopApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/Launcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/MainApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Desktop/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/dashboard-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/login-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/be4a71a5-7453-4140-9a54-48dcfbb30c18.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/be4a71a5-7453-4140-9a54-48dcfbb30c18.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/repositories/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/repositories/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Desktop/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Desktop/src/main/java/module-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Web/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +51,9 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="3AZtsyV2KSyFr6hCUmPbsw4eg7p" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -53,7 +75,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.16013925",
     "project.structure.side.proportion": "0.503112",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
     "spring.configuration.checksum": "8fa8e9f190c621889839c4190567c250"
   },
   "keyToStringList": {
@@ -68,6 +90,44 @@
       <recent name="com.gilbertoparente.library" />
       <recent name="" />
     </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.Launcher">
+    <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.gilbertoparente.library.desktop.Launcher" />
+      <module name="Desktop" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.gilbertoparente.library.desktop.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="mianApp" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-19" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="com.gilbertoparente.library.desktop.MainApp" />
+      <module name="Desktop" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.mianApp" />
+      <item itemvalue="Application.Launcher" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Launcher" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -92,7 +152,12 @@
       <workItem from="1773414890874" duration="8552000" />
       <workItem from="1773437672198" duration="5606000" />
       <workItem from="1773507390780" duration="5641000" />
-      <workItem from="1773516298647" duration="776000" />
+      <workItem from="1773516298647" duration="1803000" />
+      <workItem from="1773518423892" duration="310000" />
+      <workItem from="1773656359515" duration="256000" />
+      <workItem from="1773675529903" duration="166000" />
+      <workItem from="1773697744905" duration="5258000" />
+      <workItem from="1773741953889" duration="7225000" />
     </task>
     <servers />
   </component>
