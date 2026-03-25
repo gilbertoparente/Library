@@ -61,7 +61,7 @@ public class EntityUsers {
         this.password = password;
     }
 
-    public Boolean getAdmin() {
+    public Boolean getIsAdmin() {
         return isAdmin;
     }
 
@@ -96,5 +96,9 @@ public class EntityUsers {
 
     public void setPurchasesByIdUser(Collection<EntityPurchases> purchasesByIdUser) {
         this.purchasesByIdUser = purchasesByIdUser;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 }

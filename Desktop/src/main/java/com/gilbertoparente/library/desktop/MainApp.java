@@ -26,8 +26,8 @@ public class MainApp extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("login-view.fxml"));
         fxmlLoader.setControllerFactory(springContext::getBean);
         Parent root = fxmlLoader.load();
-        stage.setTitle("Library Admin - Login");
-        stage.setScene(new Scene(root, 400, 300));
+        stage.setTitle("Open Library - Login");
+        stage.setScene(new Scene(root, 600, 400));
         stage.show();
     }
 
@@ -35,10 +35,12 @@ public class MainApp extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("dashboard-view.fxml"));
         fxmlLoader.setControllerFactory(springContext::getBean);
         Parent root = fxmlLoader.load();
-        stage.setTitle("Library Admin - Dashboard");
-        stage.setScene(new Scene(root, 800, 600));
+        stage.setTitle("Open Library - Administrador");
+        stage.setScene(new Scene(root, 1100, 700));
         stage.show();
     }
+
+
 
     @Override
     public void stop() {

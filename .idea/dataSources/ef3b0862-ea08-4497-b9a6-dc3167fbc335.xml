@@ -3,17 +3,9 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.43">
     <root id="1">
       <DateStyle>dmy</DateStyle>
-      <Grants>1||-9223372036854775808|c|G
-1||10|c|G
-1||10|C|G
-1||10|T|G
-4||-9223372036854775808|c|G
-4||10|c|G
-4||10|C|G
-4||10|T|G</Grants>
-      <IntrospectionStateNumber>7045</IntrospectionStateNumber>
+      <IntrospectionStateNumber>7172</IntrospectionStateNumber>
       <ServerVersion>15.2</ServerVersion>
-      <StartupTime>1773435189</StartupTime>
+      <StartupTime>1773844152</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -822,13 +814,14 @@ false Zulu
 13183||10|C|G
 13183||-9223372036854775808|U|G
 13183||10|U|G</Grants>
-      <IntrospectionStateNumber>7045</IntrospectionStateNumber>
+      <IntrospectionStateNumber>7172</IntrospectionStateNumber>
       <ObjectId>692150</ObjectId>
       <Relations>sequence|table|692151|692152|1
 sequence|table|692161|692162|1
 sequence|table|692173|692174|1
 sequence|table|692180|692181|1
 sequence|table|692190|692191|1
+sequence|table|700507|700508|1
 </Relations>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -4237,7 +4230,7 @@ sequence|table|692190|692191|1
     <schema id="264" parent="5" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>7045</IntrospectionStateNumber>
+      <IntrospectionStateNumber>7172</IntrospectionStateNumber>
       <ObjectId>2200</ObjectId>
       <StateNumber>518</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -4254,81 +4247,93 @@ sequence|table|692190|692191|1
       <StateNumber>7033</StateNumber>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <sequence id="267" parent="264" name="purchases_id_purchase_seq">
+    <sequence id="267" parent="264" name="comments_id_comment_seq">
+      <DataType>integer|0s</DataType>
+      <ObjectId>700507</ObjectId>
+      <StateNumber>7154</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </sequence>
+    <sequence id="268" parent="264" name="purchases_id_purchase_seq">
       <DataType>integer|0s</DataType>
       <ObjectId>692190</ObjectId>
       <StateNumber>7033</StateNumber>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <sequence id="268" parent="264" name="thematics_id_thematic_seq">
+    <sequence id="269" parent="264" name="thematics_id_thematic_seq">
       <DataType>integer|0s</DataType>
       <ObjectId>692173</ObjectId>
       <StateNumber>7033</StateNumber>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <sequence id="269" parent="264" name="users_id_user_seq">
+    <sequence id="270" parent="264" name="users_id_user_seq">
       <DataType>integer|0s</DataType>
       <ObjectId>692151</ObjectId>
       <StateNumber>7033</StateNumber>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <table id="270" parent="264" name="article_author">
+    <table id="271" parent="264" name="article_author">
       <ObjectId>692209</ObjectId>
       <StateNumber>7033</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="271" parent="264" name="article_thematic">
+    <table id="272" parent="264" name="article_thematic">
       <ObjectId>692224</ObjectId>
       <StateNumber>7033</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="272" parent="264" name="articles">
+    <table id="273" parent="264" name="articles">
       <ObjectId>692181</ObjectId>
-      <StateNumber>7033</StateNumber>
+      <StateNumber>7071</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="273" parent="264" name="authors">
+    <table id="274" parent="264" name="authors">
       <ObjectId>692162</ObjectId>
-      <StateNumber>7033</StateNumber>
+      <StateNumber>7065</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="274" parent="264" name="purchases">
+    <table id="275" parent="264" name="comments">
+      <ObjectId>700508</ObjectId>
+      <StateNumber>7154</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="276" parent="264" name="purchases">
       <ObjectId>692191</ObjectId>
-      <StateNumber>7033</StateNumber>
+      <StateNumber>7073</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="275" parent="264" name="thematics">
+    <table id="277" parent="264" name="thematics">
       <ObjectId>692174</ObjectId>
       <StateNumber>7033</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="276" parent="264" name="users">
+    <table id="278" parent="264" name="users">
       <ObjectId>692152</ObjectId>
-      <StateNumber>7033</StateNumber>
+      <StateNumber>7069</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <column id="277" parent="270" name="id_article">
+    <column id="279" parent="271" name="id_article">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>7033</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="278" parent="270" name="id_author">
+    <column id="280" parent="271" name="id_author">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>7033</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <foreign-key id="279" parent="270" name="fk_article_author_article">
+    <foreign-key id="281" parent="271" name="fk_article_author_article">
       <ColNames>id_article</ColNames>
       <ObjectId>692214</ObjectId>
       <OnDelete>cascade</OnDelete>
@@ -4339,7 +4344,7 @@ sequence|table|692190|692191|1
       <RefTableName>articles</RefTableName>
       <RefTableKind>table</RefTableKind>
     </foreign-key>
-    <foreign-key id="280" parent="270" name="fk_article_author_author">
+    <foreign-key id="282" parent="271" name="fk_article_author_author">
       <ColNames>id_author</ColNames>
       <ObjectId>692219</ObjectId>
       <OnDelete>cascade</OnDelete>
@@ -4350,7 +4355,7 @@ sequence|table|692190|692191|1
       <RefTableName>authors</RefTableName>
       <RefTableKind>table</RefTableKind>
     </foreign-key>
-    <index id="281" parent="270" name="article_author_pkey">
+    <index id="283" parent="271" name="article_author_pkey">
       <ColNames>id_article
 id_author</ColNames>
       <NameSurrogate>1</NameSurrogate>
@@ -4360,28 +4365,28 @@ id_author</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="282" parent="270" name="article_author_pkey">
+    <key id="284" parent="271" name="article_author_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>692213</ObjectId>
       <Primary>1</Primary>
       <StateNumber>7033</StateNumber>
       <UnderlyingIndexId>692212</UnderlyingIndexId>
     </key>
-    <column id="283" parent="271" name="id_article">
+    <column id="285" parent="272" name="id_article">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>7033</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="284" parent="271" name="id_thematic">
+    <column id="286" parent="272" name="id_thematic">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>7033</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <foreign-key id="285" parent="271" name="fk_article_thematic_article">
+    <foreign-key id="287" parent="272" name="fk_article_thematic_article">
       <ColNames>id_article</ColNames>
       <ObjectId>692229</ObjectId>
       <OnDelete>cascade</OnDelete>
@@ -4392,7 +4397,7 @@ id_author</ColNames>
       <RefTableName>articles</RefTableName>
       <RefTableKind>table</RefTableKind>
     </foreign-key>
-    <foreign-key id="286" parent="271" name="fk_article_thematic_thematic">
+    <foreign-key id="288" parent="272" name="fk_article_thematic_thematic">
       <ColNames>id_thematic</ColNames>
       <ObjectId>692234</ObjectId>
       <OnDelete>cascade</OnDelete>
@@ -4403,7 +4408,7 @@ id_author</ColNames>
       <RefTableName>thematics</RefTableName>
       <RefTableKind>table</RefTableKind>
     </foreign-key>
-    <index id="287" parent="271" name="article_thematic_pkey">
+    <index id="289" parent="272" name="article_thematic_pkey">
       <ColNames>id_article
 id_thematic</ColNames>
       <NameSurrogate>1</NameSurrogate>
@@ -4413,14 +4418,14 @@ id_thematic</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="288" parent="271" name="article_thematic_pkey">
+    <key id="290" parent="272" name="article_thematic_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>692228</ObjectId>
       <Primary>1</Primary>
       <StateNumber>7033</StateNumber>
       <UnderlyingIndexId>692227</UnderlyingIndexId>
     </key>
-    <column id="289" parent="272" name="id_article">
+    <column id="291" parent="273" name="id_article">
       <DataType>integer|0s</DataType>
       <DefaultExpression>nextval(&apos;articles_id_article_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -4428,64 +4433,64 @@ id_thematic</ColNames>
       <StateNumber>7033</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="290" parent="272" name="title">
+    <column id="292" parent="273" name="title">
       <DataType>varchar(200)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>7033</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="291" parent="272" name="resume">
+    <column id="293" parent="273" name="resume">
       <DataType>text|0s</DataType>
       <Position>3</Position>
       <StateNumber>7037</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="292" parent="272" name="publication_date">
+    <column id="294" parent="273" name="publication_date">
       <DataType>date|0s</DataType>
       <Position>4</Position>
       <StateNumber>7033</StateNumber>
       <TypeId>1082</TypeId>
     </column>
-    <column id="293" parent="272" name="price">
+    <column id="295" parent="273" name="price">
       <DataType>numeric(10,2 digit)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <Position>5</Position>
-      <StateNumber>7033</StateNumber>
+      <StateNumber>7071</StateNumber>
       <TypeId>1700</TypeId>
     </column>
-    <column id="294" parent="272" name="file_path">
+    <column id="296" parent="273" name="file_path">
       <DataType>varchar(255)|0s</DataType>
       <Position>6</Position>
       <StateNumber>7033</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="295" parent="272" name="articles_pkey">
+    <index id="297" parent="273" name="articles_pkey">
       <ColNames>id_article</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>692188</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>7033</StateNumber>
+      <StateNumber>7071</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="296" parent="272" name="idx_article_title">
+    <index id="298" parent="273" name="idx_article_title">
       <ColNames>title</ColNames>
       <ObjectId>692239</ObjectId>
-      <StateNumber>7033</StateNumber>
+      <StateNumber>7071</StateNumber>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="297" parent="272" name="articles_pkey">
+    <key id="299" parent="273" name="articles_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>692189</ObjectId>
       <Primary>1</Primary>
       <StateNumber>7033</StateNumber>
       <UnderlyingIndexId>692188</UnderlyingIndexId>
     </key>
-    <column id="298" parent="273" name="id_author">
+    <column id="300" parent="274" name="id_author">
       <DataType>integer|0s</DataType>
       <DefaultExpression>nextval(&apos;authors_id_author_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -4493,20 +4498,26 @@ id_thematic</ColNames>
       <StateNumber>7033</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="299" parent="273" name="id_user">
+    <column id="301" parent="274" name="id_user">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>7033</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="300" parent="273" name="affiliation">
+    <column id="302" parent="274" name="affiliation">
       <DataType>varchar(150)|0s</DataType>
       <Position>3</Position>
       <StateNumber>7033</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <foreign-key id="301" parent="273" name="fk_author_user">
+    <column id="303" parent="274" name="name">
+      <DataType>varchar(255)|0s</DataType>
+      <Position>4</Position>
+      <StateNumber>7065</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <foreign-key id="304" parent="274" name="fk_author_user">
       <ColNames>id_user</ColNames>
       <ObjectId>692168</ObjectId>
       <OnDelete>cascade</OnDelete>
@@ -4517,7 +4528,7 @@ id_thematic</ColNames>
       <RefTableName>users</RefTableName>
       <RefTableKind>table</RefTableKind>
     </foreign-key>
-    <index id="302" parent="273" name="authors_pkey">
+    <index id="305" parent="274" name="authors_pkey">
       <ColNames>id_author</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>692166</ObjectId>
@@ -4526,14 +4537,123 @@ id_thematic</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="303" parent="273" name="authors_pkey">
+    <key id="306" parent="274" name="authors_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>692167</ObjectId>
       <Primary>1</Primary>
       <StateNumber>7033</StateNumber>
       <UnderlyingIndexId>692166</UnderlyingIndexId>
     </key>
-    <column id="304" parent="274" name="id_purchase">
+    <column id="307" parent="275" name="id_comment">
+      <DataType>integer|0s</DataType>
+      <DefaultExpression>nextval(&apos;comments_id_comment_seq&apos;::regclass)</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>7154</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="308" parent="275" name="id_article">
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>7154</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="309" parent="275" name="id_user">
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>7154</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="310" parent="275" name="parent_comment_id">
+      <DataType>integer|0s</DataType>
+      <Position>4</Position>
+      <StateNumber>7154</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="311" parent="275" name="content">
+      <DataType>text|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StateNumber>7154</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="312" parent="275" name="created_at">
+      <DataType>timestamp|0s</DataType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>6</Position>
+      <StateNumber>7154</StateNumber>
+      <TypeId>1114</TypeId>
+    </column>
+    <foreign-key id="313" parent="275" name="fk_comment_article">
+      <ColNames>id_article</ColNames>
+      <ObjectId>700517</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>id_article</RefColNames>
+      <RefColPositions>1</RefColPositions>
+      <StateNumber>7154</StateNumber>
+      <RefTableId>692181</RefTableId>
+      <RefTableName>articles</RefTableName>
+      <RefTableKind>table</RefTableKind>
+    </foreign-key>
+    <foreign-key id="314" parent="275" name="fk_comment_user">
+      <ColNames>id_user</ColNames>
+      <ObjectId>700522</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>id_user</RefColNames>
+      <RefColPositions>1</RefColPositions>
+      <StateNumber>7154</StateNumber>
+      <RefTableId>692152</RefTableId>
+      <RefTableName>users</RefTableName>
+      <RefTableKind>table</RefTableKind>
+    </foreign-key>
+    <foreign-key id="315" parent="275" name="fk_comment_parent">
+      <ColNames>parent_comment_id</ColNames>
+      <ObjectId>700527</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>id_comment</RefColNames>
+      <RefColPositions>1</RefColPositions>
+      <StateNumber>7154</StateNumber>
+      <RefTableId>700508</RefTableId>
+      <RefTableName>comments</RefTableName>
+      <RefTableKind>table</RefTableKind>
+    </foreign-key>
+    <index id="316" parent="275" name="comments_pkey">
+      <ColNames>id_comment</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>700515</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>7154</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="317" parent="275" name="idx_comments_article">
+      <ColNames>id_article</ColNames>
+      <ObjectId>700532</ObjectId>
+      <StateNumber>7154</StateNumber>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="318" parent="275" name="idx_comments_user">
+      <ColNames>id_user</ColNames>
+      <ObjectId>700533</ObjectId>
+      <StateNumber>7154</StateNumber>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="319" parent="275" name="idx_comments_parent">
+      <ColNames>parent_comment_id</ColNames>
+      <ObjectId>700534</ObjectId>
+      <StateNumber>7154</StateNumber>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="320" parent="275" name="comments_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>700516</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>7154</StateNumber>
+      <UnderlyingIndexId>700515</UnderlyingIndexId>
+    </key>
+    <column id="321" parent="276" name="id_purchase">
       <DataType>integer|0s</DataType>
       <DefaultExpression>nextval(&apos;purchases_id_purchase_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -4541,41 +4661,41 @@ id_thematic</ColNames>
       <StateNumber>7033</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="305" parent="274" name="id_user">
+    <column id="322" parent="276" name="id_user">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>7033</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="306" parent="274" name="id_article">
+    <column id="323" parent="276" name="id_article">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>7033</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="307" parent="274" name="purchase_date">
+    <column id="324" parent="276" name="purchase_date">
       <DataType>date|0s</DataType>
       <DefaultExpression>CURRENT_DATE</DefaultExpression>
       <Position>4</Position>
-      <StateNumber>7033</StateNumber>
+      <StateNumber>7073</StateNumber>
       <TypeId>1082</TypeId>
     </column>
-    <column id="308" parent="274" name="amount">
+    <column id="325" parent="276" name="amount">
       <DataType>numeric(10,2 digit)|0s</DataType>
       <Position>5</Position>
-      <StateNumber>7033</StateNumber>
+      <StateNumber>7072</StateNumber>
       <TypeId>1700</TypeId>
     </column>
-    <column id="309" parent="274" name="paid">
+    <column id="326" parent="276" name="paid">
       <DataType>boolean|0s</DataType>
       <DefaultExpression>false</DefaultExpression>
       <Position>6</Position>
       <StateNumber>7033</StateNumber>
       <TypeId>16</TypeId>
     </column>
-    <foreign-key id="310" parent="274" name="fk_purchase_user">
+    <foreign-key id="327" parent="276" name="fk_purchase_user">
       <ColNames>id_user</ColNames>
       <ObjectId>692199</ObjectId>
       <OnDelete>cascade</OnDelete>
@@ -4586,7 +4706,7 @@ id_thematic</ColNames>
       <RefTableName>users</RefTableName>
       <RefTableKind>table</RefTableKind>
     </foreign-key>
-    <foreign-key id="311" parent="274" name="fk_purchase_article">
+    <foreign-key id="328" parent="276" name="fk_purchase_article">
       <ColNames>id_article</ColNames>
       <ObjectId>692204</ObjectId>
       <OnDelete>cascade</OnDelete>
@@ -4597,23 +4717,23 @@ id_thematic</ColNames>
       <RefTableName>articles</RefTableName>
       <RefTableKind>table</RefTableKind>
     </foreign-key>
-    <index id="312" parent="274" name="purchases_pkey">
+    <index id="329" parent="276" name="purchases_pkey">
       <ColNames>id_purchase</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>692197</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>7033</StateNumber>
+      <StateNumber>7073</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="313" parent="274" name="purchases_pkey">
+    <key id="330" parent="276" name="purchases_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>692198</ObjectId>
       <Primary>1</Primary>
       <StateNumber>7033</StateNumber>
       <UnderlyingIndexId>692197</UnderlyingIndexId>
     </key>
-    <column id="314" parent="275" name="id_thematic">
+    <column id="331" parent="277" name="id_thematic">
       <DataType>integer|0s</DataType>
       <DefaultExpression>nextval(&apos;thematics_id_thematic_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -4621,14 +4741,14 @@ id_thematic</ColNames>
       <StateNumber>7033</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="315" parent="275" name="description">
+    <column id="332" parent="277" name="description">
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>7033</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="316" parent="275" name="thematics_pkey">
+    <index id="333" parent="277" name="thematics_pkey">
       <ColNames>id_thematic</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>692178</ObjectId>
@@ -4637,7 +4757,7 @@ id_thematic</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="317" parent="275" name="idx_thematic_description">
+    <index id="334" parent="277" name="idx_thematic_description">
       <ColNames>description</ColNames>
       <ObjectId>692240</ObjectId>
       <StateNumber>7033</StateNumber>
@@ -4646,14 +4766,14 @@ id_thematic</ColNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="318" parent="275" name="thematics_pkey">
+    <key id="335" parent="277" name="thematics_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>692179</ObjectId>
       <Primary>1</Primary>
       <StateNumber>7033</StateNumber>
       <UnderlyingIndexId>692178</UnderlyingIndexId>
     </key>
-    <column id="319" parent="276" name="id_user">
+    <column id="336" parent="278" name="id_user">
       <DataType>integer|0s</DataType>
       <DefaultExpression>nextval(&apos;users_id_user_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -4661,35 +4781,35 @@ id_thematic</ColNames>
       <StateNumber>7033</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="320" parent="276" name="name">
+    <column id="337" parent="278" name="name">
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>7033</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="321" parent="276" name="email">
+    <column id="338" parent="278" name="email">
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>7033</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="322" parent="276" name="password">
+    <column id="339" parent="278" name="password">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>7033</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="323" parent="276" name="is_admin">
+    <column id="340" parent="278" name="is_admin">
       <DataType>boolean|0s</DataType>
       <DefaultExpression>false</DefaultExpression>
       <Position>5</Position>
       <StateNumber>7033</StateNumber>
       <TypeId>16</TypeId>
     </column>
-    <index id="324" parent="276" name="users_pkey">
+    <index id="341" parent="278" name="users_pkey">
       <ColNames>id_user</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>692157</ObjectId>
@@ -4698,7 +4818,7 @@ id_thematic</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="325" parent="276" name="users_email_key">
+    <index id="342" parent="278" name="users_email_key">
       <ColNames>email</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>692159</ObjectId>
@@ -4709,14 +4829,14 @@ id_thematic</ColNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="326" parent="276" name="users_pkey">
+    <key id="343" parent="278" name="users_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>692158</ObjectId>
       <Primary>1</Primary>
       <StateNumber>7033</StateNumber>
       <UnderlyingIndexId>692157</UnderlyingIndexId>
     </key>
-    <key id="327" parent="276" name="users_email_key">
+    <key id="344" parent="278" name="users_email_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>692160</ObjectId>
       <StateNumber>7033</StateNumber>

@@ -3,9 +3,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <VBox spacing="15" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.gilbertoparente.library.desktop.LoginController"
       style="-fx-background-color: #f4f4f4;">
+    <ImageView fx:id="logoView" fitHeight="130.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@/images/Logo_Transparent.png" />
+        </image>
+    </ImageView>
     <padding>
         <Insets top="30" right="40" bottom="30" left="40"/>
     </padding>

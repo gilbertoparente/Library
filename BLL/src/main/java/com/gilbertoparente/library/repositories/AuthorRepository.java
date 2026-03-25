@@ -1,68 +1,18 @@
 package com.gilbertoparente.library.repositories;
 
 import com.gilbertoparente.library.entities.EntityAuthors;
-import com.gilbertoparente.library.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
-public class AuthorRepository extends GenericRepository<EntityAuthors> {
+@Repository
+public interface AuthorRepository extends JpaRepository<EntityAuthors, Integer> {
 
-    public AuthorRepository() {
-        super(EntityAuthors.class);
-    }
+    // Procura o autor associado a um utilizador específico
+    // O Spring navega de Author -> User -> idUser
+    Optional<EntityAuthors> findByUser_IdUser(int userId);
 
-    // Buscar autor pelo id do usuário
-    public EntityAuthors findByUserId(int userId) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery(
-                            "from EntityAuthors a where a.idUser = :userId",
-                            EntityAuthors.class)
-                    .setParameter("userId", userId)
-                    .uniqueResult();
-        }
-    }
-
-    // Deletar todos os registros de article_author de um autor
-    public void deleteAllArticleLinks(int authorId) {
-        Transaction tx = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
-
-            session.createQuery(
-                            "delete from EntityArticleAuthor a where a.id.idAuthor = :id")
-                    .setParameter("id", authorId)
-                    .executeUpdate();
-
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) tx.rollback();
-            e.printStackTrace();
-        }
-    }
-
-    // Listar todos os autores
-    public List<EntityAuthors> findAllAuthors() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from EntityAuthors", EntityAuthors.class).list();
-        }
-    }
-
-    // Exemplo de update de afiliação
-    public void updateAffiliation(int authorId, String newAffiliation) {
-        Transaction tx = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
-            session.createQuery(
-                            "update EntityAuthors a set a.affiliation = :aff where a.idAuthor = :id")
-                    .setParameter("aff", newAffiliation)
-                    .setParameter("id", authorId)
-                    .executeUpdate();
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) tx.rollback();
-            e.printStackTrace();
-        }
-    }
+    // Verifica se um utilizador já é autor
+    boolean existsByUser_IdUser(int userId);
 }

@@ -33,6 +33,8 @@ public class EntityThematics {
         this.description = description;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -40,6 +42,7 @@ public class EntityThematics {
         EntityThematics that = (EntityThematics) o;
         return idThematic == that.idThematic && Objects.equals(description, that.description);
     }
+
 
 
 }
