@@ -1,8 +1,7 @@
 package com.gilbertoparente.library.desktop;
 
 import com.gilbertoparente.library.entities.EntityUsers;
-import com.gilbertoparente.library.repositories.IUserRepository;
-import com.gilbertoparente.library.repositories.UserRepository;
+import com.gilbertoparente.library.repositories.UserRepository; // Importa o novo Repo
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -11,12 +10,13 @@ import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class LoginController {
 
-    // O Spring injeta o repositório automaticamente aqui
     @Autowired
-     private IUserRepository userRepository;
+    private UserRepository userRepository; // Usa o repositório do Spring Data
 
     @FXML
     private TextField emailField;
@@ -30,15 +30,25 @@ public class LoginController {
         String email = emailField.getText();
         String password = passwordField.getText();
 
-        try {
-            // O Spring Data JPA trata da ligação à BD
-            EntityUsers user = userRepository.findByEmail(email);
+        if (email.isEmpty() || password.isEmpty()) {
+            errorLabel.setText("Preencha todos os campos.");
+            return;
+        }
 
-            if (user != null) {
-                // Compara a password (Dica: no futuro usa BCrypt, mas para o projeto assim chega)
+        try {
+            // O findByEmail agora devolve um Optional
+            Optional<EntityUsers> userOpt = userRepository.findByEmail(email);
+
+            if (userOpt.isPresent()) {
+                EntityUsers user = userOpt.get();
+
+                // Verificação de Password
                 if (user.getPassword().equals(password)) {
-                    if (Boolean.TRUE.equals(user.getAdmin())) {
+
+                    // Verificação de Admin
+                    if (Boolean.TRUE.equals(user.getIsAdmin())) {
                         Stage stage = (Stage) emailField.getScene().getWindow();
+                        // Certifica-se que o MainApp consegue carregar a próxima view via Spring
                         MainApp.showDashboardView(stage);
                     } else {
                         errorLabel.setText("Acesso restrito a administradores.");
@@ -50,8 +60,8 @@ public class LoginController {
                 errorLabel.setText("Utilizador não encontrado.");
             }
         } catch (Exception e) {
-            e.printStackTrace(); // Ajuda a ver erros de BD no console
-            errorLabel.setText("Erro de ligação à base de dados.");
+            e.printStackTrace();
+            errorLabel.setText("Erro crítico no sistema.");
         }
     }
 }

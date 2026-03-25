@@ -28,6 +28,8 @@
         <mapping class="com.gilbertoparente.library.entities.EntityPurchases"/>
         <mapping class="com.gilbertoparente.library.entities.EntityUsers"/>
         <mapping class="com.gilbertoparente.library.entities.EntityThematics"/>
+        <mapping class="com.gilbertoparente.library.entities.EntityComments"/>
+
 
     </session-factory>
 </hibernate-configuration>
