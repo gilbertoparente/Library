@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.CheckListView?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gilbertoparente.library.desktop.ArticleFormController" prefWidth="450">
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <Label text="Título:" />
+    <TextField fx:id="txtTitle" />
+
+    <Label text="Resumo:" />
+    <TextArea fx:id="txtResume" prefHeight="100" />
+
+    <Label text="Data de Publicação"/>
+    <DatePicker fx:id="dpPublicationDate" prefWidth="200" />
+
+    <HBox spacing="10">
+        <VBox HBox.hgrow="ALWAYS">
+            <Label text="Preço Base:" />
+            <TextField fx:id="txtPrice" />
+        </VBox>
+        <VBox>
+            <Label text="IVA (%):" />
+            <ComboBox fx:id="comboVat" />
+        </VBox>
+    </HBox>
+
+    <Label text="Selecionar Temáticas (múltiplas):" />
+    <CheckListView fx:id="checkListThematics" prefHeight="150" />
+
+    <HBox spacing="5">
+        <TextField fx:id="txtFilePath" editable="false" HBox.hgrow="ALWAYS" promptText="Nenhum ficheiro selecionado" />
+        <Button text="Selecionar..." onAction="#handleSelectFile" />
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Guardar" onAction="#handleSave" styleClass="button-success" />
+        <Button text="Cancelar" onAction="#handleCancel" />
+    </HBox>
+</VBox>

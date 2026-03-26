@@ -26,8 +26,10 @@ public class ThematicsService {
 
     @Transactional
     public EntityThematics save(EntityThematics thematic) {
-        // Agora usamos findByDescriptionIgnoreCase
-        if (thematicsRepository.findByDescriptionIgnoreCase(thematic.getDescription()).isPresent()) {
+        var existing = thematicsRepository.findByDescriptionIgnoreCase(thematic.getDescription());
+
+
+        if (existing.isPresent() && existing.get().getIdThematic() != thematic.getIdThematic()) {
             throw new RuntimeException("Esta temática já existe!");
         }
 

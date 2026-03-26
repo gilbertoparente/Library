@@ -30,6 +30,9 @@ public class EntityArticles {
     @Column(name = "file_path")
     private String filePath;
 
+    @Column(name = "vat_rate")
+    private Integer vatRate = 6;
+
     @ManyToMany
     @JoinTable(
             name = "article_author",
@@ -38,7 +41,7 @@ public class EntityArticles {
     )
     private Collection<EntityAuthors> authors;
 
-    @ManyToMany
+    @ManyToMany (fetch = FetchType.EAGER)
     @JoinTable(
             name = "article_thematic",
             joinColumns = @JoinColumn(name = "id_article"),
@@ -97,18 +100,49 @@ public class EntityArticles {
         this.filePath = filePath;
     }
 
+    public Integer getVatRate() {
+        return vatRate;
+    }
+
+    public void setVatRate(Integer vatRate) {
+        this.vatRate = vatRate;
+    }
+
+    // No final da classe EntityArticles.java
+
+    public Collection<EntityThematics> getThematics() {
+        return thematics;
+    }
+
+    public void setThematics(Collection<EntityThematics> thematics) {
+        this.thematics = thematics;
+    }
+
+    /**
+     * Método utilitário para calcular o preço final com IVA.
+     *
+     */
+    public BigDecimal getFullPrice() {
+        if (price == null) return BigDecimal.ZERO;
+        if (vatRate == null || vatRate == 0) return price;
+
+        BigDecimal vatMultiplier = new BigDecimal(vatRate)
+                .divide(new BigDecimal(100))
+                .add(BigDecimal.ONE);
+
+        return price.multiply(vatMultiplier).setScale(2, BigDecimal.ROUND_HALF_UP);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EntityArticles that = (EntityArticles) o;
-        return idArticle == that.idArticle && Objects.equals(title, that.title) && Objects.equals(resume, that.resume) && Objects.equals(publicationDate, that.publicationDate) && Objects.equals(price, that.price) && Objects.equals(filePath, that.filePath);
+        return idArticle == that.idArticle && Objects.equals(title, that.title) && Objects.equals(resume, that.resume) && Objects.equals(publicationDate, that.publicationDate) && Objects.equals(price, that.price) && Objects.equals(filePath, that.filePath) && Objects.equals(vatRate, that.vatRate) && Objects.equals(authors, that.authors) && Objects.equals(thematics, that.thematics) && Objects.equals(purchases, that.purchases);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idArticle, title, resume, publicationDate, price, filePath);
+        return Objects.hash(idArticle, title, resume, publicationDate, price, filePath, vatRate, authors, thematics, purchases);
     }
-
-
 }
