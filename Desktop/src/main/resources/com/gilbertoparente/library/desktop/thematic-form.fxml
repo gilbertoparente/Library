@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gilbertoparente.library.desktop.ThematicFormController"
+      alignment="CENTER" prefWidth="350">
+
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20" />
+    </padding>
+
+    <children>
+        <Label text="Detalhes da Temática" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+        <TextField fx:id="txtDescription" promptText="Nome da temática (ex: Informática)" />
+
+        <HBox spacing="10" alignment="CENTER">
+            <children>
+                <Button text="Guardar" onAction="#handleSave" defaultButton="true" styleClass="button-success"/>
+                <Button text="Cancelar" onAction="#handleCancel" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

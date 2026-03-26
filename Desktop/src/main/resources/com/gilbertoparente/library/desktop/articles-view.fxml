@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gilbertoparente.library.desktop.ArticlesController">
+    <padding><Insets bottom="20" left="20" right="20" top="20" /></padding>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Gestão de Artigos" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+        <Region HBox.hgrow="ALWAYS" />
+        <Button text="🔄" onAction="#refreshArticles" />
+        <Button text="Novo Artigo" onAction="#handleAddArticle" styleClass="button-primary"/>
+        <Button text="📄 Abrir PDF" onAction="#handleOpenArticle"
+                style="-fx-background-color: #3498db; -fx-text-fill: white;" />
+    </HBox>
+
+    <TableView fx:id="articlesTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="titleColumn" text="Título" prefWidth="225" />
+            <TableColumn fx:id="thematicsColumn" text="Temáticas" prefWidth="175"/>
+            <TableColumn fx:id="dpPublicationDate" text="Data Publicação" prefWidth="100" />
+            <TableColumn fx:id="priceColumn" text="Preço Base" prefWidth="75" />
+            <TableColumn fx:id="fullPriceColumn" text="Total (c/ IVA)" prefWidth="75" />
+        </columns>
+        <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY" /></columnResizePolicy>
+    </TableView>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Editar" onAction="#handleEditArticle" />
+        <Button text="Eliminar" onAction="#handleDeleteArticle" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" />
+    </HBox>
+</VBox>

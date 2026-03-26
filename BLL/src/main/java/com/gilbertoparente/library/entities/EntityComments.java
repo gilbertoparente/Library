@@ -1,7 +1,7 @@
 package com.gilbertoparente.library.entities;
 
 import jakarta.persistence.*;
-import java.sql.Timestamp;
+
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Objects;
@@ -18,16 +18,20 @@ public class EntityComments {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(name = "created_at")
-    private Timestamp createdAt = Timestamp.valueOf(LocalDateTime.now());
+    @Column(name = "created_at", updatable = false)
+    @org.hibernate.annotations.CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @Column(name = "status")
+    private  int status;
 
     // Relacionamento com Artigo
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_article", nullable = false)
     private EntityArticles article;
 
     // Relacionamento com Utilizador (Faltava este mapeamento de objeto!)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_user", nullable = false)
     private EntityUsers user;
 
@@ -47,14 +51,20 @@ public class EntityComments {
     public String getContent() { return content; }
     public void setContent(String content) { this.content = content; }
 
-    public Timestamp getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
     public EntityArticles getArticle() { return article; }
     public void setArticle(EntityArticles article) { this.article = article; }
 
     public EntityUsers getUser() { return user; }
     public void setUser(EntityUsers user) { this.user = user; }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    public int getStatus(){return status;}
 
     public EntityComments getParentComment() { return parentComment; }
     public void setParentComment(EntityComments parentComment) { this.parentComment = parentComment; }

@@ -2,10 +2,12 @@ package com.gilbertoparente.library.desktop;
 
 import com.gilbertoparente.library.entities.EntityArticles;
 import com.gilbertoparente.library.repositories.*;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,36 +17,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-
 @Component
 public class AdminDashboardController {
 
-    @Autowired private ArticleRepository articleRepository;
-    @Autowired private UserRepository userRepository;
-    @Autowired private ThematicsRepository thematicsRepository;
-    @Autowired private PurchaseRepository purchaseRepository;
-    @Autowired private CommentRepository commentRepository;
-
-    // Injeção do contexto do Spring para carregar outros Controllers
     @Autowired private ConfigurableApplicationContext springContext;
 
-    @FXML private AnchorPane mainContent;
-    @FXML private TableView<EntityArticles> articlesTable;
-    @FXML private TableColumn<EntityArticles, Integer> idColumn;
-    @FXML private TableColumn<EntityArticles, String> titleColumn;
-    @FXML private TableColumn<EntityArticles, BigDecimal> priceColumn;
+    // Repositórios para o Dashboard (usarás para as estatísticas depois)
+    @Autowired private ArticleRepository articleRepository;
+    @Autowired private UserRepository userRepository;
+    @Autowired private PurchaseRepository purchaseRepository;
 
+    @FXML private AnchorPane mainContent; // Certifica-te que o FX:ID no FXML é este
 
     @FXML
     public void initialize() {
-        // Inicializar ecrâ de boas vindas
-        javafx.application.Platform.runLater(() -> {
-            loadSection("home-view.fxml");
-        });
+        // Carrega a home por defeito assim que o dashboard abre
+        Platform.runLater(() -> showHomeSection());
     }
 
-    // --- MÉTODOS DE NAVEGAÇÃO (Chamados pelos botões do menu) ---
+    // --- MÉTODOS DE NAVEGAÇÃO ---
+
+    @FXML
+    private void showHomeSection() {
+        loadSection("home-view.fxml");
+    }
 
     @FXML
     private void showUsersSection() {
@@ -52,20 +48,13 @@ public class AdminDashboardController {
     }
 
     @FXML
-    private void showHomeSection() {
-        loadSection("home-view.fxml"); // Onde vais pôr os gráficos depois
+    private void showThematicsSection() {
+        loadSection("thematics-view.fxml");
     }
 
     @FXML
     private void showArticlesSection() {
-        // Se quiser modularizar, pode criar um articles-view.fxml
-        // Por agora, recarregamos a lógica da tabela principal se necessário
-        refreshArticles();
-    }
-
-    @FXML
-    private void showThematicsSection() {
-        loadSection("thematics-view.fxml");
+        loadSection("articles-view.fxml");
     }
 
     @FXML
@@ -78,16 +67,15 @@ public class AdminDashboardController {
         loadSection("comments-view.fxml");
     }
 
-    // --- LÓGICA DE CARREGAMENTO DINÂMICO ---
+    // --- LÓGICA DE CARREGAMENTO DINÂMICO (Único Método) ---
 
     private void loadSection(String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-            // Dizemos ao JavaFX para usar o Spring para criar o Controller da nova view
             loader.setControllerFactory(springContext::getBean);
             Parent view = loader.load();
 
-            // Ajustamos a nova vista para ocupar todo o espaço do AnchorPane central
+            // Ajusta a vista para preencher o AnchorPane central
             AnchorPane.setTopAnchor(view, 0.0);
             AnchorPane.setBottomAnchor(view, 0.0);
             AnchorPane.setLeftAnchor(view, 0.0);
@@ -95,25 +83,23 @@ public class AdminDashboardController {
 
             mainContent.getChildren().setAll(view);
         } catch (Exception e) {
-            System.err.println("Erro ao carregar a secção: " + fxmlFile);
             e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void refreshArticles() {
-        if (articlesTable != null && articleRepository != null) {
-            articlesTable.setItems(FXCollections.observableArrayList(articleRepository.findAll()));
+            showAlert("Erro de Navegação", "Não foi possível carregar: " + fxmlFile);
         }
     }
 
     @FXML
     private void handleLogout() {
-        try {
-            Stage stage = (Stage) mainContent.getScene().getWindow();
-            MainApp.showLoginView(stage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Lógica para voltar ao ecrã de Login
+        System.out.println("Saindo...");
+        // Aqui chamarias o método da tua MainApp para mudar a Scene
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }
