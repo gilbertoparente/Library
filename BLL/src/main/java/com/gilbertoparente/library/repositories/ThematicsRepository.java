@@ -10,9 +10,8 @@ import java.util.Optional;
 @Repository
 public interface ThematicsRepository extends JpaRepository<EntityThematics, Integer> {
 
-    // Procurar por nome exato (ex: para não duplicar categorias)
-    Optional<EntityThematics> findByDescriptionIgnoreCase(String description);
 
-    // Antes era findByNameContainingIgnoreCase, mudamos para findByDescriptionContainingIgnoreCase
+    Optional<EntityThematics> findByDescriptionIgnoreCase(String description);
     List<EntityThematics> findByDescriptionContainingIgnoreCase(String description);
+    List<EntityThematics> findAllByOrderByDescriptionAsc();
 }

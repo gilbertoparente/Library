@@ -1,8 +1,7 @@
 package com.gilbertoparente.library.desktop;
 
-import com.gilbertoparente.library.desktop.UserFormController;
 import com.gilbertoparente.library.entities.EntityUsers;
-import com.gilbertoparente.library.repositories.UserRepository;
+import com.gilbertoparente.library.services.UserService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,69 +15,73 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
 public class UsersController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private ConfigurableApplicationContext springContext;
 
     @FXML private TableView<EntityUsers> usersTable;
-    @FXML private TableColumn<EntityUsers, Integer> idColumn;
     @FXML private TableColumn<EntityUsers, String> nameColumn;
     @FXML private TableColumn<EntityUsers, String> emailColumn;
     @FXML private TableColumn<EntityUsers, String> passwordColumn;
     @FXML private TableColumn<EntityUsers, Boolean> adminColumn;
 
+
     @FXML
     public void initialize() {
-        // 1. Colunas simples (Texto direto)
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-
-        // 2. Coluna Password (IMPORTANTE: Adicionei a ValueFactory aqui)
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
-        passwordColumn.setCellFactory(column -> new TableCell<EntityUsers, String>() {
+        adminColumn.setCellValueFactory(new PropertyValueFactory<>("isAdmin"));
+
+        passwordColumn.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-                    // Como já temos o 'item' vindo da ValueFactory, usamos o tamanho dele
-                    setText("•".repeat(item.length()));
-                }
+                setText((empty || item == null) ? null : "••••••••");
+                setStyle("-fx-alignment: CENTER;");
             }
         });
 
-        // 3. Coluna Administrador
-        adminColumn.setCellValueFactory(new PropertyValueFactory<>("isAdmin"));
-        adminColumn.setCellFactory(column -> new TableCell<EntityUsers, Boolean>() {
+        adminColumn.setCellFactory(column -> new TableCell<>() {
             @Override
-            protected void updateItem(Boolean item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
+            protected void updateItem(Boolean isAdmin, boolean empty) {
+                super.updateItem(isAdmin, empty);
+                if (empty || isAdmin == null) {
                     setText(null);
-                    setStyle("");
+                    setGraphic(null);
                 } else {
-                    setText(item ? "Sim" : "Não");
-                    // Define a cor: Verde para Sim, Cinza para Não
-                    String color = item ? "-fx-text-fill: #27ae60; -fx-font-weight: bold;" : "-fx-text-fill: #7f8c8d;";
-                    setStyle(color + "-fx-alignment: CENTER;");
+                    if (isAdmin) {
+                        setText("ADMIN");
+                        setStyle("-fx-text-fill: #27ae60; -fx-font-weight: bold; -fx-alignment: CENTER;");
+                    } else {
+                        setText("USER");
+                        setStyle("-fx-text-fill: #7f8c8d; -fx-alignment: CENTER;");
+                    }
                 }
             }
         });
 
         refreshUsers();
     }
+
     @FXML
-    private void refreshUsers() {
-        usersTable.setItems(FXCollections.observableArrayList(userRepository.findAll()));
+    public void refreshUsers() {
+        try {
+            List<EntityUsers> users = userService.findAll();
+            usersTable.setItems(FXCollections.observableArrayList(users));
+            usersTable.refresh();
+            System.out.println("Tabela atualizada com " + users.size() + " utilizadores.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -92,7 +95,7 @@ public class UsersController {
         if (selected != null) {
             showUserForm(selected);
         } else {
-            showAlert("Seleção Necessária", "Selecione um utilizador para editar.", Alert.AlertType.WARNING);
+            showAlert("Seleção Necessária", "Selecione um utilizador na tabela para editar.", Alert.AlertType.WARNING);
         }
     }
 
@@ -101,13 +104,18 @@ public class UsersController {
         EntityUsers selected = usersTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-            confirm.setTitle("Confirmar");
-            confirm.setHeaderText("Eliminar " + selected.getName() + "?");
+            confirm.setTitle("Confirmar Eliminação");
+            confirm.setHeaderText("Eliminar utilizador: " + selected.getName() + "?");
+            confirm.setContentText("Esta ação não pode ser desfeita.");
 
             Optional<ButtonType> result = confirm.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                userRepository.delete(selected);
-                refreshUsers();
+                try {
+                    userService.deleteUser(selected.getIdUser());
+                    refreshUsers();
+                } catch (Exception e) {
+                    showAlert("Erro ao Eliminar", e.getMessage(), Alert.AlertType.ERROR);
+                }
             }
         }
     }
@@ -118,22 +126,21 @@ public class UsersController {
             loader.setControllerFactory(springContext::getBean);
             Parent root = loader.load();
 
-            // LIGAÇÃO CRUCIAL AQUI:
             UserFormController controller = loader.getController();
-            controller.setUserData(user); // Este método existe no teu UserFormController
+            controller.setUserData(user);
 
             Stage stage = new Stage();
-            stage.setTitle(user == null ? "Novo Utilizador" : "Editar Utilizador");
+            stage.setTitle(user == null ? "Registar Utilizador" : "Editar Perfil");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(usersTable.getScene().getWindow());
             stage.setScene(new Scene(root));
 
             stage.showAndWait();
-            refreshUsers(); // Atualiza a tabela quando a janela fecha
+            refreshUsers();
 
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Erro", "Erro ao carregar formulário: " + e.getMessage(), Alert.AlertType.ERROR);
+            showAlert("Erro de Interface", "Não foi possível abrir o formulário.", Alert.AlertType.ERROR);
         }
     }
 

@@ -1,98 +1,112 @@
 package com.gilbertoparente.library.desktop;
 
-import com.gilbertoparente.library.entities.EntityArticles;
-import com.gilbertoparente.library.repositories.*;
+import com.gilbertoparente.library.services.CommentService;
+import com.gilbertoparente.library.services.UserSession;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 @Component
 public class AdminDashboardController {
 
+    @Autowired private UserSession userSession;
+    @Autowired private CommentService commentService;
     @Autowired private ConfigurableApplicationContext springContext;
 
-    // Repositórios para o Dashboard (usarás para as estatísticas depois)
-    @Autowired private ArticleRepository articleRepository;
-    @Autowired private UserRepository userRepository;
-    @Autowired private PurchaseRepository purchaseRepository;
-
-    @FXML private AnchorPane mainContent; // Certifica-te que o FX:ID no FXML é este
+    @FXML private Label lblAdminName;
+    @FXML private Label lblPendingAlert;
+    @FXML private AnchorPane mainContent;
 
     @FXML
     public void initialize() {
-        // Carrega a home por defeito assim que o dashboard abre
-        Platform.runLater(() -> showHomeSection());
+
+        if (userSession != null && userSession.getLoggedUser() != null) {
+            lblAdminName.setText("Olá, " + userSession.getLoggedUser().getName());
+        }
+
+        updateBadges();
+
+        Platform.runLater(this::showHomeSection);
+    }
+
+    private void updateBadges() {
+        long pending = commentService.countPendingComments();
+        if (lblPendingAlert != null) {
+            lblPendingAlert.setText(pending > 0 ? String.valueOf(pending) : "");
+            lblPendingAlert.setVisible(pending > 0);
+        }
     }
 
     // --- MÉTODOS DE NAVEGAÇÃO ---
 
-    @FXML
-    private void showHomeSection() {
-        loadSection("home-view.fxml");
+    @FXML private void showHomeSection() { loadSection("home-view.fxml"); }
+    @FXML private void showUsersSection() { loadSection("users-view.fxml"); }
+    @FXML private void showThematicsSection() {loadSection("thematics-view.fxml");
     }
-
-    @FXML
-    private void showUsersSection() {
-        loadSection("users-view.fxml");
-    }
-
-    @FXML
-    private void showThematicsSection() {
-        loadSection("thematics-view.fxml");
-    }
-
-    @FXML
-    private void showArticlesSection() {
-        loadSection("articles-view.fxml");
-    }
-
-    @FXML
-    private void showPurchasesSection() {
-        loadSection("purchases-view.fxml");
-    }
-
-    @FXML
-    private void showCommentsSection() {
+    @FXML private void showArticlesSection() { loadSection("articles-view.fxml"); }
+    @FXML private void showPurchasesSection() { loadSection("purchases-view.fxml"); }
+    @FXML private void showCommentsSection() {
         loadSection("comments-view.fxml");
+        updateBadges(); // Atualiza ao entrar na secção
     }
 
-    // --- LÓGICA DE CARREGAMENTO DINÂMICO (Único Método) ---
 
-    private void loadSection(String fxmlFile) {
+    private void loadSection(String fxmlPath) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+
             loader.setControllerFactory(springContext::getBean);
             Parent view = loader.load();
 
-            // Ajusta a vista para preencher o AnchorPane central
+
             AnchorPane.setTopAnchor(view, 0.0);
             AnchorPane.setBottomAnchor(view, 0.0);
             AnchorPane.setLeftAnchor(view, 0.0);
             AnchorPane.setRightAnchor(view, 0.0);
 
             mainContent.getChildren().setAll(view);
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            showAlert("Erro de Navegação", "Não foi possível carregar: " + fxmlFile);
+            showAlert("Erro de Navegação", "Erro ao carregar a vista: " + fxmlPath);
         }
     }
 
     @FXML
     private void handleLogout() {
-        // Lógica para voltar ao ecrã de Login
-        System.out.println("Saindo...");
-        // Aqui chamarias o método da tua MainApp para mudar a Scene
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Deseja realmente terminar sessão?", ButtonType.YES, ButtonType.NO);
+        confirm.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.YES) {
+                userSession.logout();
+                navigateToLogin();
+            }
+        });
+    }
+
+    private void navigateToLogin() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
+            loader.setControllerFactory(springContext::getBean);
+            Parent root = loader.load();
+
+            Stage stage = (Stage) mainContent.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Library Management - Login");
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            showAlert("Erro", "Não foi possível voltar ao Login.");
+        }
     }
 
     private void showAlert(String title, String content) {

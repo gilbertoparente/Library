@@ -9,12 +9,10 @@ import java.util.List;
 @Repository
 public interface PurchaseRepository extends JpaRepository<EntityPurchases, Integer> {
 
-    // O Spring entende que deve procurar o ID dentro da entidade 'user'
-    List<EntityPurchases> findByUser_IdUser(int userId);
 
-    // O Spring entende que deve procurar o ID dentro da entidade 'article'
-    List<EntityPurchases> findByArticle_IdArticle(int articleId);
-
-    // Listar apenas o que já foi pago
-    List<EntityPurchases> findByPaidTrue();
+    List<EntityPurchases> findByUser_IdUser(int idUser);
+    List<EntityPurchases> findByArticle_IdArticle(int idArticle);
+    List<EntityPurchases> findByStatus(String status);
+    List<EntityPurchases> findByUser_IdUserAndStatus(int idUser, String status);
+    List<EntityPurchases> findAllByOrderByPurchaseDateDesc();
 }

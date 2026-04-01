@@ -30,47 +30,53 @@ public class ArticlesController {
     @FXML private TableColumn<EntityArticles, String> titleColumn;
     @FXML private TableColumn<EntityArticles, Collection<EntityThematics>> thematicsColumn;
     @FXML private TableColumn<EntityArticles, BigDecimal> priceColumn;
-    @FXML private TableColumn<EntityArticles, BigDecimal> fullPriceColumn;
-
+    @FXML private TableColumn<EntityArticles, String> statusColumn;
     @FXML private TableColumn<EntityArticles, java.sql.Date> dpPublicationDate;
 
     @FXML
     public void initialize() {
-        // 1. Configurar as colunas básicas
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        fullPriceColumn.setCellValueFactory(new PropertyValueFactory<>("fullPrice"));
-
-        // 2. CONFIGURAÇÃO DA DATA (O que faltava!)
-        // Faz a ligação ao atributo 'publicationDate' da tua EntityArticles
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         dpPublicationDate.setCellValueFactory(new PropertyValueFactory<>("publicationDate"));
-
-        // Formata a data para o padrão europeu (dd/MM/yyyy)
         dpPublicationDate.setCellFactory(column -> new TableCell<>() {
             private final java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("dd/MM/yyyy");
             @Override
             protected void updateItem(java.sql.Date item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(formatter.format(item));
-                }
+                setText((empty || item == null) ? null : formatter.format(item));
             }
         });
 
-        // 3. Renderizar as temáticas como String
+
         thematicsColumn.setCellValueFactory(new PropertyValueFactory<>("thematics"));
         thematicsColumn.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(Collection<EntityThematics> items, boolean empty) {
                 super.updateItem(items, empty);
-                if (empty || items == null) {
+                if (empty || items == null || items.isEmpty()) {
                     setText(null);
                 } else {
                     setText(items.stream()
                             .map(EntityThematics::getDescription)
                             .collect(Collectors.joining(", ")));
+                }
+            }
+        });
+
+
+        statusColumn.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(item.toUpperCase());
+                    if (item.equals("published")) setStyle("-fx-text-fill: green; -fx-font-weight: bold;");
+                    else if (item.equals("draft")) setStyle("-fx-text-fill: orange;");
+                    else setStyle("-fx-text-fill: gray;");
                 }
             }
         });
@@ -94,7 +100,7 @@ public class ArticlesController {
         if (selected != null) {
             showArticleForm(selected);
         } else {
-            showAlert("Seleção Necessária", "Selecione um artigo para editar.");
+            showAlert(Alert.AlertType.WARNING, "Seleção Necessária", "Selecione um artigo para editar.");
         }
     }
 
@@ -103,44 +109,35 @@ public class ArticlesController {
         EntityArticles selected = articlesTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             try {
-                // Chamas o serviço que criámos antes
                 articleService.openArticleFile(selected.getFilePath());
             } catch (Exception e) {
-                showAlert("Erro", e.getMessage());
+                showAlert(Alert.AlertType.ERROR, "Erro ao abrir ficheiro", e.getMessage());
             }
         } else {
-            showAlert("Aviso", "Selecione um artigo na tabela para abrir o ficheiro.");
+            showAlert(Alert.AlertType.WARNING, "Aviso", "Selecione um artigo para abrir o PDF.");
         }
     }
 
     @FXML
     private void handleDeleteArticle() {
         EntityArticles selected = articlesTable.getSelectionModel().getSelectedItem();
-
         if (selected != null) {
-            // Confirmação para o utilizador
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmar Eliminação");
-            alert.setHeaderText("Deseja eliminar o artigo: " + selected.getTitle() + "?");
-            alert.setContentText("Esta ação irá apagar o registo e o ficheiro PDF associado.");
-
-            if (alert.showAndWait().get() == ButtonType.OK) {
+            if (confirmDelete(selected.getTitle())) {
                 try {
-                    // Chama o método que acabámos de criar no Service
                     articleService.delete(selected.getIdArticle());
-
-                    // Atualiza a tabela
                     refreshArticles();
                 } catch (Exception e) {
-                    new Alert(Alert.AlertType.ERROR, "Erro ao eliminar: " + e.getMessage()).show();
+                    showAlert(Alert.AlertType.ERROR, "Erro ao eliminar", e.getMessage());
                 }
             }
         } else {
-            new Alert(Alert.AlertType.WARNING, "Selecione um artigo para eliminar.").show();
+            showAlert(Alert.AlertType.WARNING, "Aviso", "Selecione um artigo para eliminar.");
         }
     }
+
     private void showArticleForm(EntityArticles article) {
         try {
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("article-form.fxml"));
             loader.setControllerFactory(springContext::getBean);
             Parent root = loader.load();
@@ -154,24 +151,27 @@ public class ArticlesController {
             stage.initOwner(articlesTable.getScene().getWindow());
             stage.setScene(new Scene(root));
             stage.showAndWait();
+
             refreshArticles();
         } catch (Exception e) {
             e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erro de Interface", "Não foi possível carregar o formulário.");
         }
     }
 
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
         alert.setTitle(title);
+        alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
     }
 
     private boolean confirmDelete(String title) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmar");
-        alert.setHeaderText("Eliminar Artigo");
-        alert.setContentText("Tem a certeza que deseja eliminar: " + title + "?");
+        alert.setTitle("Confirmar Eliminação");
+        alert.setHeaderText("Vai eliminar o artigo: " + title);
+        alert.setContentText("Esta ação não pode ser desfeita e removerá o ficheiro físico.");
         return alert.showAndWait().filter(b -> b == ButtonType.OK).isPresent();
     }
 }

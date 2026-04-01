@@ -1,30 +1,29 @@
 package com.gilbertoparente.library.desktop;
 
 import com.gilbertoparente.library.entities.EntityUsers;
-import com.gilbertoparente.library.repositories.UserRepository;
+import com.gilbertoparente.library.services.UserService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
+@Scope("prototype")
 public class UserFormController {
 
-    @Autowired
-    private UserRepository userRepository;
-
+    @Autowired private UserService userService;
+    @Autowired private BCryptPasswordEncoder encoder;
     @FXML private Label titleLabel;
     @FXML private TextField nameField;
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private CheckBox adminCheckBox;
 
-    private EntityUsers currentUser; // Guardamos o utilizador que estamos a editar
+    private EntityUsers currentUser;
 
-    /**
-     * Este método é chamado pelo UsersController antes de mostrar a janela
-     */
     public void setUserData(EntityUsers user) {
         this.currentUser = user;
 
@@ -32,32 +31,40 @@ public class UserFormController {
             titleLabel.setText("Editar Utilizador");
             nameField.setText(user.getName());
             emailField.setText(user.getEmail());
-            passwordField.setText(user.getPassword());
-            adminCheckBox.setSelected(user.getIsAdmin() != null && user.getIsAdmin());
+            passwordField.setPromptText("Deixe em branco para não alterar");
+            adminCheckBox.setSelected(Boolean.TRUE.equals(user.getIsAdmin()));
         } else {
             titleLabel.setText("Novo Utilizador");
+            this.currentUser = new EntityUsers();
             clearFields();
+            passwordField.setPromptText("Password obrigatória");
         }
     }
 
     @FXML
     private void handleSave() {
-        if (isInputValid()) {
-            if (currentUser == null) {
-                currentUser = new EntityUsers();
-            }
+        if (!isInputValid()) return;
 
-            currentUser.setName(nameField.getText());
-            currentUser.setEmail(emailField.getText());
-            currentUser.setPassword(passwordField.getText());
+        try {
+            currentUser.setName(nameField.getText().trim());
+            currentUser.setEmail(emailField.getText().trim());
             currentUser.setIsAdmin(adminCheckBox.isSelected());
 
-            try {
-                userRepository.save(currentUser); // Grava ou Atualiza no Postgres
-                closeWindow();
-            } catch (Exception e) {
-                showAlert("Erro ao Gravar", "Não foi possível guardar o utilizador: " + e.getMessage(), Alert.AlertType.ERROR);
+
+            String plainPassword = passwordField.getText();
+
+            if (currentUser.getIdUser() == 0) {
+
+                currentUser.setPassword(encoder.encode(plainPassword));
+            } else if (plainPassword != null && !plainPassword.trim().isEmpty()) {
+                currentUser.setPassword(encoder.encode(plainPassword));
             }
+
+
+            userService.save(currentUser);
+            closeWindow();
+        } catch (Exception e) {
+            showAlert("Erro ao Gravar", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -67,16 +74,22 @@ public class UserFormController {
     }
 
     private boolean isInputValid() {
-        String errorMessage = "";
+        StringBuilder errorMessage = new StringBuilder();
 
-        if (nameField.getText() == null || nameField.getText().isEmpty()) errorMessage += "Nome inválido!\n";
-        if (emailField.getText() == null || emailField.getText().isEmpty()) errorMessage += "Email inválido!\n";
-        if (passwordField.getText() == null || passwordField.getText().isEmpty()) errorMessage += "Password obrigatória!\n";
+        if (nameField.getText() == null || nameField.getText().trim().isEmpty())
+            errorMessage.append("Nome obrigatório!\n");
 
-        if (errorMessage.isEmpty()) {
+        if (emailField.getText() == null || !emailField.getText().contains("@"))
+            errorMessage.append("Email inválido!\n");
+
+        if (currentUser.getIdUser() == 0 && (passwordField.getText() == null || passwordField.getText().isEmpty())) {
+            errorMessage.append("Password obrigatória para novos utilizadores!\n");
+        }
+
+        if (errorMessage.length() == 0) {
             return true;
         } else {
-            showAlert("Campos Inválidos", errorMessage, Alert.AlertType.ERROR);
+            showAlert("Dados Inválidos", errorMessage.toString(), Alert.AlertType.WARNING);
             return false;
         }
     }

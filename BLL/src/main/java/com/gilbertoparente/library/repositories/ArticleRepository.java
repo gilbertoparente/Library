@@ -9,12 +9,10 @@ import java.util.List;
 @Repository
 public interface ArticleRepository extends JpaRepository<EntityArticles, Integer> {
 
-    // Procurar por título (ignora maiúsculas/minúsculas)
+
     List<EntityArticles> findByTitleContainingIgnoreCase(String title);
-
-    // Procurar artigos de uma determinada temática
-    List<EntityArticles> findByThematics_IdThematic(int thematicId);
-
-    // Procurar artigos de um autor específico
-    List<EntityArticles> findByAuthors_IdAuthor(int authorId);
+    List<EntityArticles> findByThematics_IdThematic(int idThematic);
+    List<EntityArticles> findByAuthors_IdUser(int idUser);
+    List<EntityArticles> findByStatus(String status);
+    List<EntityArticles> findByAuthors_IdUserAndStatus(int idUser, String status);
 }

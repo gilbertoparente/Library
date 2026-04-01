@@ -9,12 +9,9 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<EntityComments, Integer> {
 
-    // Procura todos os comentários de um artigo, do mais recente para o mais antigo
-    List<EntityComments> findByArticle_IdArticleOrderByCreatedAtDesc(int articleId);
-
-    // Procura todos os comentários feitos por um utilizador específico
-    List<EntityComments> findByUser_IdUser(int userId);
-
-    // Procura apenas as respostas de um comentário pai
-    List<EntityComments> findByParentComment_IdComment(int parentId);
+    List<EntityComments> findByArticle_IdArticleOrderByCreatedAtDesc(int idArticle);
+    List<EntityComments> findByArticle_IdArticleAndStatusOrderByCreatedAtDesc(int idArticle, int status);
+    List<EntityComments> findByUser_IdUser(int idUser);
+    List<EntityComments> findByParentComment_IdComment(int idParentComment);
+    List<EntityComments> findByStatus(int status);
 }

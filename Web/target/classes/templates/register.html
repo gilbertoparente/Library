@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Library - Criar Conta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f8f9fa; font-family: 'Inter', sans-serif; }
+        .register-card { border: none; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .logo-main { max-width: 180px; margin-bottom: 1.5rem; transition: 0.3s; }
+        /* Reutilizando o estilo do botão para consistência */
+        .btn-primary-custom { background-color: #2c3e50; border: none; padding: 12px; font-weight: 600; transition: 0.3s; }
+        .btn-primary-custom:hover { background-color: #34495e; transform: translateY(-2px); }
+        .form-control:focus { box-shadow: none; border: 1px solid #3498db; }
+        .author-box { border: 1px dashed #3498db; transition: 0.3s; }
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5 text-center">
+
+            <a th:href="@{/login}">
+                <img th:src="@{/images/FullLogo_Transparent.png}" alt="Open Library Logo" class="logo-main">
+            </a>
+
+            <div class="card register-card text-start p-4 p-md-5">
+                <h3 class="mb-2 fw-bold text-dark text-center">Nova Conta</h3>
+                <p class="text-muted text-center mb-4 small">Junte-se à nossa comunidade científica</p>
+
+                <div th:if="${error}" class="alert alert-danger border-0 py-2 small mb-4" th:text="${error}"></div>
+
+                <form th:action="@{/register}" th:object="${user}" method="post">
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Nome Completo</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-0"><i class="bi bi-person text-muted"></i></span>
+                            <input type="text" th:field="*{name}" class="form-control bg-light border-0 fs-6"
+                                   placeholder="Ex: Gilberto Parente" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">E-mail Institucional</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-0"><i class="bi bi-envelope text-muted"></i></span>
+                            <input type="email" th:field="*{email}" class="form-control bg-light border-0 fs-6"
+                                   placeholder="nome@universidade.pt" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-muted">Palavra-passe</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-0"><i class="bi bi-lock text-muted"></i></span>
+                            <input type="password" th:field="*{password}" class="form-control bg-light border-0 fs-6"
+                                   placeholder="Mínimo 6 caracteres" required minlength="6">
+                        </div>
+                    </div>
+
+                    <hr class="my-4 opacity-50">
+
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" name="isAuthor" id="isAuthorCheck" onchange="toggleAffiliation()" style="cursor: pointer;">
+                        <label class="form-check-label fw-bold text-dark" for="isAuthorCheck" style="cursor: pointer;">
+                            Quero submeter artigos (<span class="text-primary">Autor</span>)
+                        </label>
+                    </div>
+
+                    <div class="mb-4 p-3 rounded-3 author-box" id="affiliationGroup" style="display: none; background-color: #f0f7ff;">
+                        <label class="form-label small fw-bold text-primary">Afiliação / Instituição</label>
+                        <input type="text" name="affiliation" id="affiliationInput" class="form-control border-0"
+                               placeholder="Ex: Universidade do Minho">
+                        <div class="form-text small mt-2">
+                            <i class="bi bi-shield-check me-1"></i> Perfil sujeito a validação administrativa.
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary-custom text-white w-100 shadow-sm">
+                        Criar Conta
+                    </button>
+
+                    <div class="text-center mt-4">
+                        <span class="small text-muted">Já tem uma conta?
+                            <a th:href="@{/login}" class="text-primary fw-bold text-decoration-none">Entrar</a>
+                        </span>
+                    </div>
+                </form>
+            </div>
+
+            <p class="mt-4 text-muted small">&copy; 2026 Open Library</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleAffiliation() {
+        const check = document.getElementById('isAuthorCheck');
+        const group = document.getElementById('affiliationGroup');
+        const input = document.getElementById('affiliationInput');
+
+        if (check.checked) {
+            group.style.display = 'block';
+            input.setAttribute('required', 'required');
+            input.focus();
+        } else {
+            group.style.display = 'none';
+            input.removeAttribute('required');
+            input.value = '';
+        }
+    }

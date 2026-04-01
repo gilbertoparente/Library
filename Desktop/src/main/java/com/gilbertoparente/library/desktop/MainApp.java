@@ -1,6 +1,7 @@
 package com.gilbertoparente.library.desktop;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,27 +27,42 @@ public class MainApp extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("login-view.fxml"));
         fxmlLoader.setControllerFactory(springContext::getBean);
         Parent root = fxmlLoader.load();
+
         stage.setTitle("Open Library - Login");
         stage.setScene(new Scene(root, 600, 400));
+
         stage.show();
+        stage.centerOnScreen();
     }
 
     public static void showDashboardView(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("dashboard-view.fxml"));
         fxmlLoader.setControllerFactory(springContext::getBean);
         Parent root = fxmlLoader.load();
+
         stage.setTitle("Open Library - Administrador");
-        stage.setScene(new Scene(root, 1100, 700));
+
+        // Cria o ecra
+        Scene scene = new Scene(root, 1100, 700);
+        stage.setScene(scene);
+
+        // janela
+        stage.setResizable(true);
         stage.show();
+        stage.centerOnScreen();
+
+
+        stage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
     }
-
-
-
-
 
     @Override
     public void stop() {
-        springContext.close();
+        if (springContext != null) {
+            springContext.close();
+        }
     }
 
     public static void main(String[] args) {

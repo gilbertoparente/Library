@@ -1,7 +1,6 @@
 package com.gilbertoparente.library.desktop;
 
 import com.gilbertoparente.library.entities.EntityThematics;
-import com.gilbertoparente.library.repositories.ThematicsRepository;
 import com.gilbertoparente.library.services.ThematicsService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -21,31 +20,29 @@ import java.util.Optional;
 @Component
 public class ThematicsController {
 
-    @Autowired
-    private ThematicsService thematicsService;
-
-    @Autowired
-    private ConfigurableApplicationContext springContext;
-
-    @Autowired
-    private ThematicsRepository thematicsRepository;
-
+    @Autowired private ThematicsService thematicsService;
+    @Autowired private ConfigurableApplicationContext springContext;
     @FXML private TableView<EntityThematics> thematicsTable;
     @FXML private TableColumn<EntityThematics, Integer> idColumn;
     @FXML private TableColumn<EntityThematics, String> descColumn;
 
     @FXML
     public void initialize() {
-        // Configuração das colunas
-        //idColumn.setCellValueFactory(new PropertyValueFactory<>("idThematic"));
-        descColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
 
+        descColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         refreshTable();
     }
 
+
     @FXML
-    private void refreshTable() {
-        thematicsTable.setItems(FXCollections.observableArrayList(thematicsService.findAll()));
+    public void refreshTable() {
+        try {
+            var lista = thematicsService.findAll();
+            thematicsTable.setItems(FXCollections.observableArrayList(lista));
+            thematicsTable.refresh();
+        } catch (Exception e) {
+            showAlert("Erro", "Erro ao atualizar tabela: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
@@ -66,11 +63,12 @@ public class ThematicsController {
     @FXML
     private void handleDeleteThematic() {
         EntityThematics selected = thematicsTable.getSelectionModel().getSelectedItem();
+
         if (selected != null) {
             Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
             confirm.setTitle("Confirmar Eliminação");
-            confirm.setHeaderText("Eliminar a temática: " + selected.getDescription() + "?");
-            confirm.setContentText("Aviso: Isto pode falhar se existirem artigos associados.");
+            confirm.setHeaderText("Deseja eliminar a temática: " + selected.getDescription() + "?");
+            confirm.setContentText("Atenção: A operação falhará se existirem artigos associados a esta temática.");
 
             Optional<ButtonType> result = confirm.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -78,7 +76,7 @@ public class ThematicsController {
                     thematicsService.delete(selected.getIdThematic());
                     refreshTable();
                 } catch (Exception e) {
-                    showAlert("Erro ao Eliminar", "Não foi possível eliminar: " + e.getMessage(), Alert.AlertType.ERROR);
+                    showAlert("Erro ao Eliminar", e.getMessage(), Alert.AlertType.ERROR);
                 }
             }
         } else {
@@ -88,6 +86,7 @@ public class ThematicsController {
 
     private void showThematicForm(EntityThematics thematic) {
         try {
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("thematic-form.fxml"));
             loader.setControllerFactory(springContext::getBean);
             Parent root = loader.load();
@@ -95,7 +94,6 @@ public class ThematicsController {
             ThematicFormController controller = loader.getController();
             Stage stage = new Stage();
 
-            // Passamos os dados e o próprio stage para o controller fechar a janela depois
             controller.setThematicData(thematic, stage);
 
             stage.setTitle(thematic == null ? "Nova Temática" : "Editar Temática");
@@ -104,32 +102,11 @@ public class ThematicsController {
             stage.setScene(new Scene(root));
 
             stage.showAndWait();
-            refreshThematics();
+            refreshTable();
 
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Erro", "Erro ao carregar formulário: " + e.getMessage(), Alert.AlertType.ERROR);
-        }
-    }
-
-
-
-    @FXML
-    private void refreshThematics() {
-        try {
-            // 1. Vai buscar os dados fresquinhos ao Service (ou Repository)
-            var lista = thematicsService.findAll();
-
-            // 2. Converte para a lista que o JavaFX entende
-            thematicsTable.setItems(FXCollections.observableArrayList(lista));
-
-            // 3. FORÇA o JavaFX a redesenhar a tabela (MUITO IMPORTANTE)
-            thematicsTable.refresh();
-
-            System.out.println("Lista de temáticas atualizada com sucesso!");
-        } catch (Exception e) {
-            System.err.println("Erro ao atualizar tabela: " + e.getMessage());
-            e.printStackTrace();
+            showAlert("Erro de Interface", "Não foi possível carregar o formulário.", Alert.AlertType.ERROR);
         }
     }
 

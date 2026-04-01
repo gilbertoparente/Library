@@ -11,28 +11,24 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
-@Scope("prototype") // Garante que o formulário é "limpo" cada vez que abre
+@Scope("prototype")
 public class ThematicFormController {
 
     @Autowired
     private ThematicsService thematicsService;
-
     @FXML private TextField txtDescription;
-
     private EntityThematics currentThematic;
     private Stage stage;
 
-    /**
-     * Prepara os dados para o formulário.
-     * Se thematic for null, o formulário assume que é uma nova inserção.
-     */
+
     public void setThematicData(EntityThematics thematic, Stage stage) {
-        this.currentThematic = thematic;
         this.stage = stage;
 
         if (thematic != null) {
+            this.currentThematic = thematic;
             txtDescription.setText(thematic.getDescription());
         } else {
+            this.currentThematic = new EntityThematics();
             txtDescription.clear();
         }
     }
@@ -40,15 +36,18 @@ public class ThematicFormController {
     @FXML
     private void handleSave() {
         try {
-            // Se for novo, criamos a instância agora
-            if (currentThematic == null) {
-                currentThematic = new EntityThematics();
+            String description = txtDescription.getText();
+
+            if (description == null || description.trim().isEmpty()) {
+                showAlert("Campo Obrigatório", "Por favor, insira uma descrição para a temática.", Alert.AlertType.WARNING);
+                return;
             }
 
-            currentThematic.setDescription(txtDescription.getText());
 
-            // O service já tem as validações (não vazio, não duplicado)
+            currentThematic.setDescription(description.trim());
+
             thematicsService.save(currentThematic);
+
 
             stage.close();
         } catch (Exception e) {
@@ -58,7 +57,7 @@ public class ThematicFormController {
 
     @FXML
     private void handleCancel() {
-        stage.close();
+        if (stage != null) stage.close();
     }
 
     private void showAlert(String title, String content, Alert.AlertType type) {

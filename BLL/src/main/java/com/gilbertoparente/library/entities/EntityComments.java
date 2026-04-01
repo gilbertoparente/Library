@@ -1,6 +1,8 @@
 package com.gilbertoparente.library.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -15,27 +17,28 @@ public class EntityComments {
     @Column(name = "id_comment")
     private int idComment;
 
-    @Column(name = "content", nullable = false)
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
 
+    @Column(name = "status") //0: Pendente, 1: Aprovado, 2: Ocultado/Spam
+    private int status = 1;
+    @CreationTimestamp
     @Column(name = "created_at", updatable = false)
-    @org.hibernate.annotations.CreationTimestamp
     private LocalDateTime createdAt;
 
-    @Column(name = "status")
-    private  int status;
 
-    // Relacionamento com Artigo
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_article", nullable = false)
     private EntityArticles article;
 
-    // Relacionamento com Utilizador (Faltava este mapeamento de objeto!)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_user", nullable = false)
     private EntityUsers user;
 
-    // Auto-relacionamento para respostas (Replies)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_comment_id")
     private EntityComments parentComment;
@@ -51,9 +54,12 @@ public class EntityComments {
     public String getContent() { return content; }
     public void setContent(String content) { this.content = content; }
 
+    public int getStatus() { return status; }
+    public void setStatus(int status) { this.status = status; }
+
     public LocalDateTime getCreatedAt() { return createdAt; }
 
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
 
     public EntityArticles getArticle() { return article; }
     public void setArticle(EntityArticles article) { this.article = article; }
@@ -61,16 +67,14 @@ public class EntityComments {
     public EntityUsers getUser() { return user; }
     public void setUser(EntityUsers user) { this.user = user; }
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
-    public int getStatus(){return status;}
-
     public EntityComments getParentComment() { return parentComment; }
     public void setParentComment(EntityComments parentComment) { this.parentComment = parentComment; }
 
     public Collection<EntityComments> getReplies() { return replies; }
     public void setReplies(Collection<EntityComments> replies) { this.replies = replies; }
+
+
+
 
     @Override
     public boolean equals(Object o) {

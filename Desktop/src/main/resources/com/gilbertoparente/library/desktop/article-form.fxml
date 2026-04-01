@@ -1,42 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import org.controlsfx.control.CheckListView?>
-<?import javafx.geometry.Insets?>
 
-<VBox spacing="15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gilbertoparente.library.desktop.ArticleFormController" prefWidth="450">
-    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+<VBox spacing="15.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gilbertoparente.library.desktop.ArticleFormController">
 
-    <Label text="Título:" />
-    <TextField fx:id="txtTitle" />
+    <stylesheets>
+        <URL value="@/style.css" />
+    </stylesheets>
 
-    <Label text="Resumo:" />
-    <TextArea fx:id="txtResume" prefHeight="100" />
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
 
-    <Label text="Data de Publicação"/>
-    <DatePicker fx:id="dpPublicationDate" prefWidth="200" />
+    <Label text="Detalhes do Artigo" styleClass="titulo-principal" />
+    <Separator />
 
-    <HBox spacing="10">
+    <HBox spacing="15.0">
         <VBox HBox.hgrow="ALWAYS">
-            <Label text="Preço Base:" />
-            <TextField fx:id="txtPrice" />
+            <Label text="Título:" />
+            <TextField fx:id="txtTitle" promptText="Ex: Avanços em IA 2026" />
         </VBox>
-        <VBox>
+        <VBox prefWidth="120.0">
+            <Label text="Estado:" />
+            <ComboBox fx:id="comboStatus" prefWidth="120.0" />
+        </VBox>
+    </HBox>
+
+    <Label text="Resumo / Abstract:" />
+    <TextArea fx:id="txtResume" prefHeight="80.0" wrapText="true" />
+
+    <HBox spacing="15.0">
+        <VBox HBox.hgrow="ALWAYS">
+            <Label text="Data de Publicação:" />
+            <DatePicker fx:id="dpPublicationDate" maxWidth="Infinity" />
+        </VBox>
+        <VBox prefWidth="120.0">
+            <Label text="Preço (€):" />
+            <TextField fx:id="txtPrice" promptText="0.00" />
+        </VBox>
+        <VBox prefWidth="80.0">
             <Label text="IVA (%):" />
-            <ComboBox fx:id="comboVat" />
+            <ComboBox fx:id="comboVat" prefWidth="80.0" />
         </VBox>
     </HBox>
 
-    <Label text="Selecionar Temáticas (múltiplas):" />
-    <CheckListView fx:id="checkListThematics" prefHeight="150" />
+    <Label text="Temáticas Associadas:" />
+    <CheckListView fx:id="checkListThematics" prefHeight="120.0" />
 
-    <HBox spacing="5">
-        <TextField fx:id="txtFilePath" editable="false" HBox.hgrow="ALWAYS" promptText="Nenhum ficheiro selecionado" />
-        <Button text="Selecionar..." onAction="#handleSelectFile" />
+    <Label text="Ficheiro PDF do Artigo:" />
+    <HBox spacing="10.0">
+        <TextField fx:id="txtFilePath" editable="false" HBox.hgrow="ALWAYS"
+                   promptText="Nenhum ficheiro selecionado..." />
+        <Button onAction="#handleSelectFile" text="Procurar" />
     </HBox>
 
-    <HBox spacing="10" alignment="CENTER_RIGHT">
-        <Button text="Guardar" onAction="#handleSave" styleClass="button-success" />
-        <Button text="Cancelar" onAction="#handleCancel" />
+    <Region VBox.vgrow="ALWAYS" />
+
+    <HBox alignment="CENTER_RIGHT" spacing="12.0">
+        <Button onAction="#handleCancel" text="Cancelar" prefWidth="100.0" />
+        <Button onAction="#handleSave" text="Guardar Artigo" prefWidth="130.0" />
     </HBox>
 </VBox>
