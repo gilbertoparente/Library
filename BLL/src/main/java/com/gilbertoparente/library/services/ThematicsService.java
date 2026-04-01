@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ThematicsService {
@@ -15,9 +16,7 @@ public class ThematicsService {
     private ThematicsRepository thematicsRepository;
 
     public List<EntityThematics> findAll() {
-        // Retorna todas as categorias por ordem alfabética se quiseres,
-        // mas o findAll padrão já resolve para começar.
-        return thematicsRepository.findAll();
+        return thematicsRepository.findAllByOrderByDescriptionAsc();
     }
 
     public EntityThematics findById(int id) {
@@ -26,28 +25,30 @@ public class ThematicsService {
 
     @Transactional
     public EntityThematics save(EntityThematics thematic) {
-        var existing = thematicsRepository.findByDescriptionIgnoreCase(thematic.getDescription());
-
-
-        if (existing.isPresent() && existing.get().getIdThematic() != thematic.getIdThematic()) {
-            throw new RuntimeException("Esta temática já existe!");
-        }
 
         if (thematic.getDescription() == null || thematic.getDescription().trim().isEmpty()) {
-            throw new RuntimeException("O nome da temática não pode estar vazio.");
+            throw new RuntimeException("A descrição da temática não pode estar vazia.");
         }
+
+        Optional<EntityThematics> existing = thematicsRepository.findByDescriptionIgnoreCase(thematic.getDescription().trim());
+        if (existing.isPresent() && existing.get().getIdThematic() != thematic.getIdThematic()) {
+            throw new RuntimeException("Já existe uma temática com o nome: " + thematic.getDescription());
+        }
+
+        thematic.setDescription(thematic.getDescription().trim());
 
         return thematicsRepository.save(thematic);
     }
 
     @Transactional
     public void delete(int id) {
-        // Antes de apagar, poderias verificar se existem artigos associados
-        // para evitar erros de integridade referencial.
-        if (thematicsRepository.existsById(id)) {
-            thematicsRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Temática não encontrada.");
+        EntityThematics thematic = thematicsRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Temática não encontrada."));
+
+        if (thematic.getArticles() != null && !thematic.getArticles().isEmpty()) {
+            throw new RuntimeException("Não é possível apagar: Existem " + thematic.getArticles().size() + " artigos associados a esta temática.");
         }
+
+        thematicsRepository.delete(thematic);
     }
 }

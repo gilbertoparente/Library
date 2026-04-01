@@ -1,21 +1,27 @@
 package com.gilbertoparente.library.entities;
 
 import jakarta.persistence.*;
-
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "thematics", schema = "public", catalog = "scientific_library")
+@Table(name = "thematics", schema = "public")
 public class EntityThematics {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_thematic")
     private int idThematic;
-    @Basic
-    @Column(name = "description")
+
+    @Column(name = "description", nullable = false, length = 100)
     private String description;
 
+    @ManyToMany(mappedBy = "thematics")
+    private Collection<EntityArticles> articles;
+
+    public EntityThematics() {}
+
+    // --- GETTERS E SETTERS ---
 
     public int getIdThematic() {
         return idThematic;
@@ -33,6 +39,15 @@ public class EntityThematics {
         this.description = description;
     }
 
+    public Collection<EntityArticles> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(Collection<EntityArticles> articles) {
+        this.articles = articles;
+    }
+
+
 
 
     @Override
@@ -40,9 +55,16 @@ public class EntityThematics {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EntityThematics that = (EntityThematics) o;
-        return idThematic == that.idThematic && Objects.equals(description, that.description);
+        return idThematic == that.idThematic;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(idThematic);
+    }
 
-
+    @Override
+    public String toString() {
+        return description;
+    }
 }

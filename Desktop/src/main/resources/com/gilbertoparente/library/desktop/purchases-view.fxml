@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="650.0" prefWidth="1100.0" spacing="15.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gilbertoparente.library.desktop.PurchasesController">
+
+    <stylesheets>
+        <URL value="@/style.css" />
+    </stylesheets>
+
+    <padding>
+        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+    </padding>
+
+    <VBox spacing="5.0">
+        <Label text="Histórico de Vendas e Cobranças" styleClass="titulo-principal" />
+        <Label text="Monitorização de transações e validação de pagamentos pendentes." styleClass="subtitulo" />
+    </VBox>
+
+    <Separator opacity="0.4" />
+
+    <TableView fx:id="purchasesTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId" maxWidth="60.0" minWidth="50.0" prefWidth="60.0" text="ID" />
+            <TableColumn fx:id="colUser" prefWidth="200.0" text="Cliente / Utilizador" />
+            <TableColumn fx:id="colArticle" prefWidth="250.0" text="Artigo Comprado" />
+            <TableColumn fx:id="colDate" prefWidth="160.0" text="Data da Transação" />
+            <TableColumn fx:id="colAmount" prefWidth="110.0" text="Valor (€)" />
+            <TableColumn fx:id="colStatus" prefWidth="140.0" text="Estado" />
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+        </columnResizePolicy>
+        <placeholder>
+            <Label text="Nenhuma transação registada até ao momento." />
+        </placeholder>
+    </TableView>
+
+    <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="card">
+        <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+        </padding>
+
+        <VBox spacing="3">
+            <Label text="Receita Total Liquidada" styleClass="label-form" />
+            <Label fx:id="lblTotalAmount" text="0,00 €" styleClass="card-value" style="-fx-text-fill: #27ae60;" />
+        </VBox>
+
+        <Region HBox.hgrow="ALWAYS" />
+
+        <Button onAction="#handleConfirmPayment" prefHeight="40.0" prefWidth="180.0" text="Confirmar Pagamento" />
+
+        <Button onAction="#handleDelete" prefHeight="40.0" prefWidth="140.0" text="Eliminar Registo" styleClass="button-danger" />
+    </HBox>
+</VBox>

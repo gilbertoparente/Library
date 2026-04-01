@@ -1,26 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="15" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.gilbertoparente.library.desktop.ThematicFormController"
-      alignment="CENTER" prefWidth="350">
+<VBox alignment="CENTER" prefWidth="400.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gilbertoparente.library.desktop.ThematicFormController">
+
+    <stylesheets>
+        <URL value="@/style.css" />
+    </stylesheets>
 
     <padding>
-        <Insets bottom="20" left="20" right="20" top="20" />
+        <Insets bottom="30.0" left="30.0" right="30.0" top="25.0" />
     </padding>
 
     <children>
-        <Label text="Detalhes da Temática" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+        <VBox alignment="CENTER" spacing="5.0">
+            <Label text="Configurar Temática" styleClass="titulo-principal" />
+            <Label text="Defina o nome da categoria para os artigos." styleClass="subtitulo" />
+        </VBox>
 
-        <TextField fx:id="txtDescription" promptText="Nome da temática (ex: Informática)" />
+        <Separator opacity="0.4" />
 
-        <HBox spacing="10" alignment="CENTER">
+        <VBox spacing="8.0">
+            <Label text="Nome da Temática:" styleClass="label-form" />
+            <TextField fx:id="txtDescription" prefHeight="40.0" promptText="Ex: Inteligência Artificial, História, etc." />
+        </VBox>
+
+        <HBox alignment="CENTER_RIGHT" spacing="12.0">
             <children>
-                <Button text="Guardar" onAction="#handleSave" defaultButton="true" styleClass="button-success"/>
-                <Button text="Cancelar" onAction="#handleCancel" />
+                <Button onAction="#handleCancel" prefWidth="100.0" text="Cancelar" />
+
+                <Button defaultButton="true" onAction="#handleSave" prefWidth="120.0" text="Gravar Dados" />
             </children>
         </HBox>
     </children>

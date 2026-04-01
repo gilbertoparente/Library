@@ -1,9 +1,12 @@
 package com.gilbertoparente.library.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -33,6 +36,20 @@ public class EntityArticles {
     @Column(name = "vat_rate")
     private Integer vatRate = 6;
 
+    // NOVO: Campo de estado (draft, published, archived)
+    @Column(name = "status", length = 20)
+    private String status = "draft";
+
+    // NOVO: Timestamp de criação automática
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    // NOVO: Timestamp de atualização automática
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
     @ManyToMany
     @JoinTable(
             name = "article_author",
@@ -52,76 +69,41 @@ public class EntityArticles {
     @OneToMany(mappedBy = "article")
     private Collection<EntityPurchases> purchases;
 
-    public int getIdArticle() {
-        return idArticle;
+    // GETTERS E SETTERS
+
+    public String getStatus() {
+        return status;
     }
 
-    public void setIdArticle(int idArticle) {
-        this.idArticle = idArticle;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getTitle() {
-        return title;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public String getResume() {
-        return resume;
-    }
+    public int getIdArticle() { return idArticle; }
+    public void setIdArticle(int idArticle) { this.idArticle = idArticle; }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+    public String getResume() { return resume; }
+    public void setResume(String resume) { this.resume = resume; }
+    public Date getPublicationDate() { return publicationDate; }
+    public void setPublicationDate(Date publicationDate) { this.publicationDate = publicationDate; }
+    public BigDecimal getPrice() { return price; }
+    public void setPrice(BigDecimal price) { this.price = price; }
+    public String getFilePath() { return filePath; }
+    public void setFilePath(String filePath) { this.filePath = filePath; }
+    public Integer getVatRate() { return vatRate; }
+    public void setVatRate(Integer vatRate) { this.vatRate = vatRate; }
+    public Collection<EntityThematics> getThematics() { return thematics; }
+    public void setThematics(Collection<EntityThematics> thematics) { this.thematics = thematics; }
 
-    public void setResume(String resume) {
-        this.resume = resume;
-    }
-
-    public Date getPublicationDate() {
-        return publicationDate;
-    }
-
-    public void setPublicationDate(Date publicationDate) {
-        this.publicationDate = publicationDate;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
-    public Integer getVatRate() {
-        return vatRate;
-    }
-
-    public void setVatRate(Integer vatRate) {
-        this.vatRate = vatRate;
-    }
-
-    // No final da classe EntityArticles.java
-
-    public Collection<EntityThematics> getThematics() {
-        return thematics;
-    }
-
-    public void setThematics(Collection<EntityThematics> thematics) {
-        this.thematics = thematics;
-    }
-
-    /**
-     * Método utilitário para calcular o preço final com IVA.
-     *
-     */
     public BigDecimal getFullPrice() {
         if (price == null) return BigDecimal.ZERO;
         if (vatRate == null || vatRate == 0) return price;
@@ -133,16 +115,4 @@ public class EntityArticles {
         return price.multiply(vatMultiplier).setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        EntityArticles that = (EntityArticles) o;
-        return idArticle == that.idArticle && Objects.equals(title, that.title) && Objects.equals(resume, that.resume) && Objects.equals(publicationDate, that.publicationDate) && Objects.equals(price, that.price) && Objects.equals(filePath, that.filePath) && Objects.equals(vatRate, that.vatRate) && Objects.equals(authors, that.authors) && Objects.equals(thematics, that.thematics) && Objects.equals(purchases, that.purchases);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idArticle, title, resume, publicationDate, price, filePath, vatRate, authors, thematics, purchases);
-    }
 }

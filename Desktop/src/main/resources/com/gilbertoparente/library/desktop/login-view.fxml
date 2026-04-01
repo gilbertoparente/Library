@@ -1,25 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
-<?import javafx.scene.image.ImageView?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
-<VBox spacing="15" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.gilbertoparente.library.desktop.LoginController"
-      style="-fx-background-color: #f4f4f4;">
-    <ImageView fx:id="logoView" fitHeight="130.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@/images/Logo_Transparent.png" />
-        </image>
-    </ImageView>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="0.0" styleClass="login-background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gilbertoparente.library.desktop.LoginController">
+
+    <stylesheets>
+        <URL value="@/style.css" />
+    </stylesheets>
+
+    <children>
+        <VBox alignment="CENTER" maxWidth="400.0" spacing="20.0" styleClass="login-card">
+
+            <padding>
+                <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+            </padding>
+
+            <children>
+                <ImageView fx:id="logoView" fitHeight="100.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/FullLogo_Transparent.png" />
+                    </image>
+                </ImageView>
+
+                <VBox alignment="CENTER" spacing="5.0">
+                    <Label text="Bem-vindo de volta" styleClass="titulo-principal" />
+                    <Label text="Aceda ao painel de administração" styleClass="subtitulo" />
+                </VBox>
+
+                <Separator opacity="0.5" />
+
+                <VBox spacing="15.0">
+                    <VBox spacing="5.0">
+                        <Label text="Endereço de Email" styleClass="label-form" />
+                        <TextField fx:id="emailField" prefHeight="40.0" promptText="admin@exemplo.com" />
+                    </VBox>
+
+                    <VBox spacing="5.0">
+                        <Label text="Palavra-passe" styleClass="label-form" />
+                        <PasswordField fx:id="passwordField" prefHeight="40.0" promptText="••••••••" />
+                    </VBox>
+                </VBox>
+
+                <Label fx:id="errorLabel" alignment="CENTER" prefHeight="20.0" text="" styleClass="label-erro" />
+
+                <Button fx:id="btnLogin" maxWidth="Infinity" onAction="#handleLogin" prefHeight="45.0" text="Entrar no Sistema" />
+
+                <Label text="© 2026 Gilberto Parente - Library System" styleClass="label-footer" />
+            </children>
+        </VBox>
+    </children>
+
     <padding>
-        <Insets top="30" right="40" bottom="30" left="40"/>
+        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
     </padding>
-    <Label text="Admin Login" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
-    <TextField fx:id="emailField" promptText="Email" prefHeight="35"/>
-    <PasswordField fx:id="passwordField" promptText="Password" prefHeight="35"/>
-    <Button text="Entrar" onAction="#handleLogin" prefWidth="200" prefHeight="35"
-            style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold;"/>
-    <Label fx:id="errorLabel" text="" style="-fx-text-fill: red;"/>
 </VBox>

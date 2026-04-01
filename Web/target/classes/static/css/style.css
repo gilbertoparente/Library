@@ -1,0 +1,52 @@
+/* src/main/resources/static/css/style.css */
+
+:root {
+    --bon-blue: #003366;
+    --bon-blue-dark: #002244;
+}
+
+body {
+    background-color: #f4f7f9; /* Um cinza muito leve para destacar o card branco */
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* Hero Section mais curta para dar destaque ao logo */
+.hero {
+    background: linear-gradient(rgba(0,51,102,0.9), rgba(0,51,102,0.8)),
+    url('../images/fundo.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 60px 0 100px 0;
+    text-align: center;
+}
+
+/* Content Wrapper para subir o conjunto Logo + Card */
+.login-wrapper {
+    margin-top: -120px; /* Sobe o conjunto para cima do Hero */
+}
+
+.logo-main {
+    max-width: 280px; /* Logo maior como pretendido */
+    height: auto;
+    margin-bottom: 25px;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2)); /* Dá profundidade ao logo */
+}
+
+.login-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.btn-bon {
+    background-color: var(--bon-blue);
+    color: white;
+    padding: 12px;
+    font-weight: 600;
+}
+
+.btn-bon:hover {
+    background-color: var(--bon-blue-dark);
+    color: white;
+}

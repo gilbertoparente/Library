@@ -14,43 +14,67 @@ public class AuthorService {
     @Autowired
     private AuthorRepository authorRepository;
 
-    // Listar todos os autores (ex: para uma lista de créditos)
     public List<EntityAuthors> findAll() {
         return authorRepository.findAll();
     }
 
-    // Buscar por ID do Autor
-    public EntityAuthors findById(int id) {
-        return authorRepository.findById(id).orElse(null);
-    }
-
-    // Buscar por ID do Utilizador
-    public EntityAuthors findByUserId(int userId) {
-        return authorRepository.findByUser_IdUser(userId).orElse(null);
+    public EntityAuthors findById(int idUser) {
+        return authorRepository.findById(idUser).orElse(null);
     }
 
     @Transactional
     public EntityAuthors save(EntityAuthors author) {
-        // Regra: Um utilizador só pode ser autor uma vez
-        if (author.getIdAuthor() == 0 && author.getUser() != null) {
-            if (authorRepository.existsByUser_IdUser(author.getUser().getIdUser())) {
+
+        if (author.getUser() == null) {
+            throw new RuntimeException("Não é possível criar um autor sem um utilizador associado!");
+        }
+
+        int idUser = author.getUser().getIdUser();
+
+        if (!authorRepository.existsById(idUser)) {
+
+            if (authorRepository.existsByUser_IdUser(idUser)) {
                 throw new RuntimeException("Este utilizador já está registado como autor!");
             }
         }
 
-        if (author.getAffiliation() == null || author.getAffiliation().isEmpty()) {
-            author.setAffiliation("Independente"); // Valor padrão
+        if (author.getAffiliation() == null || author.getAffiliation().trim().isEmpty()) {
+            author.setAffiliation("Independente");
         }
 
         return authorRepository.save(author);
     }
 
     @Transactional
-    public void delete(int id) {
-        if (authorRepository.existsById(id)) {
-            authorRepository.deleteById(id);
+    public void delete(int idUser) {
+
+        if (authorRepository.existsById(idUser)) {
+            authorRepository.deleteById(idUser);
         } else {
-            throw new RuntimeException("Autor não encontrado.");
+            throw new RuntimeException("Perfil de autor não encontrado.");
         }
+    }
+
+
+    public List<EntityAuthors> findPendingAuthors() {
+        return authorRepository.findByStatus(0);
+    }
+
+    @Transactional
+    public void approveAuthor(int idUser) {
+        EntityAuthors author = authorRepository.findById(idUser)
+                .orElseThrow(() -> new RuntimeException("Autor não encontrado para aprovação."));
+
+        author.setStatus(1); // Aprovado
+        authorRepository.save(author);
+    }
+
+
+    @Transactional
+    public void suspendAuthor(int idUser) {
+        EntityAuthors author = authorRepository.findById(idUser)
+                .orElseThrow(() -> new RuntimeException("Autor não encontrado."));
+        author.setStatus(2); // 2 = Suspenso
+        authorRepository.save(author);
     }
 }

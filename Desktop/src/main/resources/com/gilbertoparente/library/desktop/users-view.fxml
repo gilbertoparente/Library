@@ -1,50 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
 
-<VBox spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.gilbertoparente.library.desktop.UsersController"
-      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<VBox spacing="15.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gilbertoparente.library.desktop.UsersController">
+
+    <stylesheets>
+        <URL value="@/style.css" />
+    </stylesheets>
+
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
     </padding>
+
     <children>
         <HBox alignment="CENTER_LEFT" spacing="15.0">
             <children>
-                <Label text="Gestão de Utilizadores" textFill="#2c3e50">
-                    <font>
-                        <Font name="System Bold" size="24.0" />
-                    </font>
-                </Label>
+                <VBox>
+                    <Label text="Gestão de Utilizadores" styleClass="titulo-principal" />
+                    <Label text="Administre as contas e níveis de acesso do sistema." styleClass="subtitulo" />
+                </VBox>
                 <Region HBox.hgrow="ALWAYS" />
-                <Button onAction="#refreshUsers" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="🔄 Atualizar" />
             </children>
         </HBox>
 
+        <Separator opacity="0.4" />
+
         <TableView fx:id="usersTable" VBox.vgrow="ALWAYS">
             <columns>
-                <TableColumn fx:id="nameColumn" prefWidth="200.0" text="Nome" />
-                <TableColumn fx:id="emailColumn" prefWidth="250.0" text="E-mail" />
-
+                <TableColumn fx:id="nameColumn" prefWidth="200.0" text="Nome Completo" />
+                <TableColumn fx:id="emailColumn" prefWidth="250.0" text="E-mail de Acesso" />
                 <TableColumn fx:id="passwordColumn" prefWidth="150.0" text="Password" />
-
-                <TableColumn fx:id="adminColumn" prefWidth="100.0" text="Administrador" />
+                <TableColumn fx:id="adminColumn" prefWidth="100.0" text="Perfil Admin" />
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
+            <placeholder>
+                <Label text="Nenhum utilizador registado no sistema." />
+            </placeholder>
         </TableView>
 
-        <HBox spacing="10.0" alignment="CENTER_RIGHT">
+        <HBox alignment="CENTER_RIGHT" spacing="12.0">
             <children>
-                <Button onAction="#handleDeleteUser" prefHeight="35.0" prefWidth="120.0"
-                        style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-font-weight: bold;" text="Eliminar" />
-                <Button onAction="#handleEditUser" prefHeight="35.0" prefWidth="120.0"
-                        style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-font-weight: bold;" text="Editar" />
-                <Button onAction="#handleAddUser" prefHeight="35.0" prefWidth="150.0"
-                        style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-font-weight: bold;" text="Novo Utilizador" />
+                <Label text="Selecione um utilizador para gerir:" styleClass="subtitulo" />
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Button onAction="#handleDeleteUser" prefHeight="35.0" prefWidth="120.0" text="Eliminar" styleClass="button-danger" />
+
+                <Button onAction="#handleEditUser" prefHeight="35.0" prefWidth="120.0" text="Editar" />
+
+                <Button onAction="#handleAddUser" prefHeight="35.0" prefWidth="160.0" text="Novo Utilizador" />
             </children>
         </HBox>
     </children>

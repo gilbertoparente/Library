@@ -14,51 +14,64 @@ public class PurchaseService {
 
     @Autowired
     private PurchaseRepository purchaseRepository;
-
-    // Listar todas as compras (para o Admin)
     public List<EntityPurchases> findAll() {
-        return purchaseRepository.findAll();
+        return purchaseRepository.findAllByOrderByPurchaseDateDesc();
     }
 
-    // Buscar compra por ID
     public EntityPurchases findById(int id) {
         return purchaseRepository.findById(id).orElse(null);
     }
 
-    // Buscar compras de um utilizador específico
-    public List<EntityPurchases> getPurchasesByUser(int userId) {
-        return purchaseRepository.findByUser_IdUser(userId);
+    public List<EntityPurchases> getPurchasesByUser(int idUser) {
+        return purchaseRepository.findByUser_IdUser(idUser);
     }
 
-    // Guardar uma nova compra
     @Transactional
     public EntityPurchases save(EntityPurchases purchase) {
-        // Regra de negócio: o valor não pode ser zero ou negativo
-        if (purchase.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
+        // Validação de preço
+        if (purchase.getAmount() == null || purchase.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
             throw new RuntimeException("O valor da compra deve ser superior a zero.");
         }
+
+        if (purchase.getIdPurchase() == 0 && purchase.getStatus() == null) {
+            purchase.setStatus("pending");
+        }
+
         return purchaseRepository.save(purchase);
     }
 
-    // Atualizar status de pagamento (simplificado)
+
     @Transactional
-    public void updatePaidStatus(int id, boolean paid) {
-        EntityPurchases purchase = findById(id);
-        if (purchase != null) {
-            purchase.setPaid(paid);
-            purchaseRepository.save(purchase);
-        } else {
-            throw new RuntimeException("Compra não encontrada.");
-        }
+    public void updateStatus(int id, String newStatus) {
+        EntityPurchases purchase = purchaseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Compra não encontrada ID: " + id));
+
+        purchase.setStatus(newStatus);
+        purchaseRepository.save(purchase);
     }
 
-    // Eliminar compra
     @Transactional
     public void delete(int id) {
-        if (purchaseRepository.existsById(id)) {
-            purchaseRepository.deleteById(id);
-        } else {
+        if (!purchaseRepository.existsById(id)) {
             throw new RuntimeException("Não é possível eliminar: Compra inexistente.");
+        }
+        purchaseRepository.deleteById(id);
+    }
+
+
+    public long countPendingPayments() {
+        return purchaseRepository.findByStatus("pending").size();
+    }
+
+
+    @Transactional
+    public void refundPurchase(int id) {
+        EntityPurchases purchase = findById(id);
+        if (purchase != null && "paid".equals(purchase.getStatus())) {
+            purchase.setStatus("refunded");
+            purchaseRepository.save(purchase);
+        } else {
+            throw new RuntimeException("Apenas compras pagas podem ser reembolsadas.");
         }
     }
 }
