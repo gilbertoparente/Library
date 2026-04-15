@@ -1,6 +1,7 @@
 package com.gilbertoparente.library.services;
 
 import com.gilbertoparente.library.entities.EntityAuthors;
+import com.gilbertoparente.library.entities.EntityThematics;
 import com.gilbertoparente.library.entities.EntityUsers;
 import com.gilbertoparente.library.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,13 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public List<EntityUsers> searchByname(String user){
+        if (user == null || user.trim().isEmpty()){
+            return userRepository.findAll();
+        }
+        return userRepository.findByNameContainingIgnoreCase(user.trim());
+    }
+
 
 
     public List<EntityUsers> findAll() {
@@ -50,17 +58,14 @@ public class UserService {
         return userRepository.findById(idUser).orElse(null);
     }
 
-    // --- MÉTODOS DE ESCRITA ---
 
     @Transactional
     public EntityUsers save(EntityUsers user) {
-        // Validação de Email Duplicado (Apenas para novos registos)
-        // Nota: idUser == 0 assume que o ID é int e inicia a 0
+
         if (user.getIdUser() == 0 && userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new RuntimeException("Este email já está registado no sistema.");
         }
 
-        // Segurança: Garantir que novos users não são admin por padrão
         if (user.getIdUser() == 0 && user.getIsAdmin() == null) {
             user.setIsAdmin(false);
         }
@@ -77,14 +82,13 @@ public class UserService {
         }
     }
 
-    // --- ESTATÍSTICAS E DASHBOARD ---
+    // ESTATÍSTICAS
 
     public long countTotalUsers() {
         return userRepository.count();
     }
 
     public List<EntityUsers> findRecentUsers() {
-        // Certifica-te que findAllByOrderByCreatedAtDesc() existe no UserRepository
         return userRepository.findAllByOrderByCreatedAtDesc()
                 .stream()
                 .limit(5)

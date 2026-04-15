@@ -15,14 +15,16 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.HashSet; // Importar HashSet
 import java.util.List;
+import java.util.Set;     // Importar Set
 
 @Component
 public class ArticleFormController {
 
     @Autowired private ArticleService articleService;
     @Autowired private ThematicsService thematicsService;
+
     @FXML private TextField txtTitle;
     @FXML private TextArea txtResume;
     @FXML private TextField txtPrice;
@@ -31,6 +33,9 @@ public class ArticleFormController {
     @FXML private CheckListView<EntityThematics> checkListThematics;
     @FXML private TextField txtFilePath;
     @FXML private DatePicker dpPublicationDate;
+    @FXML private TextField txtDoi;
+    @FXML private TextField txtKeywords;
+    @FXML private TextField txtExternalAuthor;
 
     private EntityArticles currentArticle;
     private Stage stage;
@@ -38,10 +43,10 @@ public class ArticleFormController {
 
     @FXML
     public void initialize() {
-
         comboVat.setItems(FXCollections.observableArrayList(6, 13, 23));
-        comboStatus.setItems(FXCollections.observableArrayList("draft", "published", "archived"));
+        comboStatus.setItems(FXCollections.observableArrayList("Rascunho", "Publicado", "Arquivado"));
         checkListThematics.setItems(FXCollections.observableArrayList(thematicsService.findAll()));
+
         checkListThematics.setCellFactory(lv -> new javafx.scene.control.cell.CheckBoxListCell<>(item -> checkListThematics.getItemBooleanProperty(item)) {
             @Override
             public void updateItem(EntityThematics item, boolean empty) {
@@ -58,48 +63,41 @@ public class ArticleFormController {
     public void setArticleData(EntityArticles article, Stage stage) {
         this.stage = stage;
         this.selectedFile = null;
-        checkListThematics.getCheckModel().clearChecks();
 
-        if (article != null) {
-            this.currentArticle = article;
-            txtTitle.setText(article.getTitle());
-            txtResume.setText(article.getResume());
-            txtPrice.setText(article.getPrice() != null ? article.getPrice().toString() : "0.00");
-            comboVat.setValue(article.getVatRate() != null ? article.getVatRate() : 6);
-            comboStatus.setValue(article.getStatus() != null ? article.getStatus() : "draft");
-            txtFilePath.setText(article.getFilePath() != null ? article.getFilePath() : "");
+        this.currentArticle = (article != null) ? article : new EntityArticles();
 
-            if (article.getPublicationDate() != null) {
-                dpPublicationDate.setValue(article.getPublicationDate().toLocalDate());
-            }
+        txtTitle.setText(currentArticle.getTitle());
+        txtResume.setText(currentArticle.getResume());
+        txtPrice.setText(currentArticle.getPrice() != null ? currentArticle.getPrice().toString() : "0.00");
+        comboVat.setValue(currentArticle.getVatRate() != null ? currentArticle.getVatRate() : 6);
+        comboStatus.setValue(currentArticle.getStatus() != null ? currentArticle.getStatus() : "Rascunho");
+        txtFilePath.setText(currentArticle.getFilePath() != null ? currentArticle.getFilePath() : "");
+        txtDoi.setText(currentArticle.getDoi());
+        txtKeywords.setText(currentArticle.getKeywords());
+        txtExternalAuthor.setText(currentArticle.getExternalAuthor());
 
-            if (article.getThematics() != null) {
-                List<EntityThematics> allThematics = checkListThematics.getItems();
-                for (EntityThematics articleThematic : article.getThematics()) {
-
-                    allThematics.stream()
-                            .filter(t -> t.getIdThematic() == articleThematic.getIdThematic())
-                            .findFirst()
-                            .ifPresent(t -> checkListThematics.getCheckModel().check(t));
-                }
-            }
+        if (currentArticle.getPublicationDate() != null) {
+            dpPublicationDate.setValue(currentArticle.getPublicationDate().toLocalDate());
         } else {
-
-            this.currentArticle = new EntityArticles();
-            txtTitle.clear();
-            txtResume.clear();
-            txtPrice.setText("0.00");
-            comboVat.setValue(6);
-            comboStatus.setValue("draft");
-            txtFilePath.clear();
             dpPublicationDate.setValue(null);
+        }
+
+        // Tratar as Temáticas na Checklist
+        checkListThematics.getCheckModel().clearChecks();
+        if (currentArticle.getThematics() != null) {
+            List<EntityThematics> allThematics = checkListThematics.getItems();
+            for (EntityThematics t : currentArticle.getThematics()) {
+                allThematics.stream()
+                        .filter(item -> item.getIdThematic() == t.getIdThematic())
+                        .findFirst()
+                        .ifPresent(item -> checkListThematics.getCheckModel().check(item));
+            }
         }
     }
 
     @FXML
     private void handleSave() {
         try {
-
             if (txtTitle.getText().trim().isEmpty()) {
                 throw new Exception("O título é obrigatório.");
             }
@@ -109,12 +107,16 @@ public class ArticleFormController {
             currentArticle.setPrice(new BigDecimal(txtPrice.getText()));
             currentArticle.setVatRate(comboVat.getValue());
             currentArticle.setStatus(comboStatus.getValue());
+            currentArticle.setDoi(txtDoi.getText().trim());
+            currentArticle.setKeywords(txtKeywords.getText().trim());
+            currentArticle.setExternalAuthor(txtExternalAuthor.getText().trim());
 
             if (dpPublicationDate.getValue() != null) {
                 currentArticle.setPublicationDate(java.sql.Date.valueOf(dpPublicationDate.getValue()));
             }
 
-            currentArticle.setThematics(new ArrayList<>(checkListThematics.getCheckModel().getCheckedItems()));
+            currentArticle.setThematics(new HashSet<>(checkListThematics.getCheckModel().getCheckedItems()));
+
             articleService.save(currentArticle, selectedFile);
             stage.close();
         } catch (NumberFormatException e) {

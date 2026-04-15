@@ -26,7 +26,6 @@ public class EntityAuthors {
     @ManyToMany(mappedBy = "authors")
     private Collection<EntityArticles> articles;
 
-    // --- GETTERS E SETTERS ---
 
     public int getIdUser() {
         return idUser;
@@ -65,8 +64,7 @@ public class EntityAuthors {
     }
 
 
-
-    @Transient // Indica que não existe esta coluna na tabela authors
+    @Transient
     public String getName() {
         return (user != null) ? user.getName() : null;
     }

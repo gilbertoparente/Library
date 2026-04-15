@@ -13,57 +13,68 @@
     </stylesheets>
 
     <content>
-        <VBox spacing="25.0">
+        <VBox spacing="25.0" styleClass="main-content-area">
             <padding>
                 <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
             </padding>
 
-            <HBox alignment="CENTER_LEFT">
-                <Label text="Painel de Resumo" styleClass="titulo-principal" />
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+                <VBox spacing="5">
+                    <Label text="Painel de Resumo" styleClass="titulo-principal" />
+                    <Label text="Estatísticas em tempo real e ações pendentes." styleClass="subtitulo" />
+                </VBox>
                 <Region HBox.hgrow="ALWAYS" />
-                <Button onAction="#refreshData" text="Atualizar Dashboard" />
+                <Button onAction="#refreshData" text="🔄 Atualizar" styleClass="button-info" prefWidth="130.0" />
             </HBox>
 
+            <Separator opacity="0.4" />
+
             <FlowPane hgap="20.0" vgap="20.0">
-                <VBox prefWidth="230" styleClass="card, card-warning">
+                <VBox prefWidth="240" styleClass="card, card-warning">
                     <Label text="Pagamentos Pendentes" styleClass="card-label" />
                     <Label fx:id="lblPendingPurchases" text="0" styleClass="card-value" />
                 </VBox>
 
-                <VBox prefWidth="230" styleClass="card, card-info">
+                <VBox prefWidth="240" styleClass="card, card-info">
                     <Label text="Comentários Novos" styleClass="card-label" />
                     <Label fx:id="lblPendingComments" text="0" styleClass="card-value" />
                 </VBox>
 
-                <VBox prefWidth="230" styleClass="card, card-success">
+                <VBox prefWidth="240" styleClass="card, card-success">
                     <Label text="Total Utilizadores" styleClass="card-label" />
                     <Label fx:id="lblTotalUsers" text="0" styleClass="card-value" />
                 </VBox>
 
-                <VBox prefWidth="230" styleClass="card, card-purple">
+                <VBox prefWidth="240" styleClass="card, card-purple">
                     <Label text="Autores Pendentes" styleClass="card-label" />
                     <Label fx:id="lblPendingAuthors" text="0" styleClass="card-value" />
                 </VBox>
             </FlowPane>
 
             <HBox spacing="25.0">
-                <VBox spacing="10" prefWidth="350" styleClass="container-branco" HBox.hgrow="NEVER">
-                    <Label text="Registos Recentes" styleClass="titulo-seccao" />
-                    <ListView fx:id="listRecentUsers" prefHeight="350.0" />
+                <VBox spacing="15" prefWidth="350" styleClass="container-branco" HBox.hgrow="NEVER">
+                    <Label text="Novos Utilizadores" styleClass="titulo-seccao" />
+                    <ListView fx:id="listRecentUsers" prefHeight="400.0" />
                 </VBox>
 
-                <VBox spacing="10" styleClass="container-branco" HBox.hgrow="ALWAYS">
+                <VBox spacing="15" styleClass="container-branco" HBox.hgrow="ALWAYS">
                     <HBox alignment="CENTER_LEFT">
-                        <Label text="Aprovação de Novos Autores" styleClass="titulo-seccao" />
+                        <Label text="Aprovação de Autores Científicos" styleClass="titulo-seccao" />
                         <Region HBox.hgrow="ALWAYS" />
-                        <Button onAction="#handleApproveAuthor" text="Aprovar Selecionado" />
+                        <Button onAction="#handleApproveAuthor" text="Aprovar Selecionado" styleClass="button-success" />
                     </HBox>
-                    <TableView fx:id="tblPendingAuthors" prefHeight="350.0">
+
+                    <TableView fx:id="tblPendingAuthors" prefHeight="400.0">
                         <columns>
                             <TableColumn fx:id="colAuthorName" prefWidth="200" text="Candidato" />
                             <TableColumn fx:id="colAffiliation" prefWidth="300" text="Universidade / Afiliação" />
                         </columns>
-                        <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY" /></columnResizePolicy>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                        <placeholder>
+                            <Label text="Não existem candidaturas de autores pendentes." />
+                        </placeholder>
                     </TableView>
                 </VBox>
             </HBox>

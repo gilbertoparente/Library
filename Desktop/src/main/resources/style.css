@@ -1,163 +1,125 @@
-/* Seletor global para TODOS os botões do JavaFX */
+/* ==========================================================================
+   1. CONFIGURAÇÕES GERAIS E CORES
+   ========================================================================== */
+
+.main-content-area {
+    -fx-background-color: #f4f7f6; /* Fundo cinza suave */
+}
+
+/* Tipografia */
+.label {
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: #34495e;
+}
+
+.titulo-principal { -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; }
+.titulo-seccao { -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; }
+.subtitulo { -fx-font-size: 12px; -fx-text-fill: #7f8c8d; -fx-font-style: italic; }
+.label-pequena { -fx-font-size: 11px; -fx-text-fill: #6c757d; -fx-font-weight: bold; }
+.label-erro-login { -fx-text-fill: #e74c3c; -fx-font-weight: bold; -fx-font-size: 12px; }
+
+/* ==========================================================================
+   2. BOTÕES
+   ========================================================================== */
+
 .button {
-    -fx-background-color: #3498db; /* Azul Flat */
+    -fx-background-color: #3498db;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 5;
     -fx-padding: 8 15;
     -fx-cursor: hand;
 }
+.button:hover { -fx-background-color: #2980b9; }
+.button:pressed { -fx-background-color: #1c5980; }
 
-/* Efeito quando passas o rato (Hover) */
-.button:hover {
-    -fx-background-color: #2980b9; /* Um azul um pouco mais escuro */
+.button-success { -fx-background-color: #2ecc71; -fx-text-fill: white; }
+.button-success:hover { -fx-background-color: #27ae60; }
+
+.button-danger { -fx-background-color: #e74c3c; -fx-text-fill: white; }
+.button-danger:hover { -fx-background-color: #c0392b; }
+
+.button-secondary {
+    -fx-background-color: #ecf0f1;
+    -fx-text-fill: #7f8c8d;
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 1;
 }
+.button-secondary:hover { -fx-background-color: #bdc3c7; -fx-text-fill: white; }
 
-/* Efeito quando clicas (Pressed) */
-.button:pressed {
-    -fx-background-color: #1c5980;
-}
+.button-info { -fx-background-color: #3498db; -fx-text-fill: white; }
 
-/* Caso queiras um botão de "Eliminar" que continue vermelho (exceção) */
-.button-danger {
-    -fx-background-color: #e74c3c;
-}
+/* ==========================================================================
+   3. CARDS E DASHBOARD
+   ========================================================================== */
 
-.button-danger:hover {
-    -fx-background-color: #c0392b;
-}
-
-/* 1. Estilo global para TODAS as labels (campos de texto descritivos) */
-.label {
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-font-size: 13px;
-    -fx-text-fill: #34495e; /* Um cinza muito escuro, quase preto */
-}
-
-/* 2. Classe específica para Títulos Grandes */
-.titulo-principal {
-    -fx-font-size: 24px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #2c3e50; /* Azul petróleo escuro */
-}
-
-/* 3. Classe específica para Subtítulos ou descrições pequenas */
-.subtitulo {
-    -fx-font-size: 12px;
-    -fx-text-fill: #7f8c8d; /* Cinza suave */
-    -fx-font-style: italic;
-}
-
-/* 4. Estilo para as Tabelas (opcional, para combinar) */
-.table-view {
-    -fx-selection-bar: #3498db; /* Cor de seleção azul */
-    -fx-selection-bar-non-focused: #ddecf8;
-}
-
-
-/* Layout do Dashboard */
-.dashboard-scrollpane {
-    -fx-background-color: transparent;
-    -fx-background: #ecf0f1; /* Cor de fundo cinza clara */
-}
-
-.container-branco {
-    -fx-background-color: white;
-    -fx-padding: 20;
-    -fx-background-radius: 10;
-}
-
-.titulo-seccao {
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #2c3e50;
-}
-
-/* Base dos Cards */
 .card {
     -fx-background-color: white;
     -fx-padding: 20;
     -fx-background-radius: 10;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
 }
 
-.card-label {
-    -fx-text-fill: #7f8c8d;
-    -fx-font-weight: bold;
-}
+.card-label { -fx-text-fill: #7f8c8d; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-transform: uppercase; }
+.card-value { -fx-font-size: 28px; -fx-font-weight: bold; }
 
-.card-value {
-    -fx-font-size: 32px;
-    -fx-font-weight: bold;
-}
+.card-success { -fx-border-color: #27ae60; -fx-border-width: 0 0 5 0; }
+.card-success .card-value { -fx-text-fill: #27ae60; }
 
-/* Variantes de cores para os Cards (bordas inferiores) */
 .card-warning { -fx-border-color: #e67e22; -fx-border-width: 0 0 5 0; }
 .card-warning .card-value { -fx-text-fill: #e67e22; }
 
 .card-info { -fx-border-color: #3498db; -fx-border-width: 0 0 5 0; }
 .card-info .card-value { -fx-text-fill: #3498db; }
 
-.card-success { -fx-border-color: #27ae60; -fx-border-width: 0 0 5 0; }
-.card-success .card-value { -fx-text-fill: #27ae60; }
-
 .card-purple { -fx-border-color: #9b59b6; -fx-border-width: 0 0 5 0; }
 .card-purple .card-value { -fx-text-fill: #9b59b6; }
 
+.container-branco { -fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10; }
 
-.receita-valor {
-    -fx-text-fill: #27ae60;
-    -fx-font-weight: bold;
-    -fx-font-size: 22px;
+/* ==========================================================================
+   4. TABELAS, FILTROS E ESTADOS
+   ========================================================================== */
+
+.table-view { -fx-selection-bar: #3498db; -fx-selection-bar-non-focused: #ddecf8; }
+
+.barra-filtros {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 5;
+    -fx-border-color: #e9ecef;
+    -fx-border-width: 1;
 }
 
-/* --- SIDEBAR (BARRA LATERAL) --- */
-.sidebar {
-    -fx-background-color: #2c3e50; /* A cor que tinhas */
-}
+/* Cores de Estado Unificadas */
+.status-publicado, .comment-aprovado, .compra-paga, .user-admin { -fx-text-fill: #27ae60; -fx-font-weight: bold; }
+.status-rascunho, .comment-pendente, .compra-pendente { -fx-text-fill: #e67e22; -fx-font-weight: bold; }
+.status-arquivado, .compra-cancelada, .user-comum { -fx-text-fill: #7f8c8d; }
+.comment-oculto { -fx-text-fill: #c0392b; -fx-font-weight: bold; }
 
-/* Labels dentro da Sidebar */
-.label-admin-name {
-    -fx-text-fill: #ecf0f1;
-    -fx-font-weight: bold;
-    -fx-font-size: 15px;
-}
+/* ==========================================================================
+   5. SIDEBAR (BARRA LATERAL)
+   ========================================================================== */
 
-.label-admin-subtitle {
-    -fx-text-fill: #bdc3c7;
-    -fx-font-size: 11px;
-}
+.sidebar { -fx-background-color: #2c3e50; }
+.label-admin-name { -fx-text-fill: #ecf0f1; -fx-font-weight: bold; -fx-font-size: 15px; }
+.label-admin-subtitle { -fx-text-fill: #bdc3c7; -fx-font-size: 11px; }
 
-/* BOTÕES DO MENU (Transparentes por padrão) */
 .menu-button {
     -fx-background-color: transparent;
     -fx-text-fill: white;
     -fx-alignment: CENTER_LEFT;
     -fx-cursor: hand;
     -fx-font-size: 14px;
-    -fx-padding: 10 10 10 10;
+    -fx-padding: 12 15;
 }
+.menu-button:hover { -fx-background-color: #34495e; }
 
-/* Efeito ao passar o rato nos botões do menu */
-.menu-button:hover {
-    -fx-background-color: #34495e; /* Um azul ligeiramente mais claro para o hover */
-}
-
-/* BOTÃO TERMINAR SESSÃO (Vermelho) */
 .button-logout {
     -fx-background-color: #e74c3c;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 5;
     -fx-cursor: hand;
-    -fx-padding: 10 0 10 0;
 }
-
-.button-logout:hover {
-    -fx-background-color: #c0392b; /* Vermelho mais escuro no hover */
-}
-
-/* ÁREA CENTRAL */
-.main-content-area {
-    -fx-background-color: #f4f7f6;
-}
+.button-logout:hover { -fx-background-color: #c0392b; }

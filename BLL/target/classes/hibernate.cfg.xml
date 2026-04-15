@@ -11,18 +11,12 @@
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/scientific_library</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">123456</property>
-
-        <!-- Dialeto do Hibernate para PostgreSQL -->
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-
-        <!-- Mostrar SQL no console -->
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
 
-        <!-- Criação/atualização automática das tabelas -->
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <!-- Classes mapeadas -->
         <mapping class="com.gilbertoparente.library.entities.EntityArticles"/>
         <mapping class="com.gilbertoparente.library.entities.EntityAuthors"/>
         <mapping class="com.gilbertoparente.library.entities.EntityPurchases"/>

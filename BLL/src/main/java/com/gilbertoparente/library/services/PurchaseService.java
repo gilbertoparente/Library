@@ -28,23 +28,19 @@ public class PurchaseService {
 
     @Transactional
     public EntityPurchases save(EntityPurchases purchase) {
-        // Validação de preço
-        if (purchase.getAmount() == null || purchase.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new RuntimeException("O valor da compra deve ser superior a zero.");
-        }
+
 
         if (purchase.getIdPurchase() == 0 && purchase.getStatus() == null) {
-            purchase.setStatus("pending");
+            purchase.setStatus("Pendente");
         }
 
         return purchaseRepository.save(purchase);
     }
 
-
     @Transactional
     public void updateStatus(int id, String newStatus) {
         EntityPurchases purchase = purchaseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Compra não encontrada ID: " + id));
+                .orElseThrow(() -> new RuntimeException("Compra não encontrada"));
 
         purchase.setStatus(newStatus);
         purchaseRepository.save(purchase);
@@ -73,5 +69,29 @@ public class PurchaseService {
         } else {
             throw new RuntimeException("Apenas compras pagas podem ser reembolsadas.");
         }
+    }
+
+    //pesquisar por nome
+    public List<EntityPurchases> searchByUserName(String name){
+        if (name == null || name.trim().isEmpty()){
+            return  purchaseRepository.findAllByOrderByPurchaseDateDesc();
+        }
+        return  purchaseRepository.findByUser_NameContainingIgnoreCase(name.trim());
+    }
+
+    //pesquisar por titulo
+    public List<EntityPurchases> serachByArticleTitle (String  title){
+        if (title == null || title.trim().isEmpty()){
+            return purchaseRepository.findAllByOrderByPurchaseDateDesc();
+        }
+        return purchaseRepository.findByArticle_TitleContainingIgnoreCase(title.trim());
+    }
+
+    // pesquisar pir estado do pagamento
+    public List<EntityPurchases> filterByStatus (String status){
+        if (status == null || status.equalsIgnoreCase("Todos")){
+            return  purchaseRepository.findAllByOrderByPurchaseDateDesc();
+        }
+        return purchaseRepository.findByStatus(status);
     }
 }

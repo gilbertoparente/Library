@@ -5,12 +5,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefWidth="450.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.gilbertoparente.library.desktop.UserFormController">
-
-    <stylesheets>
-        <URL value="@/style.css" />
-    </stylesheets>
+<VBox prefWidth="480.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gilbertoparente.library.desktop.UserFormController"
+      styleClass="main-content-area"> <stylesheets>
+    <URL value="@/style.css" />
+</stylesheets>
 
     <padding>
         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
@@ -19,39 +18,41 @@
     <children>
         <VBox spacing="5.0">
             <Label fx:id="titleLabel" text="Dados do Utilizador" styleClass="titulo-principal" />
-            <Label text="Preencha as informações de acesso do utilizador." styleClass="subtitulo" />
+            <Label text="Configure as credenciais e o nível de acesso ao sistema." styleClass="subtitulo" />
         </VBox>
 
         <Separator opacity="0.4" />
 
-        <GridPane hgap="15.0" vgap="15.0">
+        <GridPane hgap="15.0" vgap="18.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="NEVER" minWidth="80.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="200.0" />
+                <ColumnConstraints hgrow="NEVER" minWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="250.0" />
             </columnConstraints>
 
             <children>
-                <Label text="Nome Completo:" GridPane.rowIndex="0" styleClass="label-form" />
-                <TextField fx:id="nameField" prefHeight="35.0" promptText="Ex: João Silva" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label text="Nome Completo:" styleClass="label-pequena" GridPane.rowIndex="0" />
+                <TextField fx:id="nameField" prefHeight="40.0" promptText="Nome do utilizador..." GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                <Label text="E-mail:" GridPane.rowIndex="1" styleClass="label-form" />
-                <TextField fx:id="emailField" prefHeight="35.0" promptText="joao@exemplo.com" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="E-mail:" styleClass="label-pequena" GridPane.rowIndex="1" />
+                <TextField fx:id="emailField" prefHeight="40.0" promptText="utilizador@exemplo.com" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                <Label text="Password:" GridPane.rowIndex="2" styleClass="label-form" />
-                <PasswordField fx:id="passwordField" prefHeight="35.0" promptText="Nova password ou manter atual" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="Password:" styleClass="label-pequena" GridPane.rowIndex="2" />
+                <PasswordField fx:id="passwordField" prefHeight="40.0" promptText="••••••••" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                <Label text="Perfil / Cargo:" GridPane.rowIndex="3" styleClass="label-form" />
+                <Label text="Permissões:" styleClass="label-pequena" GridPane.rowIndex="3" />
                 <CheckBox fx:id="adminCheckBox" text="Conceder privilégios de Administrador" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             </children>
         </GridPane>
 
-        <Region VBox.vgrow="ALWAYS" prefHeight="10.0" />
+        <Region VBox.vgrow="ALWAYS" minHeight="10.0" />
 
         <HBox alignment="CENTER_RIGHT" spacing="12.0">
             <children>
-                <Button onAction="#handleCancel" prefHeight="35.0" prefWidth="100.0" text="Cancelar" />
+                <Button onAction="#handleCancel" prefHeight="35.0" prefWidth="100.0"
+                        text="Cancelar" styleClass="button-secondary" />
 
-                <Button onAction="#handleSave" prefHeight="35.0" prefWidth="120.0" text="Guardar" />
+                <Button onAction="#handleSave" prefHeight="35.0" prefWidth="130.0"
+                        text="Guardar Dados" styleClass="button-success" />
             </children>
         </HBox>
     </children>

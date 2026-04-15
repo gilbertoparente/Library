@@ -5,35 +5,39 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefWidth="400.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.gilbertoparente.library.desktop.ThematicFormController">
-
-    <stylesheets>
-        <URL value="@/style.css" />
-    </stylesheets>
+<VBox alignment="CENTER" prefWidth="450.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gilbertoparente.library.desktop.ThematicFormController"
+      styleClass="main-content-area"> <stylesheets>
+    <URL value="@/style.css" />
+</stylesheets>
 
     <padding>
-        <Insets bottom="30.0" left="30.0" right="30.0" top="25.0" />
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
     </padding>
 
     <children>
         <VBox alignment="CENTER" spacing="5.0">
             <Label text="Configurar Temática" styleClass="titulo-principal" />
-            <Label text="Defina o nome da categoria para os artigos." styleClass="subtitulo" />
+            <Label text="Defina o nome da categoria para organizar os artigos." styleClass="subtitulo" />
         </VBox>
 
         <Separator opacity="0.4" />
 
-        <VBox spacing="8.0">
-            <Label text="Nome da Temática:" styleClass="label-form" />
-            <TextField fx:id="txtDescription" prefHeight="40.0" promptText="Ex: Inteligência Artificial, História, etc." />
+        <VBox spacing="8.0" maxWidth="Infinity">
+            <Label text="Nome da Temática:" styleClass="label-pequena" />
+            <TextField fx:id="txtDescription" prefHeight="40.0"
+                       promptText="Ex: Inteligência Artificial, Medicina, História..." />
         </VBox>
+
+        <Region VBox.vgrow="ALWAYS" />
 
         <HBox alignment="CENTER_RIGHT" spacing="12.0">
             <children>
-                <Button onAction="#handleCancel" prefWidth="100.0" text="Cancelar" />
+                <Button onAction="#handleCancel" prefWidth="100.0"
+                        text="Cancelar" styleClass="button-secondary" />
 
-                <Button defaultButton="true" onAction="#handleSave" prefWidth="120.0" text="Gravar Dados" />
+                <Button defaultButton="true" onAction="#handleSave" prefWidth="130.0"
+                        text="Gravar Temática" styleClass="button-success" />
             </children>
         </HBox>
     </children>

@@ -1,37 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="15.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.gilbertoparente.library.desktop.ArticlesController" prefWidth="900.0" prefHeight="600.0">
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gilbertoparente.library.desktop.ArticlesController"
+      prefWidth="1100.0" prefHeight="700.0" styleClass="main-content-area">
 
     <stylesheets>
         <URL value="@/style.css" />
     </stylesheets>
 
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
     </padding>
 
-    <HBox alignment="CENTER_LEFT" spacing="15.0">
-        <VBox>
-            <Label text="Biblioteca Científica" styleClass="titulo-principal"/>
-            <Label text="Gestão e Publicação de Artigos" styleClass="subtitulo"/>
-        </VBox>
-        <Region HBox.hgrow="ALWAYS" />
-    </HBox>
+    <VBox spacing="5.0">
+        <Label text="Biblioteca Científica" styleClass="titulo-principal"/>
+        <Label text="Gestão de repositório e pesquisa avançada de artigos." styleClass="subtitulo"/>
+    </VBox>
 
-    <Separator />
+    <Separator opacity="0.4" />
+
+    <HBox spacing="15.0" alignment="CENTER_LEFT" styleClass="barra-filtros">
+        <padding>
+            <Insets bottom="10" left="15" right="15" top="10" />
+        </padding>
+
+        <VBox spacing="5">
+            <Label text="Pesquisa Geral:" styleClass="label-pequena"/>
+            <TextField fx:id="txtSearch" promptText="Título, Autor ou DOI..." prefWidth="350.0" />
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Estado:" styleClass="label-pequena"/>
+            <ComboBox fx:id="comboFilterStatus" prefWidth="150.0" promptText="Todos" />
+        </VBox>
+
+        <VBox alignment="BOTTOM_CENTER">
+            <Button text="Limpar" onAction="#handleClearSearch" styleClass="button-secondary" />
+        </VBox>
+    </HBox>
 
     <TableView fx:id="articlesTable" VBox.vgrow="ALWAYS">
         <columns>
-            <TableColumn fx:id="titleColumn" prefWidth="250.0" text="Título do Artigo" />
-            <TableColumn fx:id="thematicsColumn" prefWidth="200.0" text="Temáticas" />
-            <TableColumn fx:id="dpPublicationDate" prefWidth="120.0" text="Publicação" />
-            <TableColumn fx:id="statusColumn" prefWidth="100.0" text="Estado" />
+            <TableColumn fx:id="titleColumn" prefWidth="200.0" text="Título" />
+            <TableColumn fx:id="authorsColumn" prefWidth="150.0" text="Autores" />
+            <TableColumn fx:id="thematicsColumn" prefWidth="150.0" text="Temáticas" />
+            <TableColumn fx:id="doiColumn" prefWidth="130.0" text="DOI" />
+            <TableColumn fx:id="dpPublicationDate" prefWidth="100.0" text="Data" />
+            <TableColumn fx:id="statusColumn" prefWidth="110.0" text="Estado" />
             <TableColumn fx:id="priceColumn" prefWidth="90.0" text="Preço Base" />
             <TableColumn fx:id="fullPriceColumn" prefWidth="100.0" text="Total (IVA)" />
         </columns>
@@ -39,18 +58,14 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
         </columnResizePolicy>
         <placeholder>
-            <Label text="Nenhum artigo encontrado na base de dados." />
+            <Label text="Nenhum artigo encontrado para os critérios selecionados." />
         </placeholder>
     </TableView>
 
     <HBox alignment="CENTER_RIGHT" spacing="12.0">
-        <Label text="Seleccione um artigo na tabela para gerir:" styleClass="subtitulo" />
-        <Region HBox.hgrow="ALWAYS" />
-
-        <Button onAction="#handleOpenArticle" text="Abrir PDF" />
-        <Button onAction="#handleAddArticle" text="Novo Artigo"/>
-        <Button onAction="#handleEditArticle" text="Editar Detalhes" prefWidth="120.0" />
-
-        <Button onAction="#handleDeleteArticle" text="Eliminar Artigo" prefWidth="120.0" styleClass="button-danger"/>
+        <Button onAction="#handleOpenArticle" text="Abrir PDF" styleClass="button-info" prefWidth="120.0" />
+        <Region HBox.hgrow="ALWAYS" /> <Button onAction="#handleAddArticle" text="Novo Artigo" styleClass="button-success" prefWidth="130.0" />
+        <Button onAction="#handleEditArticle" text="Editar" styleClass="button-secondary" prefWidth="100.0" />
+        <Button onAction="#handleDeleteArticle" text="Eliminar" styleClass="button-danger" prefWidth="100.0" />
     </HBox>
 </VBox>

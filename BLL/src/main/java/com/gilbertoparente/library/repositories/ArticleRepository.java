@@ -15,4 +15,11 @@ public interface ArticleRepository extends JpaRepository<EntityArticles, Integer
     List<EntityArticles> findByAuthors_IdUser(int idUser);
     List<EntityArticles> findByStatus(String status);
     List<EntityArticles> findByAuthors_IdUserAndStatus(int idUser, String status);
+
+    List<EntityArticles> findByTitleContainingIgnoreCaseOrDoiContainingIgnoreCaseOrKeywordsContainingIgnoreCase(
+            String title, String doi, String keywords);
+
+
+
+
 }

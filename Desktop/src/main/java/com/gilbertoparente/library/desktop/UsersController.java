@@ -1,5 +1,6 @@
 package com.gilbertoparente.library.desktop;
 
+import com.gilbertoparente.library.entities.EntityThematics;
 import com.gilbertoparente.library.entities.EntityUsers;
 import com.gilbertoparente.library.services.UserService;
 import javafx.collections.FXCollections;
@@ -33,6 +34,9 @@ public class UsersController {
     @FXML private TableColumn<EntityUsers, String> passwordColumn;
     @FXML private TableColumn<EntityUsers, Boolean> adminColumn;
 
+    @FXML
+    private TextField txtSearch;
+
 
     @FXML
     public void initialize() {
@@ -54,23 +58,48 @@ public class UsersController {
             @Override
             protected void updateItem(Boolean isAdmin, boolean empty) {
                 super.updateItem(isAdmin, empty);
-                if (empty || isAdmin == null) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
+
+                // 1. Limpeza de classes e texto
+                getStyleClass().removeAll("user-admin", "user-comum");
+                setText(null);
+                setGraphic(null);
+
+                if (!empty && isAdmin != null) {
                     if (isAdmin) {
                         setText("ADMIN");
-                        setStyle("-fx-text-fill: #27ae60; -fx-font-weight: bold; -fx-alignment: CENTER;");
+                        getStyleClass().add("user-admin");
                     } else {
-                        setText("USER");
-                        setStyle("-fx-text-fill: #7f8c8d; -fx-alignment: CENTER;");
+                        setText("UTILIZADOR");
+                        getStyleClass().add("user-comum");
                     }
                 }
             }
         });
 
         refreshUsers();
+
+        if (txtSearch != null){
+            txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+                List<EntityUsers> resultados = userService.searchByname(newValue);
+                usersTable.setItems(FXCollections.observableArrayList(resultados));
+            });
+        }
     }
+
+    @FXML
+    private void handleSearch(){
+        String termo = txtSearch.getText();
+        List<EntityUsers> resultado = userService.searchByname(termo);
+        usersTable.setItems(FXCollections.observableArrayList(resultado));
+    }
+
+    @FXML
+    private void handleClearSearch() {
+
+        txtSearch.clear();
+        refreshUsers();
+    }
+
 
     @FXML
     public void refreshUsers() {

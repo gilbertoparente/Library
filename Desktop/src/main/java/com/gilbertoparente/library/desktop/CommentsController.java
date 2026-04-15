@@ -55,14 +55,28 @@ public class CommentsController {
             @Override
             protected void updateItem(Integer item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null); setStyle("");
-                } else {
+
+                getStyleClass().removeAll("comment-pendente", "comment-aprovado", "comment-oculto");
+                setText(null);
+
+                if (!empty && item != null) {
+                    // 2. Aplicação da lógica e da classe CSS
                     switch (item) {
-                        case 0 -> { setText("PENDENTE"); setStyle("-fx-text-fill: #e67e22; -fx-font-weight: bold;"); }
-                        case 1 -> { setText("APROVADO"); setStyle("-fx-text-fill: #27ae60; -fx-font-weight: bold;"); }
-                        case 2 -> { setText("OCULTO"); setStyle("-fx-text-fill: #c0392b;"); }
-                        default -> setText("DESCONHECIDO");
+                        case 0 -> {
+                            setText("PENDENTE");
+                            getStyleClass().add("comment-pendente");
+                        }
+                        case 1 -> {
+                            setText("APROVADO");
+                            getStyleClass().add("comment-aprovado");
+                        }
+                        case 2 -> {
+                            setText("OCULTO");
+                            getStyleClass().add("comment-oculto");
+                        }
+                        default -> {
+                            setText("DESCONHECIDO");
+                        }
                     }
                 }
             }
@@ -73,11 +87,7 @@ public class CommentsController {
 
     private void loadTreeData() {
         List<EntityComments> allComments = commentService.findAll();
-
-
         TreeItem<EntityComments> root = new TreeItem<>(new EntityComments());
-
-
         Map<Integer, List<EntityComments>> commentsByParent = allComments.stream()
                 .filter(c -> c.getParentComment() != null)
                 .collect(Collectors.groupingBy(c -> c.getParentComment().getIdComment()));

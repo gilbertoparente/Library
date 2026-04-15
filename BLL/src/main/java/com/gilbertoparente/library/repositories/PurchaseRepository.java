@@ -15,4 +15,12 @@ public interface PurchaseRepository extends JpaRepository<EntityPurchases, Integ
     List<EntityPurchases> findByStatus(String status);
     List<EntityPurchases> findByUser_IdUserAndStatus(int idUser, String status);
     List<EntityPurchases> findAllByOrderByPurchaseDateDesc();
+
+    List<EntityPurchases> findByUser_NameContainingIgnoreCase(String name);
+
+    List<EntityPurchases> findByArticle_TitleContainingIgnoreCase(String title);
+
+    List<EntityPurchases> findByPurchaseDateBetween(java.time.LocalDateTime start, java.time.LocalDateTime end);
+
+
 }

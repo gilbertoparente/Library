@@ -46,7 +46,6 @@ public class EntityComments {
     @OneToMany(mappedBy = "parentComment", cascade = CascadeType.ALL)
     private Collection<EntityComments> replies;
 
-    // --- GETTERS E SETTERS ---
 
     public int getIdComment() { return idComment; }
     public void setIdComment(int idComment) { this.idComment = idComment; }
@@ -72,8 +71,6 @@ public class EntityComments {
 
     public Collection<EntityComments> getReplies() { return replies; }
     public void setReplies(Collection<EntityComments> replies) { this.replies = replies; }
-
-
 
 
     @Override

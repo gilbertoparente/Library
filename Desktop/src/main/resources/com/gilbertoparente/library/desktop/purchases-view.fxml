@@ -5,8 +5,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="650.0" prefWidth="1100.0" spacing="15.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.gilbertoparente.library.desktop.PurchasesController">
+<VBox prefHeight="700.0" prefWidth="1100.0" spacing="15.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gilbertoparente.library.desktop.PurchasesController"
+      styleClass="main-content-area">
 
     <stylesheets>
         <URL value="@/style.css" />
@@ -23,6 +24,58 @@
 
     <Separator opacity="0.4" />
 
+    <HBox spacing="20.0" alignment="CENTER">
+        <VBox styleClass="card, card-success" HBox.hgrow="ALWAYS" spacing="5">
+            <Label text="RECEITA LIQUIDADA" styleClass="card-label" />
+            <Label fx:id="lblTotalAmount" text="0,00 €" styleClass="card-value" />
+        </VBox>
+
+        <VBox styleClass="card, card-warning" HBox.hgrow="ALWAYS" spacing="5">
+            <Label text="VALOR POR RECEBER" styleClass="card-label" />
+            <Label fx:id="lblTotalPending" text="0,00 €" styleClass="card-value" />
+        </VBox>
+
+        <VBox styleClass="card, card-info" HBox.hgrow="ALWAYS" spacing="5">
+            <Label text="COMPRAS PENDENTES" styleClass="card-label" />
+            <Label fx:id="lblCountPending" text="0" styleClass="card-value" />
+        </VBox>
+    </HBox>
+
+    <HBox spacing="15.0" alignment="CENTER_LEFT" styleClass="barra-filtros">
+        <padding>
+            <Insets bottom="10" left="15" right="15" top="10" />
+        </padding>
+
+        <VBox spacing="5">
+            <Label text="Cliente:" styleClass="label-pequena"/>
+            <TextField fx:id="txtSearchUser" promptText="Nome..." prefWidth="140.0"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Artigo:" styleClass="label-pequena"/>
+            <TextField fx:id="txtSearchArticle" promptText="Título..." prefWidth="140.0"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Estado:" styleClass="label-pequena"/>
+            <ComboBox fx:id="comboStatus" prefWidth="120.0" promptText="Todos"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Desde:" styleClass="label-pequena"/>
+            <DatePicker fx:id="dpStart" prefWidth="130.0"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Até:" styleClass="label-pequena"/>
+            <DatePicker fx:id="dpEnd" prefWidth="130.0"/>
+        </VBox>
+
+        <VBox alignment="BOTTOM_CENTER">
+            <Button text="Limpar" onAction="#handleClearFilters" styleClass="button-secondary"/>
+        </VBox>
+    </HBox>
+
     <TableView fx:id="purchasesTable" VBox.vgrow="ALWAYS">
         <columns>
             <TableColumn fx:id="colId" maxWidth="60.0" minWidth="50.0" prefWidth="60.0" text="ID" />
@@ -36,24 +89,14 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
         </columnResizePolicy>
         <placeholder>
-            <Label text="Nenhuma transação registada até ao momento." />
+            <Label text="Nenhuma transação encontrada." />
         </placeholder>
     </TableView>
 
-    <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="card">
-        <padding>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-        </padding>
-
-        <VBox spacing="3">
-            <Label text="Receita Total Liquidada" styleClass="label-form" />
-            <Label fx:id="lblTotalAmount" text="0,00 €" styleClass="card-value" style="-fx-text-fill: #27ae60;" />
-        </VBox>
-
-        <Region HBox.hgrow="ALWAYS" />
-
-        <Button onAction="#handleConfirmPayment" prefHeight="40.0" prefWidth="180.0" text="Confirmar Pagamento" />
-
-        <Button onAction="#handleDelete" prefHeight="40.0" prefWidth="140.0" text="Eliminar Registo" styleClass="button-danger" />
+    <HBox alignment="CENTER_RIGHT" spacing="15.0">
+        <Button onAction="#handleConfirmPayment" prefHeight="40.0" prefWidth="190.0"
+                text="Confirmar Pagamento" styleClass="button-success" />
+        <Button onAction="#handleDelete" prefHeight="40.0" prefWidth="150.0"
+                text="Eliminar Registo" styleClass="button-danger" />
     </HBox>
 </VBox>
