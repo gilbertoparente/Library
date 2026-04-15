@@ -5,28 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="217472e6-7739-4771-9092-c617e6abfdfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/UserDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/UserSession.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/DashboardController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/PurchasesController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/purchases-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Desktop/src/main/resources/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/AuthController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/WebApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Web/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Web/src/main/resources/static/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Web/src/main/resources/static/images/FullLogo_Transparent.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Web/src/main/resources/static/images/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/dashboard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/login-web.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/dados.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1125a8d5-ca2c-44dc-8ea5-d59a3ddcf7c4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1125a8d5-ca2c-44dc-8ea5-d59a3ddcf7c4.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/ef3b0862-ea08-4497-b9a6-dc3167fbc335.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ef3b0862-ea08-4497-b9a6-dc3167fbc335.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/ef3b0862-ea08-4497-b9a6-dc3167fbc335/storage_v2/_src_/database/scientific_library.pRpUMg/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ef3b0862-ea08-4497-b9a6-dc3167fbc335/storage_v2/_src_/database/scientific_library.pRpUMg/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/ScientificLibraryApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/ScientificLibraryApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/entities/EntityArticles.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/entities/EntityArticles.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/entities/EntityAuthors.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/entities/EntityAuthors.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/entities/EntityComments.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/entities/EntityComments.java" afterDir="false" />
@@ -34,17 +18,14 @@
       <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/entities/EntityThematics.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/entities/EntityThematics.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/entities/EntityUsers.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/entities/EntityUsers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/ArticleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/ArticleRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/AuthorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/AuthorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/CommentRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/PurchaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/PurchaseRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/ThematicsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/ThematicsRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/ArticleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/AuthorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/AuthorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/CommentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/PurchaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/PurchaseService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/ThematicsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/ThematicsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/resources/hibernate.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/entities/EntityArticles.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/entities/EntityArticles.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/entities/EntityAuthors.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/entities/EntityAuthors.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/entities/EntityComments.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/entities/EntityComments.class" afterDir="false" />
@@ -52,40 +33,43 @@
       <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/entities/EntityThematics.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/entities/EntityThematics.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/entities/EntityUsers.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/entities/EntityUsers.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/repositories/ArticleRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/repositories/ArticleRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/repositories/AuthorRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/repositories/AuthorRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/repositories/CommentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/repositories/CommentRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/repositories/PurchaseRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/repositories/PurchaseRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/repositories/ThematicsRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/repositories/ThematicsRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/repositories/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/repositories/UserRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/services/ArticleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/services/ArticleService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/services/AuthorService.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/services/AuthorService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/services/CommentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/services/CommentService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/services/PurchaseService.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/services/PurchaseService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/services/ThematicsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/services/ThematicsService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/services/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Desktop/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/services/UserSession.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/services/UserSession.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/target/classes/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/hibernate.cfg.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/AdminDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/AdminDashboardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/ArticleFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/ArticleFormController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/ArticlesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/ArticlesController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/CommentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/CommentsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/MainApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/ThematicFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/ThematicFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/PurchasesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/PurchasesController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/ThematicsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/ThematicsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/UserFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/UserFormController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/UsersController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/article-form.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/article-form.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/articles-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/articles-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/comments-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/comments-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/dashboard-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/dashboard-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/hello-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/home-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/home-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/login-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/purchases-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/purchases-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/thematic-form.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/thematic-form.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/thematics-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/thematics-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/user-form.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/user-form.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/users-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/users-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Desktop/src/main/resources/images/Logo_Transparent.png" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/resources/images/Logo_Transparent.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Web/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Desktop/src/main/resources/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/resources/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web/target/classes/com/gilbertoparente/library/web/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Web/target/classes/com/gilbertoparente/library/web/AuthController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web/target/classes/com/gilbertoparente/library/web/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/Web/target/classes/com/gilbertoparente/library/web/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/BLL.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/comandos.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/comandos.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/projeto_biblioteca - Cópia.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/scientific_library@localhost.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,6 +86,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/dashboard-view.fxml" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -221,6 +208,9 @@
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpringBeansView">
+    <option name="beanDetailsProportion" value="0.3" />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="217472e6-7739-4771-9092-c617e6abfdfd" name="Changes" comment="" />
@@ -263,7 +253,13 @@
       <workItem from="1774876751621" duration="10533000" />
       <workItem from="1774899990416" duration="4551000" />
       <workItem from="1774986416427" duration="7327000" />
-      <workItem from="1775042087177" duration="5311000" />
+      <workItem from="1775042087177" duration="7561000" />
+      <workItem from="1776167420364" duration="3433000" />
+      <workItem from="1776173078871" duration="1533000" />
+      <workItem from="1776179218695" duration="2877000" />
+      <workItem from="1776241884891" duration="5395000" />
+      <workItem from="1776248493698" duration="2362000" />
+      <workItem from="1776253035477" duration="11457000" />
     </task>
     <servers />
   </component>

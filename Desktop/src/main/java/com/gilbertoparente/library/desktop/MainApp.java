@@ -29,7 +29,9 @@ public class MainApp extends Application {
         Parent root = fxmlLoader.load();
 
         stage.setTitle("Open Library - Login");
+        // Login fixo e centrado (não maximizado por padrão)
         stage.setScene(new Scene(root, 600, 400));
+        stage.setResizable(false);
 
         stage.show();
         stage.centerOnScreen();
@@ -42,15 +44,16 @@ public class MainApp extends Application {
 
         stage.setTitle("Open Library - Administrador");
 
-        // Cria o ecra
-        Scene scene = new Scene(root, 1100, 700);
+
+        Scene scene = new Scene(root);
         stage.setScene(scene);
 
-        // janela
+
         stage.setResizable(true);
+        stage.setMaximized(true);
+
         stage.show();
         stage.centerOnScreen();
-
 
         stage.setOnCloseRequest(event -> {
             Platform.exit();

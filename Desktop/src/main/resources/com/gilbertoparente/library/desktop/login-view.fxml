@@ -7,56 +7,43 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="0.0" styleClass="login-background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.gilbertoparente.library.desktop.LoginController">
-
+<StackPane styleClass="main-content-area" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.gilbertoparente.library.desktop.LoginController">
     <stylesheets>
         <URL value="@/style.css" />
     </stylesheets>
 
-    <children>
-        <VBox alignment="CENTER" maxWidth="400.0" spacing="20.0" styleClass="login-card">
+    <VBox alignment="CENTER" spacing="30.0" maxWidth="450.0">
+        <padding>
+            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+        </padding>
 
-            <padding>
-                <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
-            </padding>
+        <ImageView fx:id="logoView" fitHeight="140.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@/images/FullLogo_Transparent.png" />
+            </image>
+        </ImageView>
 
-            <children>
-                <ImageView fx:id="logoView" fitHeight="100.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@/images/FullLogo_Transparent.png" />
-                    </image>
-                </ImageView>
-
-                <VBox alignment="CENTER" spacing="5.0">
-                    <Label text="Bem-vindo de volta" styleClass="titulo-principal" />
-                    <Label text="Aceda ao painel de administração" styleClass="subtitulo" />
-                </VBox>
-
-                <Separator opacity="0.5" />
-
-                <VBox spacing="15.0">
-                    <VBox spacing="5.0">
-                        <Label text="Endereço de Email" styleClass="label-form" />
-                        <TextField fx:id="emailField" prefHeight="40.0" promptText="admin@exemplo.com" />
-                    </VBox>
-
-                    <VBox spacing="5.0">
-                        <Label text="Palavra-passe" styleClass="label-form" />
-                        <PasswordField fx:id="passwordField" prefHeight="40.0" promptText="••••••••" />
-                    </VBox>
-                </VBox>
-
-                <Label fx:id="errorLabel" alignment="CENTER" prefHeight="20.0" text="" styleClass="label-erro" />
-
-                <Button fx:id="btnLogin" maxWidth="Infinity" onAction="#handleLogin" prefHeight="45.0" text="Entrar no Sistema" />
-
-                <Label text="© 2026 Gilberto Parente - Library System" styleClass="label-footer" />
-            </children>
+        <VBox alignment="CENTER" spacing="5.0">
+            <Label text="Bem-vindo de volta" styleClass="titulo-principal" />
+            <Label text="Painel de Administração Científica" styleClass="subtitulo" />
         </VBox>
-    </children>
 
-    <padding>
-        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-    </padding>
-</VBox>
+        <VBox spacing="15.0" alignment="CENTER_LEFT" maxWidth="Infinity">
+            <VBox spacing="5.0">
+                <Label text="Endereço de Email" styleClass="label-pequena" />
+                <TextField fx:id="emailField" prefHeight="45.0" />
+            </VBox>
+
+            <VBox spacing="5.0">
+                <Label text="Palavra-passe" styleClass="label-pequena" />
+                <PasswordField fx:id="passwordField" prefHeight="45.0" />
+            </VBox>
+        </VBox>
+
+        <Label fx:id="errorLabel" styleClass="label-erro-login" />
+
+        <Button fx:id="btnLogin" maxWidth="Infinity" onAction="#handleLogin" prefHeight="50.0"
+                text="ENTRAR" styleClass="button" />
+    </VBox>
+</StackPane>

@@ -31,12 +31,10 @@ public class EntityPurchases {
     @Column(name = "amount", precision = 10, scale = 2)
     private BigDecimal amount;
 
-    @Column(name = "status", length = 20) // estados: pending, paid, failed, refund, canceled
-    private String status = "pending";
+    @Column(name = "status", length = 20) // estados: pendente, pago, cancelado,
+    private String status = "pendente";
 
     public EntityPurchases() {}
-
-    // --- GETTERS E SETTERS ---
 
     public int getIdPurchase() { return idPurchase; }
     public void setIdPurchase(int idPurchase) { this.idPurchase = idPurchase; }

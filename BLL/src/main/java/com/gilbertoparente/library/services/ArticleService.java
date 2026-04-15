@@ -31,12 +31,14 @@ public class ArticleService {
     }
 
     public List<EntityArticles> searchByTitle(String title) {
-        return articleRepository.findByTitleContainingIgnoreCase(title);
+
+        if (title == null || title.trim().isEmpty()) {
+            return articleRepository.findAll();
+        }
+
+        return articleRepository.findByTitleContainingIgnoreCase(title.trim());
     }
 
-    public List<EntityArticles> findByThematic(int idThematic) {
-        return articleRepository.findByThematics_IdThematic(idThematic);
-    }
 
     @Transactional
     public EntityArticles save(EntityArticles article, File fileToUpload) {
@@ -136,4 +138,14 @@ public class ArticleService {
         validateArticle(article);
         return articleRepository.save(article);
     }
+
+    public List<EntityArticles> searchAdvanced(String term) {
+        if (term == null || term.trim().isEmpty()) {
+            return articleRepository.findAll();
+        }
+        String query = term.trim();
+        return articleRepository.findByTitleContainingIgnoreCaseOrDoiContainingIgnoreCaseOrKeywordsContainingIgnoreCase( query, query, query);
+    }
+
+
 }

@@ -9,12 +9,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.skin.SliderSkin;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -25,11 +27,33 @@ public class ThematicsController {
     @FXML private TableView<EntityThematics> thematicsTable;
     @FXML private TableColumn<EntityThematics, Integer> idColumn;
     @FXML private TableColumn<EntityThematics, String> descColumn;
+    @FXML
+    private TextField txtSearch;
 
     @FXML
     public void initialize() {
 
         descColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        refreshTable();
+
+        if (txtSearch != null){
+            txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+                List<EntityThematics> resultados = thematicsService.searchByTematic(newValue);
+                thematicsTable.setItems(FXCollections.observableArrayList(resultados));
+            });
+        }
+    }
+    @FXML
+    private void handleSearch1(){
+        String termo = txtSearch.getText();
+        List<EntityThematics> resultado = thematicsService.searchByTematic(termo);
+        thematicsTable.setItems(FXCollections.observableArrayList(resultado));
+    }
+
+    @FXML
+    private void handleClearSearch1() {
+
+        txtSearch.clear();
         refreshTable();
     }
 

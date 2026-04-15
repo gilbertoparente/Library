@@ -59,7 +59,7 @@ public class AdminDashboardController {
     @FXML private void showPurchasesSection() { loadSection("purchases-view.fxml"); }
     @FXML private void showCommentsSection() {
         loadSection("comments-view.fxml");
-        updateBadges(); // Atualiza ao entrar na secção
+        updateBadges();
     }
 
 
@@ -83,15 +83,10 @@ public class AdminDashboardController {
         }
     }
 
+
     @FXML
     private void handleLogout() {
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Deseja realmente terminar sessão?", ButtonType.YES, ButtonType.NO);
-        confirm.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.YES) {
-                userSession.logout();
-                navigateToLogin();
-            }
-        });
+        System.exit(0);
     }
 
     private void navigateToLogin() {

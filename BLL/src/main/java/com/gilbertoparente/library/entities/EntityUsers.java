@@ -46,7 +46,6 @@ public class EntityUsers {
     @OneToMany(mappedBy = "user")
     private Collection<EntityComments> comments;
 
-    // --- GETTERS E SETTERS ---
 
     public int getIdUser() { return idUser; }
     public void setIdUser(int idUser) { this.idUser = idUser; }
@@ -74,7 +73,6 @@ public class EntityUsers {
 
     public Collection<EntityComments> getComments() { return comments; }
     public void setComments(Collection<EntityComments> comments) { this.comments = comments; }
-
 
 
     @Override

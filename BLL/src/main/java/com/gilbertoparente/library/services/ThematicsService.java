@@ -23,6 +23,15 @@ public class ThematicsService {
         return thematicsRepository.findById(id).orElse(null);
     }
 
+    public List<EntityThematics> searchByTematic(String tematic){
+
+        if (tematic == null || tematic.trim().isEmpty()){
+            return thematicsRepository.findAll();
+        }
+
+        return thematicsRepository.findByDescriptionContainingIgnoreCase(tematic.trim());
+    }
+
     @Transactional
     public EntityThematics save(EntityThematics thematic) {
 

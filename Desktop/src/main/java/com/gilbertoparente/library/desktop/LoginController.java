@@ -87,10 +87,13 @@ public class LoginController {
     }
 
     private void showError(String message) {
-        errorLabel.setStyle("-fx-text-fill: #e74c3c;");
-        errorLabel.setText(message);
-    }
+        if (!errorLabel.getStyleClass().contains("label-erro-login")) {
+            errorLabel.getStyleClass().add("label-erro-login");
+        }
 
+        errorLabel.setText(message);
+        errorLabel.setVisible(true);
+    }
     @FXML
     private void handleExit() {
         Platform.exit();

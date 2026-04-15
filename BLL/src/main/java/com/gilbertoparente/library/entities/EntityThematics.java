@@ -21,7 +21,6 @@ public class EntityThematics {
 
     public EntityThematics() {}
 
-    // --- GETTERS E SETTERS ---
 
     public int getIdThematic() {
         return idThematic;
@@ -46,8 +45,6 @@ public class EntityThematics {
     public void setArticles(Collection<EntityArticles> articles) {
         this.articles = articles;
     }
-
-
 
 
     @Override

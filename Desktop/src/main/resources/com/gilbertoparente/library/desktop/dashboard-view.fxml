@@ -6,7 +6,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.gilbertoparente.library.desktop.AdminDashboardController">
 
     <stylesheets>
@@ -14,43 +14,53 @@
     </stylesheets>
 
     <left>
-        <VBox prefWidth="260.0" spacing="10.0" styleClass="sidebar">
+        <VBox prefWidth="260.0" spacing="15.0" styleClass="sidebar">
             <padding>
-                <Insets bottom="20.0" left="15.0" right="15.0" top="30.0" />
+                <Insets bottom="25.0" left="20.0" right="20.0" top="35.0" />
             </padding>
 
-            <VBox alignment="CENTER" spacing="15.0">
-                <ImageView fx:id="logoView" fitHeight="80.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@/images/FullLogo_Transparent.png" />
-                    </image>
-                </ImageView>
+            <VBox prefWidth="280.0" spacing="15.0" styleClass="sidebar"> <padding>
+                <Insets bottom="25.0" left="20.0" right="20.0" top="35.0" />
+            </padding>
 
-                <VBox alignment="CENTER" spacing="3">
-                    <Label fx:id="lblAdminName" text="Administrador" styleClass="label-admin-name" />
-                    <Label text="Painel de Controlo" styleClass="label-admin-subtitle" />
+                <VBox alignment="CENTER" spacing="15.0">
+                    <ImageView fx:id="logoView" fitHeight="120.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@/images/FullLogo_Transparent.png" />
+                        </image>
+                    </ImageView>
                 </VBox>
-                <Separator opacity="0.2" prefWidth="200.0" />
+
+                <VBox alignment="CENTER" spacing="4">
+                    <Label fx:id="lblAdminName" text="Administrador" styleClass="label-admin-name" />
+                    <Label text="Gestão de Sistema" styleClass="label-admin-subtitle" />
+                </VBox>
+
+                <VBox spacing="8.0" VBox.vgrow="ALWAYS">
+                    <Button maxWidth="Infinity" onAction="#showHomeSection" styleClass="menu-button" text="📊  Estatísticas" />
+                    <Button maxWidth="Infinity" onAction="#showUsersSection" styleClass="menu-button" text="👥  Utilizadores" />
+                    <Button maxWidth="Infinity" onAction="#showArticlesSection" styleClass="menu-button" text="📑  Artigos" />
+                    <Button maxWidth="Infinity" onAction="#showThematicsSection" styleClass="menu-button" text="📑  Temáticas" />
+                    <Button maxWidth="Infinity" onAction="#showPurchasesSection" styleClass="menu-button" text="💰  Vendas" />
+                    <Button maxWidth="Infinity" onAction="#showCommentsSection" styleClass="menu-button" text="💬  Moderação" />
+                </VBox>
             </VBox>
 
-            <VBox spacing="5.0" VBox.vgrow="ALWAYS">
-                <Button maxWidth="Infinity" onAction="#showHomeSection" styleClass="menu-button" text="Início / Estatísticas" />
-                <Button maxWidth="Infinity" onAction="#showUsersSection" styleClass="menu-button" text="Gerir Utilizadores" />
-                <Button maxWidth="Infinity" onAction="#showArticlesSection" styleClass="menu-button" text="Gerir Artigos" />
-                <Button maxWidth="Infinity" onAction="#showThematicsSection" styleClass="menu-button" text="Gerir Temáticas" />
-                <Button maxWidth="Infinity" onAction="#showPurchasesSection" styleClass="menu-button" text="Gerir Compras" />
-                <Button maxWidth="Infinity" onAction="#showCommentsSection" styleClass="menu-button" text="Ver Comentários" />
+            <VBox spacing="10.0">
+                <Separator opacity="0.1" />
+                <Button maxWidth="Infinity" onAction="#handleLogout" text="Terminar Sessão" styleClass="button-logout" />
             </VBox>
-
-            <Separator opacity="0.2" />
-
-            <Button maxWidth="Infinity" onAction="#handleLogout" text="Terminar Sessão" styleClass="button-logout" />
         </VBox>
     </left>
 
     <center>
-        <AnchorPane fx:id="mainContent" styleClass="main-content-area">
-            <Label text="A carregar sistema..." styleClass="subtitulo" />
-        </AnchorPane>
+        <StackPane fx:id="mainContentContainer" styleClass="main-content-area">
+            <AnchorPane fx:id="mainContent">
+                <VBox alignment="CENTER" spacing="10">
+                    <ProgressIndicator prefHeight="40" prefWidth="40" />
+                    <Label text="A carregar sistema..." styleClass="subtitulo" />
+                </VBox>
+            </AnchorPane>
+        </StackPane>
     </center>
 </BorderPane>

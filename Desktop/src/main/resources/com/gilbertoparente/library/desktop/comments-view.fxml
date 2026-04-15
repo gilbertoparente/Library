@@ -5,50 +5,52 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="15.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.gilbertoparente.library.desktop.CommentsController">
+<VBox spacing="15.0" prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gilbertoparente.library.desktop.CommentsController"
+      styleClass="main-content-area">
 
     <stylesheets>
         <URL value="@/style.css" />
     </stylesheets>
 
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
     </padding>
 
-    <HBox alignment="CENTER_LEFT" spacing="10.0">
-        <VBox>
-            <Label text="Moderação de Conteúdo" styleClass="titulo-principal" />
-            <Label text="Gestão de comentários e respostas dos utilizadores" styleClass="subtitulo" />
-        </VBox>
-        <Region HBox.hgrow="ALWAYS" />
-    </HBox>
+    <VBox spacing="5.0">
+        <Label text="Moderação de Conteúdo" styleClass="titulo-principal" />
+        <Label text="Validação de comentários e gestão de respostas dos utilizadores." styleClass="subtitulo" />
+    </VBox>
 
-    <Separator />
+    <Separator opacity="0.4" />
 
     <TreeTableView fx:id="commentsTreeTable" VBox.vgrow="ALWAYS">
         <columns>
-            <TreeTableColumn fx:id="colContent" prefWidth="400.0" text="Comentário / Resposta" />
+            <TreeTableColumn fx:id="colContent" prefWidth="400.0" text="Conteúdo do Comentário / Resposta" />
             <TreeTableColumn fx:id="colArticle" prefWidth="150.0" text="Artigo Relacionado" />
             <TreeTableColumn fx:id="colUser" prefWidth="120.0" text="Autor" />
-            <TreeTableColumn fx:id="colDate" prefWidth="130.0" text="Data/Hora" />
-            <TreeTableColumn fx:id="colStatus" prefWidth="100.0" text="Estado" />
+            <TreeTableColumn fx:id="colDate" prefWidth="140.0" text="Data e Hora" />
+            <TreeTableColumn fx:id="colStatus" prefWidth="110.0" text="Estado" />
         </columns>
         <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
         </columnResizePolicy>
     </TreeTableView>
 
-    <HBox alignment="CENTER_RIGHT" spacing="12.0">
-        <Label text="Ações para o item selecionado:" styleClass="subtitulo" />
+    <HBox alignment="CENTER_RIGHT" spacing="12.0" styleClass="barra-filtros">
+        <padding>
+            <Insets bottom="10" left="15" right="15" top="10" />
+        </padding>
+
+        <Label text="Ações de Moderação:" styleClass="label-pequena" />
         <Region HBox.hgrow="ALWAYS" />
 
-        <Button onAction="#handleApprove" text="Aprovar" prefWidth="110.0" />
+        <Button onAction="#handleApprove" text="Aprovar" styleClass="button-success" prefWidth="110.0" />
 
-        <Button onAction="#handleHide" text="Ocultar" prefWidth="110.0" styleClass="button-warning" />
+        <Button onAction="#handleHide" text="Ocultar" styleClass="button-secondary" prefWidth="110.0" />
 
-        <Separator orientation="VERTICAL" />
+        <Separator orientation="VERTICAL" prefHeight="30.0" />
 
-        <Button onAction="#handleDelete" text="Eliminar" prefWidth="110.0" styleClass="button-danger" />
+        <Button onAction="#handleDelete" text="Eliminar" styleClass="button-danger" prefWidth="110.0" />
     </HBox>
 </VBox>

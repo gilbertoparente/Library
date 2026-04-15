@@ -1,8 +1,10 @@
 package com.gilbertoparente.library.desktop;
 
 import com.gilbertoparente.library.entities.EntityArticles;
+import com.gilbertoparente.library.entities.EntityAuthors;
 import com.gilbertoparente.library.entities.EntityThematics;
 import com.gilbertoparente.library.services.ArticleService;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -28,27 +31,71 @@ public class ArticlesController {
 
     @FXML private TableView<EntityArticles> articlesTable;
     @FXML private TableColumn<EntityArticles, String> titleColumn;
+    @FXML private TableColumn<EntityArticles, Collection<EntityAuthors>> authorsColumn;
     @FXML private TableColumn<EntityArticles, Collection<EntityThematics>> thematicsColumn;
+    @FXML private TableColumn<EntityArticles, String> doiColumn;
     @FXML private TableColumn<EntityArticles, BigDecimal> priceColumn;
+    @FXML private TableColumn<EntityArticles, BigDecimal> fullPriceColumn;
     @FXML private TableColumn<EntityArticles, String> statusColumn;
     @FXML private TableColumn<EntityArticles, java.sql.Date> dpPublicationDate;
+    @FXML private TextField txtSearch;
+
+    @FXML private ComboBox<String> comboFilterStatus;
 
     @FXML
     public void initialize() {
+
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        doiColumn.setCellValueFactory(new PropertyValueFactory<>("doi"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         dpPublicationDate.setCellValueFactory(new PropertyValueFactory<>("publicationDate"));
-        dpPublicationDate.setCellFactory(column -> new TableCell<>() {
-            private final java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("dd/MM/yyyy");
+
+
+        authorsColumn.setCellValueFactory(new PropertyValueFactory<>("authors"));
+        authorsColumn.setCellFactory(column -> new TableCell<>() {
             @Override
-            protected void updateItem(java.sql.Date item, boolean empty) {
-                super.updateItem(item, empty);
-                setText((empty || item == null) ? null : formatter.format(item));
+            protected void updateItem(Collection<EntityAuthors> items, boolean empty) {
+                super.updateItem(items, empty);
+                EntityArticles article = getTableRow().getItem();
+
+                if (empty || article == null) {
+                    setText(null);
+                } else {
+
+                    if (items != null && !items.isEmpty()) {
+                        String names = items.stream()
+                                .map(a -> a.getUser().getName())
+                                .collect(Collectors.joining(", "));
+                        setText(names);
+                    }
+                    // Se não houver, tenta o Autor Externo (Texto livre)
+                    else if (article.getExternalAuthor() != null && !article.getExternalAuthor().isEmpty()) {
+                        setText(article.getExternalAuthor());
+                    } else {
+                        setText("---");
+                    }
+                }
             }
         });
 
+        // PREÇO TOTAL (Com cálculo de IVA)
+        fullPriceColumn.setCellValueFactory(cellData ->
+                new SimpleObjectProperty<>(cellData.getValue().getFullPrice()));
 
+        fullPriceColumn.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(BigDecimal item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(String.format("%.2f €", item));
+                }
+            }
+        });
+
+        // TEMÁTICAS
         thematicsColumn.setCellValueFactory(new PropertyValueFactory<>("thematics"));
         thematicsColumn.setCellFactory(column -> new TableCell<>() {
             @Override
@@ -64,24 +111,77 @@ public class ArticlesController {
             }
         });
 
-
+        //  STATUS
         statusColumn.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setStyle("");
-                } else {
-                    setText(item.toUpperCase());
-                    if (item.equals("published")) setStyle("-fx-text-fill: green; -fx-font-weight: bold;");
-                    else if (item.equals("draft")) setStyle("-fx-text-fill: orange;");
-                    else setStyle("-fx-text-fill: gray;");
+
+                // 1. Limpar sempre o estilo anterior para evitar bugs de reciclagem de células
+                getStyleClass().removeAll("status-publicado", "status-rascunho", "status-arquivado");
+                setText(null);
+
+                if (!empty && item != null) {
+                    // 2. Definir o texto e aplicar a classe CSS correspondente
+                    // Usamos equalsIgnoreCase para garantir que funciona com "published" ou "Publicado"
+                    if (item.equalsIgnoreCase("Publicado") || item.equalsIgnoreCase("published")) {
+                        setText("PUBLICADO");
+                        getStyleClass().add("status-publicado");
+                    }
+                    else if (item.equalsIgnoreCase("Rascunho") || item.equalsIgnoreCase("draft")) {
+                        setText("RASCUNHO");
+                        getStyleClass().add("status-rascunho");
+                    }
+                    else {
+                        setText("ARQUIVADO");
+                        getStyleClass().add("status-arquivado");
+                    }
                 }
             }
         });
 
+        // PESQUISA AVANÇADA
+        if (txtSearch != null) {
+            txtSearch.textProperty().addListener((obs, old, newValue) -> {
+                articlesTable.setItems(FXCollections.observableArrayList(articleService.searchAdvanced(newValue)));
+            });
+        }
+        if (comboFilterStatus != null) {
+            comboFilterStatus.setItems(FXCollections.observableArrayList("Todos", "Rascunho", "Publicado", "Arquivado"));
+            comboFilterStatus.setValue("Todos");
+
+            comboFilterStatus.valueProperty().addListener((obs, oldVal, newVal) -> applyFilters());
+        }
+
+        if (txtSearch != null) {
+            txtSearch.textProperty().addListener((obs, oldVal, newVal) -> applyFilters());
+        }
+
         refreshArticles();
+    }
+
+    private void applyFilters() {
+        String searchText = txtSearch.getText().toLowerCase();
+        String statusFilter = comboFilterStatus.getValue();
+
+        List<EntityArticles> allArticles = articleService.findAll();
+
+        List<EntityArticles> filtered = allArticles.stream()
+                .filter(article -> {
+
+                    boolean matchesText = article.getTitle().toLowerCase().contains(searchText) ||
+                            (article.getDoi() != null && article.getDoi().toLowerCase().contains(searchText)) ||
+                            (article.getExternalAuthor() != null && article.getExternalAuthor().toLowerCase().contains(searchText)) ||
+                            article.getAuthors().stream().anyMatch(a -> a.getUser().getName().toLowerCase().contains(searchText));
+
+
+                    boolean matchesStatus = statusFilter.equals("Todos") || article.getStatus().equals(statusFilter);
+
+                    return matchesText && matchesStatus;
+                })
+                .collect(Collectors.toList());
+
+        articlesTable.setItems(FXCollections.observableArrayList(filtered));
     }
 
     @FXML
@@ -89,55 +189,8 @@ public class ArticlesController {
         articlesTable.setItems(FXCollections.observableArrayList(articleService.findAll()));
     }
 
-    @FXML
-    private void handleAddArticle() {
-        showArticleForm(null);
-    }
-
-    @FXML
-    private void handleEditArticle() {
-        EntityArticles selected = articlesTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            showArticleForm(selected);
-        } else {
-            showAlert(Alert.AlertType.WARNING, "Seleção Necessária", "Selecione um artigo para editar.");
-        }
-    }
-
-    @FXML
-    private void handleOpenArticle() {
-        EntityArticles selected = articlesTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            try {
-                articleService.openArticleFile(selected.getFilePath());
-            } catch (Exception e) {
-                showAlert(Alert.AlertType.ERROR, "Erro ao abrir ficheiro", e.getMessage());
-            }
-        } else {
-            showAlert(Alert.AlertType.WARNING, "Aviso", "Selecione um artigo para abrir o PDF.");
-        }
-    }
-
-    @FXML
-    private void handleDeleteArticle() {
-        EntityArticles selected = articlesTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            if (confirmDelete(selected.getTitle())) {
-                try {
-                    articleService.delete(selected.getIdArticle());
-                    refreshArticles();
-                } catch (Exception e) {
-                    showAlert(Alert.AlertType.ERROR, "Erro ao eliminar", e.getMessage());
-                }
-            }
-        } else {
-            showAlert(Alert.AlertType.WARNING, "Aviso", "Selecione um artigo para eliminar.");
-        }
-    }
-
     private void showArticleForm(EntityArticles article) {
         try {
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("article-form.fxml"));
             loader.setControllerFactory(springContext::getBean);
             Parent root = loader.load();
@@ -155,7 +208,25 @@ public class ArticlesController {
             refreshArticles();
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erro de Interface", "Não foi possível carregar o formulário.");
+            showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível carregar o formulário.");
+        }
+    }
+
+    @FXML private void handleAddArticle() { showArticleForm(null); }
+    @FXML private void handleEditArticle() {
+        EntityArticles selected = articlesTable.getSelectionModel().getSelectedItem();
+        if (selected != null) showArticleForm(selected);
+    }
+    @FXML private void handleClearSearch() { txtSearch.clear(); refreshArticles(); }
+    @FXML private void handleOpenArticle() {
+        EntityArticles selected = articlesTable.getSelectionModel().getSelectedItem();
+        if (selected != null) articleService.openArticleFile(selected.getFilePath());
+    }
+    @FXML private void handleDeleteArticle() {
+        EntityArticles selected = articlesTable.getSelectionModel().getSelectedItem();
+        if (selected != null && confirmDelete(selected.getTitle())) {
+            articleService.delete(selected.getIdArticle());
+            refreshArticles();
         }
     }
 
@@ -169,9 +240,8 @@ public class ArticlesController {
 
     private boolean confirmDelete(String title) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmar Eliminação");
-        alert.setHeaderText("Vai eliminar o artigo: " + title);
-        alert.setContentText("Esta ação não pode ser desfeita e removerá o ficheiro físico.");
+        alert.setTitle("Confirmar");
+        alert.setHeaderText("Eliminar: " + title);
         return alert.showAndWait().filter(b -> b == ButtonType.OK).isPresent();
     }
 }
