@@ -123,3 +123,82 @@
     -fx-cursor: hand;
 }
 .button-logout:hover { -fx-background-color: #c0392b; }
+
+/* ==========================================================================
+   6. FORMULÁRIOS E INPUTS
+   ========================================================================== */
+
+.text-field, .password-field {
+    -fx-background-color: white;
+    -fx-border-color: #dcdde1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 10;
+}
+
+.label-erro-login {
+    -fx-text-fill: #e74c3c;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 0;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #3498db;
+    -fx-border-width: 1.5;
+}
+/* Estilo específico para o botão de mostrar password */
+.button-secondary {
+    -fx-font-size: 14px;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.button-secondary:selected {
+    -fx-background-color: #dcdde1;
+    -fx-border-color: #3498db;
+}
+
+/* Classe aplicada via Java quando há erro de validação */
+.input-error {
+    -fx-border-color: #e74c3c !important;
+    -fx-border-width: 2 !important;
+}
+
+/* Classe informativa para o "A autenticar..." */
+.label-info {
+    -fx-text-fill: #3498db;
+    -fx-font-style: italic;
+}
+
+
+.detalhe-titulo {
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-text-fill: #2c3e50;
+    -fx-wrap-text: true;
+}
+
+.detalhe-subtitulo {
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-text-fill: #34495e;
+}
+
+.detalhe-info {
+    -fx-font-size: 12px;
+    -fx-text-fill: #7f8c8d;
+    -fx-line-spacing: 5px;
+}
+
+.detalhe-textarea {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 5;
+}
+
+.label-placeholder {
+    -fx-text-fill: #95a5a6;
+    -fx-font-style: italic;
+    -fx-padding: 20;
+}

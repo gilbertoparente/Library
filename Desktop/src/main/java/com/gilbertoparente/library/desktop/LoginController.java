@@ -50,27 +50,34 @@ public class LoginController {
         String email = emailField.getText().trim();
         String password = passwordField.getText();
 
+        // Reset de estilos e mensagens
+        emailField.getStyleClass().remove("input-error");
+        passwordField.getStyleClass().remove("input-error");
+        errorLabel.getStyleClass().remove("label-erro");
+        errorLabel.getStyleClass().remove("label-info");
+        errorLabel.setText("");
+
         if (email.isEmpty() || password.isEmpty()) {
+            if (email.isEmpty()) emailField.getStyleClass().add("input-error");
+            if (password.isEmpty()) passwordField.getStyleClass().add("input-error");
             showError("Preencha todos os campos.");
             return;
         }
+
+        // Estilo de processamento (Informativo)
         errorLabel.setText("A autenticar...");
+        errorLabel.getStyleClass().add("label-info");
 
         try {
             Optional<EntityUsers> userOpt = userRepository.findByEmail(email);
 
             if (userOpt.isPresent()) {
                 EntityUsers user = userOpt.get();
-
                 if (encoder.matches(password, user.getPassword())) {
-
                     if (Boolean.TRUE.equals(user.getIsAdmin())) {
                         userSession.setLoggedUser(user);
-
                         Stage stage = (Stage) emailField.getScene().getWindow();
                         MainApp.showDashboardView(stage);
-
-                        System.out.println("Login efetuado com sucesso: " + user.getName());
                     } else {
                         showError("Acesso restrito a administradores.");
                     }
@@ -87,13 +94,12 @@ public class LoginController {
     }
 
     private void showError(String message) {
-        if (!errorLabel.getStyleClass().contains("label-erro-login")) {
-            errorLabel.getStyleClass().add("label-erro-login");
-        }
-
         errorLabel.setText(message);
-        errorLabel.setVisible(true);
+        errorLabel.getStyleClass().remove("label-info");
+        errorLabel.getStyleClass().add("label-erro");
     }
+
+
     @FXML
     private void handleExit() {
         Platform.exit();

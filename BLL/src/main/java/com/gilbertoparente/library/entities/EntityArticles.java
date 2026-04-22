@@ -7,9 +7,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDateTime;
-import java.util.HashSet; // Importar HashSet
+import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;     // Mudar de Collection para Set
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "articles")
@@ -58,7 +59,6 @@ public class EntityArticles {
     @Column(name = "external_author")
     private String externalAuthor;
 
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "article_author",
@@ -67,8 +67,7 @@ public class EntityArticles {
     )
     private Set<EntityAuthors> authors = new HashSet<>();
 
-
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
     @JoinTable(
             name = "article_thematic",
             joinColumns = @JoinColumn(name = "id_article"),
@@ -79,7 +78,59 @@ public class EntityArticles {
     @OneToMany(mappedBy = "article")
     private Set<EntityPurchases> purchases = new HashSet<>();
 
-    // --- GETTERS E SETTERS
+
+    //nostra autores
+    @Transient
+    public String getDisplayAuthors() {
+        if (authors != null && !authors.isEmpty()) {
+            return authors.stream()
+                    .map(author -> author.getUser() != null ? author.getUser().getName() : "Autor S/ Nome")
+                    .collect(Collectors.joining(", "));
+        }
+        return "Sem autor registado";
+    }
+
+    // get e set
+
+    public int getIdArticle() { return idArticle; }
+    public void setIdArticle(int idArticle) { this.idArticle = idArticle; }
+
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+
+    public String getResume() { return resume; }
+    public void setResume(String resume) { this.resume = resume; }
+
+    public Date getPublicationDate() { return publicationDate; }
+    public void setPublicationDate(Date publicationDate) { this.publicationDate = publicationDate; }
+
+    public BigDecimal getPrice() { return price; }
+    public void setPrice(BigDecimal price) { this.price = price; }
+
+    public String getFilePath() { return filePath; }
+    public void setFilePath(String filePath) { this.filePath = filePath; }
+
+    public Integer getVatRate() { return vatRate; }
+    public void setVatRate(Integer vatRate) { this.vatRate = vatRate; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    public String getDoi() { return doi; }
+    public void setDoi(String doi) { this.doi = doi; }
+
+    public String getKeywords() { return keywords; }
+    public void setKeywords(String keywords) { this.keywords = keywords; }
+
+    public String getExternalAuthor() { return externalAuthor; }
+    public void setExternalAuthor(String externalAuthor) {
+        // Lógica para garantir que nunca fica null na base de dados se preferir
+        if (externalAuthor == null || externalAuthor.trim().isEmpty()) {
+            this.externalAuthor = "sem autor externo";
+        } else {
+            this.externalAuthor = externalAuthor;
+        }
+    }
 
     public Set<EntityAuthors> getAuthors() { return authors; }
     public void setAuthors(Set<EntityAuthors> authors) { this.authors = authors; }
@@ -87,38 +138,12 @@ public class EntityArticles {
     public Set<EntityThematics> getThematics() { return thematics; }
     public void setThematics(Set<EntityThematics> thematics) { this.thematics = thematics; }
 
-    // Manter os outros getters/setters (id, title, status, etc...)
-    public int getIdArticle() { return idArticle; }
-    public void setIdArticle(int idArticle) { this.idArticle = idArticle; }
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-    public String getResume() { return resume; }
-    public void setResume(String resume) { this.resume = resume; }
-    public Date getPublicationDate() { return publicationDate; }
-    public void setPublicationDate(Date publicationDate) { this.publicationDate = publicationDate; }
-    public BigDecimal getPrice() { return price; }
-    public void setPrice(BigDecimal price) { this.price = price; }
-    public String getFilePath() { return filePath; }
-    public void setFilePath(String filePath) { this.filePath = filePath; }
-    public Integer getVatRate() { return vatRate; }
-    public void setVatRate(Integer vatRate) { this.vatRate = vatRate; }
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-    public String getDoi() { return doi; }
-    public void setDoi(String doi) { this.doi = doi; }
-    public String getKeywords() { return keywords; }
-    public void setKeywords(String keywords) { this.keywords = keywords; }
-    public String getExternalAuthor() { return externalAuthor; }
-    public void setExternalAuthor(String externalAuthor) { this.externalAuthor = externalAuthor; }
-
     public BigDecimal getFullPrice() {
         if (price == null) return BigDecimal.ZERO;
         if (vatRate == null || vatRate == 0) return price;
-
         BigDecimal vatMultiplier = new BigDecimal(vatRate)
                 .divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP)
                 .add(BigDecimal.ONE);
-
         return price.multiply(vatMultiplier).setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 

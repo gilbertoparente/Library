@@ -7,7 +7,7 @@ git push origin feature-login-registo
 
 # depois no Rider
 git checkout main
-git pull
+git pul
 # criação de nova branch
 git checkout -b feature-desktop
 git push -u origin feature-desktop
