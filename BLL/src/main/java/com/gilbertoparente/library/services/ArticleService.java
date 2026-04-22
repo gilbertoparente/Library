@@ -19,26 +19,34 @@ public class ArticleService {
 
     @Autowired
     private ArticleRepository articleRepository;
+
     private static final String UPLOAD_DIR = "files";
+
     public List<EntityArticles> findAll() {
         return articleRepository.findAll();
     }
+
     public List<EntityArticles> findPublished() {
         return articleRepository.findByStatus("published");
     }
+
     public EntityArticles findById(int id) {
         return articleRepository.findById(id).orElse(null);
     }
 
     public List<EntityArticles> searchByTitle(String title) {
-
         if (title == null || title.trim().isEmpty()) {
             return articleRepository.findAll();
         }
-
         return articleRepository.findByTitleContainingIgnoreCase(title.trim());
     }
 
+    /**
+     * Exemplo de uso da pesquisa por autor externo (caso precise no futuro)
+     */
+    public List<EntityArticles> searchByExternalAuthor(String authorName) {
+        return articleRepository.findByExternalAuthorContainingIgnoreCase(authorName);
+    }
 
     @Transactional
     public EntityArticles save(EntityArticles article, File fileToUpload) {
@@ -60,7 +68,6 @@ public class ArticleService {
 
                 Files.copy(fileToUpload.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 
-
                 if (article.getFilePath() != null) {
                     deletePhysicalFile(article.getFilePath());
                 }
@@ -73,7 +80,6 @@ public class ArticleService {
         }
         return articleRepository.save(article);
     }
-
 
     public void openArticleFile(String filePath) {
         if (filePath == null || filePath.isEmpty()) {
@@ -114,7 +120,6 @@ public class ArticleService {
         articleRepository.delete(article);
     }
 
-
     private void deletePhysicalFile(String pathStr) {
         try {
             Path filePath = Paths.get(pathStr);
@@ -136,7 +141,7 @@ public class ArticleService {
     @Transactional
     public EntityArticles save(EntityArticles article) {
         validateArticle(article);
-        return articleRepository.save(article);
+        return articleRepository.saveAndFlush(article);
     }
 
     public List<EntityArticles> searchAdvanced(String term) {
@@ -144,8 +149,10 @@ public class ArticleService {
             return articleRepository.findAll();
         }
         String query = term.trim();
-        return articleRepository.findByTitleContainingIgnoreCaseOrDoiContainingIgnoreCaseOrKeywordsContainingIgnoreCase( query, query, query);
+        return articleRepository.findByTitleContainingIgnoreCaseOrDoiContainingIgnoreCaseOrKeywordsContainingIgnoreCase(query, query, query);
     }
 
-
+    public boolean existsByDoi(String doi) {
+        return articleRepository.existsByDoi(doi);
+    }
 }

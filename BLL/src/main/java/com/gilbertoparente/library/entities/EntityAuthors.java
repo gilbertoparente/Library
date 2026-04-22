@@ -7,14 +7,13 @@ import java.util.Objects;
 @Entity
 @Table(name = "authors")
 public class EntityAuthors {
-
     @Id
-    @Column(name = "id_user")
-    private int idUser;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_author") // Mapeia para a PK real da tabela
+    private int idAuthor;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @MapsId
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "id_user") // FK para a tabela de users
     private EntityUsers user;
 
     @Column(name = "affiliation", length = 150)
@@ -27,8 +26,12 @@ public class EntityAuthors {
     private Collection<EntityArticles> articles;
 
 
-    public int getIdUser() {
-        return idUser;
+    public int getIdAuthor() {
+        return idAuthor;
+    }
+
+    public void setIdAuthor(int idAuthor) {
+        this.idAuthor = idAuthor;
     }
 
     public EntityUsers getUser() {
@@ -74,11 +77,11 @@ public class EntityAuthors {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EntityAuthors that = (EntityAuthors) o;
-        return idUser == that.idUser;
+        return idAuthor == that.idAuthor;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idUser);
+        return Objects.hash(idAuthor);
     }
 }

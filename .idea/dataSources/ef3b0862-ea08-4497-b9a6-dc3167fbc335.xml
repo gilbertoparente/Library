@@ -3,17 +3,9 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.43">
     <root id="1">
       <DateStyle>dmy</DateStyle>
-      <Grants>1||-9223372036854775808|c|G
-1||10|c|G
-1||10|C|G
-1||10|T|G
-4||-9223372036854775808|c|G
-4||10|c|G
-4||10|C|G
-4||10|T|G</Grants>
-      <IntrospectionStateNumber>7791</IntrospectionStateNumber>
+      <IntrospectionStateNumber>7873</IntrospectionStateNumber>
       <ServerVersion>15.2</ServerVersion>
-      <StartupTime>1776252568</StartupTime>
+      <StartupTime>1776428641</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -822,7 +814,7 @@ false Zulu
 13183||10|C|G
 13183||-9223372036854775808|U|G
 13183||10|U|G</Grants>
-      <IntrospectionStateNumber>7791</IntrospectionStateNumber>
+      <IntrospectionStateNumber>7873</IntrospectionStateNumber>
       <ObjectId>692150</ObjectId>
       <Relations>sequence|table|692151|692152|1
 sequence|table|692161|692162|1
@@ -4238,7 +4230,7 @@ sequence|table|700507|700508|1
     <schema id="264" parent="5" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>7791</IntrospectionStateNumber>
+      <IntrospectionStateNumber>7873</IntrospectionStateNumber>
       <ObjectId>2200</ObjectId>
       <StateNumber>518</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -4293,7 +4285,7 @@ sequence|table|700507|700508|1
     </table>
     <table id="273" parent="264" name="articles">
       <ObjectId>692181</ObjectId>
-      <StateNumber>7790</StateNumber>
+      <StateNumber>7792</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
@@ -4509,17 +4501,17 @@ id_thematic</ColNames>
       <StateNumber>7790</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="302" parent="273" name="refauthor">
-      <DataType>varchar(255)|0s</DataType>
-      <Position>12</Position>
-      <StateNumber>7790</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="303" parent="273" name="keywords">
+    <column id="302" parent="273" name="keywords">
       <DataType>text|0s</DataType>
       <Position>13</Position>
       <StateNumber>7790</StateNumber>
       <TypeId>25</TypeId>
+    </column>
+    <column id="303" parent="273" name="external_author">
+      <DataType>varchar(255)|0s</DataType>
+      <Position>14</Position>
+      <StateNumber>7792</StateNumber>
+      <TypeId>1043</TypeId>
     </column>
     <index id="304" parent="273" name="articles_pkey">
       <ColNames>id_article</ColNames>
