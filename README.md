@@ -31,7 +31,7 @@ O projeto foi desenvolvido seguindo a abordagem **Database First**, onde a estru
 2.  **Configuração de Ligação:**
     No ficheiro `src/main/resources/application.properties`, configure as credenciais de acesso ao seu servidor local:
     ```properties
-    spring.datasource.url=jdbc:postgresql://localhost:5432/biblioteca_cientifica
+    spring.datasource.url=jdbc:postgresql://localhost:5432/scientific_library
     spring.datasource.username=o_teu_utilizador
     spring.datasource.password=a_tua_password
     
