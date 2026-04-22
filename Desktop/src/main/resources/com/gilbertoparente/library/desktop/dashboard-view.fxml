@@ -48,7 +48,8 @@
 
             <VBox spacing="10.0">
                 <Separator opacity="0.1" />
-                <Button maxWidth="Infinity" onAction="#handleLogout" text="Terminar Sessão" styleClass="button-logout" />
+                <Button fx:id="btnLogout" maxWidth="Infinity" onAction="#handleLogout"
+                        text="Terminar Sessão" styleClass="button-logout" />
             </VBox>
         </VBox>
     </left>

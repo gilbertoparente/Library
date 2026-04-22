@@ -8,7 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
+import javafx.event.ActionEvent;
 import java.io.IOException;
 
 @Component
@@ -28,6 +29,9 @@ public class AdminDashboardController {
     @FXML private Label lblAdminName;
     @FXML private Label lblPendingAlert;
     @FXML private AnchorPane mainContent;
+
+    @FXML
+    private Button btnLogout;
 
     @FXML
     public void initialize() {
@@ -84,10 +88,30 @@ public class AdminDashboardController {
     }
 
 
-    @FXML
-    private void handleLogout() {
-        System.exit(0);
-    }
+        @FXML
+        private void handleLogout(ActionEvent event) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/gilbertoparente/library/desktop/login-view.fxml"));
+                loader.setControllerFactory(springContext::getBean);
+                Parent loginRoot = loader.load();
+
+                Stage currentStage = (Stage) btnLogout.getScene().getWindow();
+
+                Scene loginScene = new Scene(loginRoot, 800, 600);
+
+                currentStage.setScene(loginScene);
+                currentStage.setTitle("Login - Biblioteca Científica");
+
+
+                currentStage.setResizable(false);
+                currentStage.centerOnScreen();
+                currentStage.show();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                showAlert("Erro", "Não foi possível carregar o login.");
+            }
+        }
 
     private void navigateToLogin() {
         try {

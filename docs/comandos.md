@@ -23,7 +23,9 @@ pg_dump -U postgres -d scientific_library -F c -f C:\Users\gilbe\Desktop\backup.
 
 pg_restore -U postgres -d nova_base --disable-triggers C:\Users\gilbe\Desktop\backup.backup
 
-# code first
+
+
+### code first
 
 createdb -U postgres scientific_library
 
