@@ -29,7 +29,7 @@ public class MainApp extends Application {
         Parent root = fxmlLoader.load();
 
         stage.setTitle("Open Library - Login");
-        // Login fixo e centrado (não maximizado por padrão)
+        // Login fixo e centrado
         stage.setScene(new Scene(root, 800, 600));
         stage.setResizable(false);
 

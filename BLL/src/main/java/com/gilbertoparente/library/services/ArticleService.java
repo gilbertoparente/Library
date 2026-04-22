@@ -130,11 +130,25 @@ public class ArticleService {
     }
 
     private void validateArticle(EntityArticles article) {
+        //  Validação do Título
         if (article.getTitle() == null || article.getTitle().trim().isEmpty()) {
             throw new RuntimeException("O título do artigo não pode estar vazio.");
         }
-        if (article.getPrice() == null || article.getPrice().compareTo(java.math.BigDecimal.ZERO) < 0) {
-            throw new RuntimeException("O preço não pode ser negativo.");
+
+        // Validação do Preço (Deve ser > 0)
+
+        if (article.getPrice() == null || article.getPrice().compareTo(java.math.BigDecimal.ZERO) <= 0) {
+            throw new RuntimeException("O preço do artigo deve ser um valor positivo superior a zero.");
+        }
+
+        // Validação da Data (Não pode ser futura)
+
+        if (article.getPublicationDate() != null) {
+            java.util.Date hoje = new java.util.Date();
+
+            if (article.getPublicationDate().after(hoje)) {
+                throw new RuntimeException("A data de publicação não pode ser uma data futura.");
+            }
         }
     }
 

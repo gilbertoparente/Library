@@ -52,7 +52,6 @@
             <columns>
                 <TableColumn fx:id="nameColumn" prefWidth="200.0" text="Nome Completo" />
                 <TableColumn fx:id="emailColumn" prefWidth="250.0" text="E-mail de Acesso" />
-                <TableColumn fx:id="passwordColumn" prefWidth="150.0" text="Password" />
                 <TableColumn fx:id="adminColumn" prefWidth="120.0" text="Nível de Acesso" />
             </columns>
             <columnResizePolicy>

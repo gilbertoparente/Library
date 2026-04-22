@@ -24,8 +24,9 @@ O projeto foi desenvolvido seguindo a abordagem **Database First**, onde a estru
 
 1.  **Criação da Base de Dados:**
     * Certifique-se de que o PostgreSQL está em execução.
-    * Crie uma base de dados chamada `biblioteca_cientifica`.
-    * Execute o script SQL (fornecido na pasta `/database`) para criar as tabelas, relacionamentos e inserir dados iniciais.
+    * Crie uma base de dados chamada `scientific_library`.
+    * Execute o script SQL (fornecido na pasta `/docs`) para criar as tabelas, relacionamentos e inserir dados iniciais.
+    * Opcionalmente na pasta /docs, tem lá um ficheiro backup da basde de dados que poderá restaurar no Postgres
 
 2.  **Configuração de Ligação:**
     No ficheiro `src/main/resources/application.properties`, configure as credenciais de acesso ao seu servidor local:
@@ -45,30 +46,6 @@ O projeto foi desenvolvido seguindo a abordagem **Database First**, onde a estru
 As classes no pacote `com.gilbertoparente.library.entities` foram criadas para espelhar fielmente a estrutura das tabelas existentes, utilizando anotações JPA para definir chaves primárias, estrangeiras e tabelas de associação (como `article_thematic`).
 
 
-
-### 1. Base de Dados (Abordagem: Code First)
-O projeto utiliza a abordagem **Code First**. Isto significa que a estrutura das tabelas é gerada automaticamente pelo Hibernate a partir das entidades Java.
-
-1.  Crie uma base de dados no PostgreSQL chamada `biblioteca_cientifica`.
-2.  No ficheiro `src/main/resources/application.properties`, configure as suas credenciais:
-    ```properties
-    spring.datasource.url=jdbc:postgresql://localhost:5432/biblioteca_cientifica
-    spring.datasource.username=o_teu_utilizador
-    spring.datasource.password=a_tua_password
-    
-    # Atualização automática da estrutura (Code First)
-    spring.jpa.hibernate.ddl-auto=update
-    spring.jpa.show-sql=true
-    ```
-
-### 2. Execução no IDE (Rider / IntelliJ)
-1.  Importe o projeto como um projeto **Maven**.
-2.  Aguarde o download de todas as dependências.
-3.  Execute a classe principal `LibraryApplication.java`.
-4.  **Nota para JavaFX:** Certifique-se de que o SDK do JavaFX está configurado nos módulos do projeto ou que as dependências Maven do JavaFX estão carregadas.
-
----
-
 ## 📋 Funcionalidades Implementadas
 
 ### 🔐 Autenticação e Perfis
@@ -77,8 +54,8 @@ O projeto utiliza a abordagem **Code First**. Isto significa que a estrutura das
 
 ### 📑 Gestão de Artigos (Módulo Principal)
 * **Listagem Avançada:** Tabela dinâmica com suporte a `FilteredList` para pesquisa em tempo real (Título, Autor, DOI).
-* **Filtros Inteligentes:** Segmentação por Estado (Publicado/Rascunho) e Tipo de Acesso (Pago/Gratuito).
-* **Master-Detail:** Visualização de detalhes lateral sem troca de contexto, exibindo resumo, DOI e preços calculados.
+* **Filtros:** Segmentação por Estado (Publicado/Rascunho) e Tipo de Acesso (Pago/Gratuito).
+* **Visualização:** Visualização de detalhes lateral sem troca de contexto, exibindo resumo, DOI e preços calculados.
 * **Associações N:M:** Suporte para múltiplos autores e múltiplas temáticas por artigo através de tabelas associativas.
 
 ### ✍️ Edição e Publicação

@@ -31,7 +31,7 @@ public class UsersController {
     @FXML private TableView<EntityUsers> usersTable;
     @FXML private TableColumn<EntityUsers, String> nameColumn;
     @FXML private TableColumn<EntityUsers, String> emailColumn;
-    @FXML private TableColumn<EntityUsers, String> passwordColumn;
+
     @FXML private TableColumn<EntityUsers, Boolean> adminColumn;
 
     @FXML
@@ -42,19 +42,9 @@ public class UsersController {
     public void initialize() {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
+
         adminColumn.setCellValueFactory(new PropertyValueFactory<>("isAdmin"));
-
-        passwordColumn.setCellFactory(column -> new TableCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                setText((empty || item == null) ? null : "••••••••");
-                setStyle("-fx-alignment: CENTER;");
-            }
-        });
-
-        adminColumn.setCellFactory(column -> new TableCell<>() {
+                adminColumn.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(Boolean isAdmin, boolean empty) {
                 super.updateItem(isAdmin, empty);

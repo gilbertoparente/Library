@@ -60,7 +60,6 @@ CREATE TABLE public.articles (
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     status character varying(20) DEFAULT 'draft'::character varying,
     doi character varying(100),
-    refauthor character varying(255),
     keywords text,
     external_author character varying(255)
 );
