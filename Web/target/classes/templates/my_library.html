@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>A Minha Biblioteca</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-bookmarks me-2 text-primary"></i>A Minha Biblioteca</h2>
+        <a th:href="@{/articles/search}" class="btn btn-outline-secondary btn-sm">Explorar mais artigos</a>
+    </div>
+
+    <div th:if="${purchases.empty}" class="alert alert-info text-center shadow-sm">
+        <p class="mb-0">Ainda não tem artigos na sua biblioteca.</p>
+    </div>
+
+    <div class="row g-4" th:unless="${purchases.empty}">
+        <div class="col-md-6 col-lg-4" th:each="p : ${purchases}">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="badge bg-secondary small" th:text="${p.article.thematics[0].description}">Temática</span>
+                        <small class="text-muted" th:text="${#temporals.format(p.purchaseDate, 'dd/MM/yyyy')}">Data</small>
+                    </div>
+                    <h5 class="card-title fw-bold" th:text="${p.article.title}">Título do Artigo</h5>
+                    <p class="card-text text-muted small" th:text="${#strings.abbreviate(p.article.resume, 100)}">Resumo...</p>
+                </div>
+                <div class="card-footer bg-white border-0 d-grid gap-2 pb-3">
+                    <a th:href="@{/articles/view-pdf/{id}(id=${p.article.idArticle})}"
+                       class="btn btn-danger" target="_blank">
+                        <i class="bi bi-file-pdf me-2"></i>Ver PDF
+                    </a>
+                    <a th:href="@{/articles/details/{id}(id=${p.article.idArticle})}"
+                       class="btn btn-link btn-sm text-decoration-none text-muted">Ver Detalhes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

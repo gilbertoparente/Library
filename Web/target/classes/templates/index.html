@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Open Library - Bem-vindo</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<section class="hero-section">
+    <div class="container text-center">
+        <i class="bi bi-book-half display-1 mb-4"></i>
+        <h1 class="display-3 fw-bold mb-3">Open Library</h1>
+        <p class="lead mb-5">A tua biblioteca científica digital. Gere artigos, consulta publicações e partilha conhecimento.</p>
+
+        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+            <a th:href="@{/login}" class="btn btn-light btn-lg btn-auth px-5">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Entrar
+            </a>
+            <a th:href="@{/register}" class="btn btn-outline-light btn-lg btn-auth px-5">
+                <i class="bi bi-person-plus me-2"></i>Registar
+            </a>
+        </div>
+
+        <div class="mt-5 pt-5 row">
+            <div class="col-md-4 feature-box">
+                <i class="bi bi-search fs-2 mb-2"></i>
+                <h5>Pesquisa Avançada</h5>
+                <p class="small opacity-75">Encontra artigos científicos de diversas áreas.</p>
+            </div>
+            <div class="col-md-4 feature-box">
+                <i class="bi bi-feather fs-2 mb-2"></i>
+                <h5>Sejas Autor</h5>
+                <p class="small opacity-75">Submete os teus próprios trabalhos para revisão.</p>
+            </div>
+            <div class="col-md-4 feature-box">
+                <i class="bi bi-shield-check fs-2 mb-2"></i>
+                <h5>Acesso Seguro</h5>
+                <p class="small opacity-75">Sistema de autenticação robusto e perfis validados.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
