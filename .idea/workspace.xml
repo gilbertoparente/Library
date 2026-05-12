@@ -5,22 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="217472e6-7739-4771-9092-c617e6abfdfd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1125a8d5-ca2c-44dc-8ea5-d59a3ddcf7c4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1125a8d5-ca2c-44dc-8ea5-d59a3ddcf7c4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/CustomUserDetailsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/controllers/ArticleWebController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/controllers/DashboardController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/controllers/ProfileController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/article_details.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/articles_search.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/my_library.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/ArticleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/services/ArticleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/services/ArticleService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/AdminDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/AdminDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/MainApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/UsersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/dashboard-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/dashboard-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/login-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/users-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/resources/com/gilbertoparente/library/desktop/users-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/002_schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/docs/002_schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/backup.backup" beforeDir="false" afterPath="$PROJECT_DIR$/docs/backup.backup" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/comandos.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/comandos.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/dados.sql" beforeDir="false" afterPath="$PROJECT_DIR$/docs/dados.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/PurchaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/PurchaseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/repositories/PurchaseRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/target/classes/com/gilbertoparente/library/repositories/PurchaseRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Web/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/resources/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web/src/main/resources/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web/target/classes/com/gilbertoparente/library/web/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Web/target/classes/com/gilbertoparente/library/web/AuthController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web/target/classes/com/gilbertoparente/library/web/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/Web/target/classes/com/gilbertoparente/library/web/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web/target/classes/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Web/target/classes/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web/target/classes/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web/target/classes/templates/dashboard.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +115,7 @@
       <command value="mvn clean" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Launcher">
+  <component name="RunManager" selected="Compound.web">
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.gilbertoparente.library.desktop.Launcher" />
       <module name="Desktop" />
@@ -133,7 +138,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WebApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="web" type="CompoundRunConfigurationType">
+      <toRun name="WebApplication" type="SpringBootApplicationConfigurationType" />
+      <method v="2" />
+    </configuration>
+    <configuration name="WebApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ACTIVE_PROFILES" />
       <module name="Web" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.gilbertoparente.library.web.WebApplication" />
       <extension name="coverage">
@@ -149,12 +159,12 @@
     <list>
       <item itemvalue="Application.mianApp" />
       <item itemvalue="Application.Launcher" />
+      <item itemvalue="Compound.web" />
       <item itemvalue="Spring Boot.WebApplication" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Launcher" />
-        <item itemvalue="Spring Boot.WebApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -214,7 +224,13 @@
       <workItem from="1776429512983" duration="14137000" />
       <workItem from="1776774797260" duration="5894000" />
       <workItem from="1776855454765" duration="5054000" />
-      <workItem from="1776866104892" duration="459000" />
+      <workItem from="1776866104892" duration="1544000" />
+      <workItem from="1776938874336" duration="212000" />
+      <workItem from="1776952138782" duration="429000" />
+      <workItem from="1777471146080" duration="8000" />
+      <workItem from="1777474062048" duration="125000" />
+      <workItem from="1777482154856" duration="28000" />
+      <workItem from="1778590068960" duration="10900000" />
     </task>
     <servers />
   </component>

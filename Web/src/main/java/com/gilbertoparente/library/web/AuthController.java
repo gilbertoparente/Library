@@ -24,6 +24,18 @@ public class AuthController {
     @Autowired
     private AuthorService authorService;
 
+    //pagina inicial
+
+    @GetMapping("/")
+    public String showLandingPage(HttpSession session) {
+        // Se o utilizador já tiver sessão, manda-o para o dashboard
+        if (session.getAttribute("loggedUser") != null) {
+            return "redirect:/dashboard";
+        }
+        // Caso contrário, mostra a landing page (index.html)
+        return "index";
+    }
+
     // --- REGISTO ---
 
     @GetMapping("/register")
@@ -110,12 +122,4 @@ public class AuthController {
         return "redirect:/login?logout";
     }
 
-    @GetMapping("/dashboard")
-    public String showDashboard(HttpSession session) {
-
-        if (session.getAttribute("loggedUser") == null) {
-            return "redirect:/login";
-        }
-        return "dashboard";
-    }
 }

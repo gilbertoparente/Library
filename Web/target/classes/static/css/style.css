@@ -50,3 +50,27 @@ body {
     background-color: var(--bon-blue-dark);
     color: white;
 }
+
+/* src/main/resources/static/css/style.css */
+
+.hero-section {
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    color: white;
+    padding: 100px 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.btn-auth {
+    padding: 12px 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Podes adicionar aqui o estilo dos ícones para reaproveitar */
+.feature-box i {
+    color: #ffffff;
+    opacity: 0.9;
+}

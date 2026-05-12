@@ -19,12 +19,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable()) // Obrigatório para o teu POST manual funcionar
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
                 )
+
                 .headers(headers -> headers.disable());
 
         return http.build();
     }
+
+
 }

@@ -22,5 +22,9 @@ public interface PurchaseRepository extends JpaRepository<EntityPurchases, Integ
 
     List<EntityPurchases> findByPurchaseDateBetween(java.time.LocalDateTime start, java.time.LocalDateTime end);
 
+    boolean existsByUser_IdUserAndArticle_IdArticleAndStatus(int idUser, int idArticle, String status);
+
+
+
 
 }
