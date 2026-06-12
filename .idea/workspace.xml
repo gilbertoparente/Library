@@ -12,7 +12,6 @@
       <change afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/publish-article.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/sales-report.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/AuthorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/AuthorRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/AuthorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/AuthorService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/AuthController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/controllers/ArticleWebController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/controllers/ArticleWebController.java" afterDir="false" />
@@ -237,7 +236,7 @@
       <workItem from="1778590068960" duration="10900000" />
       <workItem from="1778601268231" duration="330000" />
       <workItem from="1781008316156" duration="1107000" />
-      <workItem from="1781269000479" duration="9435000" />
+      <workItem from="1781269000479" duration="9862000" />
     </task>
     <servers />
   </component>
