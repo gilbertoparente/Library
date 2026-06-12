@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Submeter Artigo - Open Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body class="bg-light">
+
+<div th:replace="~{fragments/navbar :: menu_superior}"></div>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm p-4">
+
+                <div class="d-flex align-items-center mb-4">
+                    <a th:href="@{/dashboard}" class="btn btn-light me-3"><i class="bi bi-arrow-left"></i></a>
+                    <h2 class="fw-bold mb-0 text-dark">Submeter Novo Artigo Científico</h2>
+                </div>
+
+                <div th:if="${param.error}" class="alert alert-danger border-0 small">
+                    <span th:if="${param.error[0] == 'title_required'}">O título do artigo é obrigatório.</span>
+                    <span th:if="${param.error[0] == 'file_required'}">Deve obrigatoriamente anexar o documento PDF do artigo.</span>
+                    <span th:if="${param.error[0] == 'not_an_author'}">Erro de Permissão: A sua conta não está registada na tabela de Autores.</span>
+                    <span th:if="${param.error[0] == 'failed_saving'}">Erro no processamento da BLL. Verifique os dados inseridos.</span>
+                </div>
+
+                <form th:action="@{/articles/publish}" th:object="${article}" method="POST" enctype="multipart/form-data">
+
+                    <div class="mb-3">
+                        <label for="title" class="form-label fw-bold">Título do Artigo *</label>
+                        <input type="text" id="title" th:field="*{title}" class="form-control" placeholder="Ex: Impacto da IA na Medicina Moderna" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="price" class="form-label fw-bold">Preço Base (€) *</label>
+                            <input type="number" step="0.01" id="price" th:field="*{price}" class="form-control" placeholder="0.00" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="vatRate" class="form-label fw-bold">Taxa de IVA (%) *</label>
+                            <select id="vatRate" th:field="*{vatRate}" class="form-select" required>
+                                <option value="6">6% (Taxa Reduzida)</option>
+                                <option value="13">13% (Taxa Intermédia)</option>
+                                <option value="23" selected>23% (Taxa Normal)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="doi" class="form-label fw-bold">Código DOI</label>
+                            <input type="text" id="doi" th:field="*{doi}" class="form-control" placeholder="Ex: 10.1000/xyz123">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="keywords" class="form-label fw-bold">Palavras-Chave</label>
+                            <input type="text" id="keywords" th:field="*{keywords}" class="form-control" placeholder="Separadas por vírgulas">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="pdfFile" class="form-label fw-bold">Ficheiro do Artigo (PDF) *</label>
+                        <div class="input-group">
+                            <input type="file" id="pdfFile" name="pdfFile" class="form-control" accept="application/pdf" required>
+                            <label class="input-group-text" for="pdfFile"><i class="bi bi-filetype-pdf text-danger"></i></label>
+                        </div>
+                        <small class="text-muted text-xs">Apenas são aceites documentos em formato .pdf</small>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold mb-2">Temáticas / Áreas Científicas</label>
+                        <div class="card bg-light p-3 border-0" style="max-height: 180px; overflow-y: auto;">
+                            <div class="row row-cols-1 row-cols-md-2 g-2">
+                                <div class="col" th:each="thematic : ${allThematics}">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="selectedThematics"
+                                               th:value="${thematic.idThematic}"
+                                               th:id="'them_' + ${thematic.idThematic}">
+                                        <label class="form-check-label small text-dark"
+                                               th:for="'them_' + ${thematic.idThematic}"
+                                               th:text="${thematic.description}">
+                                            Temática
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="resume" class="form-label fw-bold">Resumo / Abstract *</label>
+                        <textarea id="resume" th:field="*{resume}" class="form-control" rows="5" placeholder="Escreva o resumo científico do manuscrito..." required></textarea>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg shadow-sm">
+                            <i class="bi bi-cloud-arrow-up-fill me-2"></i>Submeter Artigo para Análise
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -22,6 +22,10 @@ public class AuthorService {
         return authorRepository.findById(idUser).orElse(null);
     }
 
+    public java.util.Optional<EntityAuthors> findByUser_IdUser(int idUser) {
+        return authorRepository.findByUser_IdUser(idUser);
+    }
+
     @Transactional
     public EntityAuthors save(EntityAuthors author) {
 

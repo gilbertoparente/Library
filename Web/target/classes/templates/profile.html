@@ -8,13 +8,7 @@
 </head>
 <body class="bg-light">
 
-<nav class="navbar navbar-dark bg-dark shadow-sm mb-4">
-    <div class="container">
-        <a class="navbar-brand" th:href="@{/dashboard}">
-            <i class="bi bi-arrow-left-circle me-2"></i>Voltar ao Dashboard
-        </a>
-    </div>
-</nav>
+<div th:replace="~{fragments/navbar :: menu_superior}"></div>
 
 <div class="container">
     <div class="row justify-content-center">

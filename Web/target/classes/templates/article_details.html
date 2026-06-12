@@ -8,16 +8,7 @@
 </head>
 <body class="bg-light">
 
-<nav class="navbar navbar-dark bg-dark shadow-sm mb-4">
-    <div class="container">
-        <a class="navbar-brand fw-bold" th:href="@{/dashboard}">
-            <i class="bi bi-book-half me-2"></i>Open Library
-        </a>
-        <a class="btn btn-outline-light btn-sm" th:href="@{/articles/search}">
-            <i class="bi bi-arrow-left"></i> Voltar à Pesquisa
-        </a>
-    </div>
-</nav>
+<div th:replace="~{fragments/navbar :: menu_superior}"></div>
 
 <div class="container py-4">
     <div class="row g-5">
@@ -77,8 +68,8 @@
                 <hr>
 
                 <div class="text-center mb-4">
-            <span class="display-6 fw-bold text-primary"
-                  th:text="${#numbers.formatCurrency(article.getFullPrice())}">0.00€</span>
+                    <span class="display-6 fw-bold text-primary"
+                          th:text="${#numbers.formatCurrency(article.getFullPrice())}">0.00€</span>
                     <br><small class="text-muted">(IVA incluído)</small>
                 </div>
 
@@ -104,9 +95,10 @@
                         </th:block>
 
                         <th:block th:if="${article.price > 0}">
-                            <button class="btn btn-success btn-lg shadow-sm">
+                            <a th:href="@{/articles/buy/{id}(id=${article.idArticle})}"
+                               class="btn btn-success btn-lg shadow-sm">
                                 <i class="bi bi-cart-check me-2"></i>Comprar Artigo
-                            </button>
+                            </a>
                             <small class="text-center text-muted">PDF disponível após confirmação.</small>
                         </th:block>
                     </div>
