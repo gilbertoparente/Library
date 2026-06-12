@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -165,17 +166,106 @@ public class ArticleWebController {
     }
 
     @GetMapping("/articles/my-library")
-    public String showMyLibrary(HttpSession session, Model model) {
+    public String showMyLibrary(
+            @RequestParam(value = "thematic", required = false) Integer thematicId,
+            @RequestParam(value = "author", required = false) Integer authorId,
+            HttpSession session,
+            Model model) {
+
         // 1. Verificar se o utilizador está logado
         EntityUsers user = (EntityUsers) session.getAttribute("loggedUser");
         if (user == null) return "redirect:/login";
 
-        // 2. Buscar as compras concluídas ("pago")
+        // 2. Enviar dados para popular os filtros da biblioteca
+        model.addAttribute("allThematics", thematicService.findAll());
+        model.addAttribute("allAuthors", authorService.findAll());
+
+        // 3. Buscar as compras pagas do utilizador
         List<EntityPurchases> myPurchases = purchaseRepository.findByUser_IdUserAndStatus(user.getIdUser(), "pago");
 
-        // 3. Enviar para o Model
+        // 4. Filtrar a lista em memória (Java Stream) com base na escolha do utilizador
+        if (thematicId != null && thematicId > 0) {
+            myPurchases = myPurchases.stream()
+                    .filter(p -> p.getArticle().getThematics().stream()
+                            .anyMatch(t -> t.getIdThematic() == thematicId))
+                    .toList();
+        }
+
+        if (authorId != null && authorId > 0) {
+            myPurchases = myPurchases.stream()
+                    .filter(p -> p.getArticle().getAuthors().stream()
+                            .anyMatch(a -> a.getUser().getIdUser() == authorId))
+                    .toList();
+        }
+
+        // 5. Enviar resultados e estados dos filtros de volta para a View
         model.addAttribute("purchases", myPurchases);
+        model.addAttribute("lastThematic", thematicId);
+        model.addAttribute("lastAuthor", authorId);
 
         return "my_library";
+    }
+
+    // --- INICIAR PROCESSO DE COMPRA (PRODUTO PAGO) ---
+    @GetMapping("/articles/buy/{id}")
+    public String startPurchase(@PathVariable("id") int id, HttpSession session, RedirectAttributes redirectAttributes, Model model) {
+        EntityUsers user = (EntityUsers) session.getAttribute("loggedUser");
+        if (user == null) return "redirect:/login";
+
+        EntityArticles article = articleService.findById(id);
+        if (article == null) return "redirect:/articles/search";
+
+        // 1. Verificar se já comprou no passado
+        boolean alreadyOwned = purchaseRepository.existsByUser_IdUserAndArticle_IdArticleAndStatus(
+                user.getIdUser(), id, "pago");
+        if (alreadyOwned) {
+            redirectAttributes.addFlashAttribute("info", "Já adquiriu este artigo anteriormente.");
+            return "redirect:/articles/details/" + id;
+        }
+
+        // 2. Enviar os dados para a página de checkout simulado
+        model.addAttribute("article", article);
+        return "checkout"; // Nome do novo HTML que vamos criar abaixo
+    }
+
+    // --- CONFIRMAR/SIMULAR O PAGAMENTO ---
+    // --- CONFIRMAR PAGAMENTO E GERAR DADOS DA FATURA ---
+    @PostMapping("/articles/checkout/pay/{id}")
+    public String processPayment(
+            @PathVariable("id") int id,
+            @RequestParam("billingName") String billingName,
+            @RequestParam("billingNif") String billingNif,
+            @RequestParam("billingAddress") String billingAddress,
+            HttpSession session,
+            RedirectAttributes redirectAttributes) {
+
+        EntityUsers user = (EntityUsers) session.getAttribute("loggedUser");
+        if (user == null) return "redirect:/login";
+
+        EntityArticles article = articleService.findById(id);
+        if (article == null) return "redirect:/articles/search";
+
+        // 1. Criar o registo final de compra
+        EntityPurchases purchase = new EntityPurchases();
+        purchase.setUser(user);
+        purchase.setArticle(article);
+        purchase.setAmount(article.getFullPrice());
+        purchase.setStatus("pago");
+
+        // 2. Vincular os dados da fatura à compra
+        // Nota: Se a tua tabela EntityPurchases ainda não tiver estes campos na BD,
+        // podes guardá-los ou fazer um System.out para simulação por agora:
+        System.out.println("FATURA EMITIDA PARA: " + billingName + " | NIF: " + billingNif + " | Morada: " + billingAddress);
+
+    /* Se tiveres os campos criados na entidade Purchases, descomenta abaixo:
+    purchase.setBillingName(billingName);
+    purchase.setBillingNif(billingNif);
+    purchase.setBillingAddress(billingAddress);
+    */
+
+        purchaseRepository.save(purchase);
+
+        redirectAttributes.addFlashAttribute("success", "Pagamento confirmado! A sua fatura foi emitida com sucesso e o artigo já está na sua biblioteca.");
+        return "redirect:/articles/details/" + id;
     }
 }

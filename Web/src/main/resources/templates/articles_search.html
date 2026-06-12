@@ -8,11 +8,9 @@
 </head>
 <body class="bg-light">
 
-<nav class="navbar navbar-dark bg-dark mb-4">
-    <div class="container">
-        <a class="navbar-brand fw-bold" th:href="@{/dashboard}">Open Library</a>
-    </div>
-</nav>
+<div th:replace="~{fragments/navbar :: menu_superior}"></div>
+
+
 
 <div class="container">
     <div class="card border-0 shadow-sm mb-4">
@@ -93,10 +91,11 @@
                                     <i class="bi bi-journal-plus"></i>
                                     </a>
 
-                                    <button th:if="${article.price > 0}"
-                                                class="btn btn-success" title="Comprar Artigo">
-                                         <i class="bi bi-cart-plus"></i>
-                                    </button>
+                                        <a th:if="${article.price > 0}"
+                                           th:href="@{/articles/buy/{id}(id=${article.idArticle})}"
+                                           class="btn btn-success" title="Comprar Artigo">
+                                            <i class="bi bi-cart-plus"></i>
+                                        </a>
 
                             </th:block>
                         </div>
