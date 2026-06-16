@@ -27,13 +27,13 @@ import java.util.Set;
 public class ArticlePublishController {
 
     @Autowired
-    private ArticleService articleService; // Usar o Serviço da BLL tal como no Desktop
+    private ArticleService articleService; // Serviço da BLL
 
     @Autowired
-    private AuthorService authorService; // Usar o Serviço da BLL
+    private AuthorService authorService;
 
     @Autowired
-    private ThematicsService thematicsService; // Usar o Serviço da BLL para carregar checkboxes
+    private ThematicsService thematicsService;
 
     @GetMapping("/publish")
     public String showPublishForm(HttpSession session, Model model) {
@@ -102,7 +102,6 @@ public class ArticlePublishController {
             }
 
             // 5. Tratamento de Upload de Ficheiro (Conversão MultipartFile -> java.io.File)
-            // Criamos um ficheiro temporário no sistema para passar de forma limpa ao teu ArticleService.save()
             String tempDir = System.getProperty("java.io.tmpdir");
             tempFile = new File(tempDir + File.separator + multipartFile.getOriginalFilename());
             multipartFile.transferTo(tempFile);

@@ -64,4 +64,11 @@ public class CommentService {
         // 0 = Pendente
         return commentRepository.findByStatus(0).size();
     }
+
+    public List<EntityComments> findByArticleId(int idArticle) {
+        // Chama o método que mapeámos no repositório no Passo 1
+        return commentRepository.findByArticle_IdArticle(idArticle);
+    }
+
+
 }

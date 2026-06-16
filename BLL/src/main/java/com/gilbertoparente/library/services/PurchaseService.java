@@ -94,4 +94,9 @@ public class PurchaseService {
         }
         return purchaseRepository.findByStatus(status);
     }
+    public boolean hasUserPurchasedArticle(int idUser, int idArticle) {
+        // Chama o repositório para verificar se a linha existe na BD
+        return purchaseRepository.existsByUser_IdUserAndArticle_IdArticle(idUser, idArticle);
+    }
+
 }

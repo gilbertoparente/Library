@@ -54,11 +54,11 @@ public class DashboardController {
             System.out.println("LOG-DASHBOARD: Erro ao carregar catálogo: " + e.getMessage());
         }
 
-        // 2. Estratégia de Captura do Utilizador (Security vs HttpSession)
+        // Utilizador (Security vs HttpSession)
         EntityUsers currentUser = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        // Tentar pelo Spring Security (se não for anónimo)
+
         if (auth != null && auth.isAuthenticated() && !auth.getName().equals("anonymousUser")) {
             String email = auth.getName();
             Optional<EntityUsers> userOpt = userRepository.findByEmail(email);
@@ -77,8 +77,8 @@ public class DashboardController {
             }
         }
 
-        // 3. Se encontrámos o utilizador por qualquer uma das vias, processamos as regras e compras
-        // 3. Se encontrámos o utilizador por qualquer uma das vias, processamos as regras e compras
+
+
         if (currentUser != null) {
             session.setAttribute("loggedUser", currentUser);
 
@@ -87,23 +87,23 @@ public class DashboardController {
             int authorStatus = 0;
 
             if (Boolean.TRUE.equals(currentUser.getIsAdmin())) {
-                // É Administrador puro -> Bloqueia funções de autor na Web (usa o Desktop)
+
                 role = "READER";
                 authorStatus = 0;
             } else {
-                // NÃO é Admin -> É o teu novo utilizador Autor!
-                // Ativamos o papel de AUTHOR e o status 1 (Ativo) para que os botões apareçam
+
+
                 role = "AUTHOR";
                 authorStatus = 1;
 
                 System.out.println("LOG-DASHBOARD: Utilizador comum detetado. Atribuído papel de AUTHOR para testes.");
             }
 
-            // Guardar na sessão para o Thymeleaf ler no HTML
+            // sessão para o Thymeleaf
             session.setAttribute("userRole", role);
             session.setAttribute("authorStatus", authorStatus);
 
-            // Carregar as compras do utilizador atual
+            // Carregar as compra
             try {
                 if (purchaseRepository != null) {
                     List<EntityPurchases> userPurchases = purchaseRepository.findByUser_IdUser(currentUser.getIdUser());

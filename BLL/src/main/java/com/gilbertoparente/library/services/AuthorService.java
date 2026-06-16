@@ -66,10 +66,11 @@ public class AuthorService {
 
     @Transactional
     public void approveAuthor(int idUser) {
-        EntityAuthors author = authorRepository.findById(idUser)
-                .orElseThrow(() -> new RuntimeException("Autor não encontrado para aprovação."));
+        // Procura o autor com base na chave estrangeira do utilizador
+        EntityAuthors author = authorRepository.findByUser_IdUser(idUser)
+                .orElseThrow(() -> new RuntimeException("Perfil de autor não encontrado para o utilizador especificado."));
 
-        author.setStatus(1); // Aprovado
+        author.setStatus(1); // 1 = Aprovado
         authorRepository.save(author);
     }
 
