@@ -43,7 +43,7 @@ O projeto foi desenvolvido seguindo a abordagem **Database First**, onde a estru
     ```
 
 ### 2. Mapeamento de Entidades
-As classes no pacote `com.gilbertoparente.library.entities` foram criadas para espelhar fielmente a estrutura das tabelas existentes, utilizando anotações JPA para definir chaves primárias, estrangeiras e tabelas de associação (como `article_thematic`).
+As classes no pacote `com.gilbertoparente.library.entities` foram criadas para espelhar  a estrutura das tabelas existentes, utilizando anotações JPA para definir chaves primárias, estrangeiras e tabelas de associação (como `article_thematic`).
 
 
 ## 📋 Funcionalidades Implementadas
@@ -81,3 +81,35 @@ O projeto segue uma arquitetura em camadas para garantir a manutenibilidade:
 
 ## ✒️ Autor
 * **Gilberto Parente** - *15330* - Engenharia Informática IPVC
+# 📚 Open Library - Sistema de Gestão de Biblioteca Científica
+
+Este projeto consiste numa solução de software distribuída e integrada para a gestão, submissão e consumo de artigos científicos. O ecossistema é suportado por uma arquitetura em camadas e partilha uma base de dados relacional comum, unificando uma interface de administração local com um portal público global.
+
+---
+
+## 🏗️ Decisões Arquiteturais e Tecnológicas
+
+A conceção da plataforma baseou-se em decisões estratégicas que priorizam o desempenho, a segurança e a manutenibilidade do código:
+
+* **Padrão MVC (Model-View-Controller):** Adotou-se o ecossistema **Spring Boot (Spring MVC)** na Web para segmentar claramente as responsabilidades. Os controladores (`Controllers`) gerem as requisições HTTP, os modelos (`Models`) transportam os dados encapsulados, e as vistas (`Views`) renderizam a interface final.
+* **Thymeleaf como Motor de Templates:** Optou-se pelo Thymeleaf para a renderização no lado do servidor (*Server-Side Rendering - SSR*). Isto garante uma forte integração nativa com os objetos do Spring, otimiza o carregamento inicial e simplifica de forma robusta a gestão de sessões HTTP.
+* **Abordagem Monolítica Modular (Partilha de BLL):** A aplicação Web não possui acesso isolado à Base de Dados. Ela consome os mesmos serviços de negócio (`ArticleService`, `AuthorService`, `UserService`) que a aplicação Desktop através de injeção de dependências da **BLL (Business Logic Layer)**. Qualquer regra de validação alterada na BLL aplica-se automaticamente a ambas as plataformas, eliminando a duplicação de código.
+* **Bootstrap 5 e Design Responsivo:** A interface Web utiliza o Bootstrap 5 para garantir que a experiência de leitura e submissão se adapta com fluidez tanto a computadores como a dispositivos móveis.
+
+---
+
+## 🔒 Módulos Funcionais e Segurança Web
+
+### 1. Portal de Autenticação e Controlo Individualizado
+* **Criptografia Assimétrica:** As palavras-passe são cifradas recorrendo ao algoritmo `BCryptPasswordEncoder` antes de serem persistidas na base de dados (PostgreSQL), garantindo a conformidade com as boas práticas de segurança e RGPD.
+* **Gestão Estrita de Sessão:** O sistema valida o utilizador e injeta a entidade completa na `HttpSession` como `loggedUser`. Adicionalmente, geres o papel do utilizador através do `userRole` para impedir que utilizadores comuns ou administradores corrompam dados de autores na Web.
+
+### 2. Dashboard Dinâmico Orientado a Perfis
+* **Métricas e Novidades:** Carrega em tempo real o volume de compras do utilizador e os artigos mais recentes da plataforma recorrendo a ordenações decrescentes por ID limitadas na query.
+* **Isolamento de Coleção ("Minha Biblioteca"):** Garante que um leitor apenas consegue visualizar e aceder aos artigos que comprou legitimamente via `purchaseRepository.findByUser_IdUser`.
+* **Visualização Segura de PDF (Stream de Ficheiros):** A rota de leitura não expõe caminhos físicos de ficheiros no disco. O sistema valida se o utilizador na sessão possui a respetiva compra efetuada e faz o *stream* do binário diretamente para o navegador, mitigando downloads ilegais (DRM básico).
+
+### 3. Fluxo Descentralizado de Publicação Científica
+* **Tratamento de Ficheiros Binários:** O formulário utiliza a codificação `enctype="multipart/form-data"` para efetuar o *upload* seguro do manuscrito através de um objeto `MultipartFile`.
+* **Resolução de Chaves Estrangeiras:** O controlador resolve dinamicamente a discrepância entre IDs (onde o ID da tabela de utilizadores difere do ID da tabela de autores), mapeando a relação correta através do método `findByUser_IdUser` antes de delegar o salvamento ao `articleService.save(article, file)` da BLL.
+

@@ -32,14 +32,12 @@ public class ProfileController {
 
         if (loggedUser == null) return "redirect:/login";
 
-        // Recarregamos o user do DB para garantir dados frescos
+        // Recarregamos o utilizador
         EntityUsers user = userService.getUserById(loggedUser.getIdUser());
         model.addAttribute("user", user);
 
         if ("AUTHOR".equals(session.getAttribute("userRole"))) {
-            // No teu AuthorService, findById usa repository.findById.
-            // Se o ID do Autor for diferente do ID do User,
-            // podes precisar de adicionar findByUserId no Service.
+
             EntityAuthors author = authorService.findById(user.getIdUser());
             model.addAttribute("authorData", author);
         }

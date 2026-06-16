@@ -5,31 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="217472e6-7739-4771-9092-c617e6abfdfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/controllers/ArticlePublishController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/controllers/SalesReportController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/checkout.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/fragments/navbar.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/publish-article.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/sales-report.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/AuthorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/AuthorRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/CommentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/PurchaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/repositories/PurchaseRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/AuthorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/AuthorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/CommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/PurchaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/src/main/java/com/gilbertoparente/library/services/PurchaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/DesktopApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/src/main/java/com/gilbertoparente/library/desktop/DesktopApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/controllers/ArticlePublishController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/controllers/ArticlePublishController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/controllers/ArticleWebController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/controllers/ArticleWebController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/controllers/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/controllers/DashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/controllers/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/java/com/gilbertoparente/library/web/controllers/ProfileController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web/src/main/resources/templates/article_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/article_details.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web/src/main/resources/templates/articles_search.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/articles_search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web/src/main/resources/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web/src/main/resources/templates/login-web.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/login-web.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web/src/main/resources/templates/my_library.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/my_library.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web/src/main/resources/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web/src/main/resources/templates/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web/target/classes/com/gilbertoparente/library/web/controllers/ArticleWebController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Web/target/classes/com/gilbertoparente/library/web/controllers/ArticleWebController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web/target/classes/com/gilbertoparente/library/web/controllers/DashboardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Web/target/classes/com/gilbertoparente/library/web/controllers/DashboardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web/target/classes/templates/article_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web/target/classes/templates/article_details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web/target/classes/templates/articles_search.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web/target/classes/templates/articles_search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web/target/classes/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web/target/classes/templates/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web/target/classes/templates/my_library.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web/target/classes/templates/my_library.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web/target/classes/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web/target/classes/templates/profile.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +109,7 @@
       <command value="mvn clean" />
     </option>
   </component>
-  <component name="RunManager" selected="Compound.web">
+  <component name="RunManager" selected="Application.Launcher">
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.gilbertoparente.library.desktop.Launcher" />
       <module name="Desktop" />
@@ -238,6 +228,9 @@
       <workItem from="1778601268231" duration="330000" />
       <workItem from="1781008316156" duration="1107000" />
       <workItem from="1781269000479" duration="9435000" />
+      <workItem from="1781460401630" duration="1181000" />
+      <workItem from="1781462455927" duration="368000" />
+      <workItem from="1781645579280" duration="7682000" />
     </task>
     <servers />
   </component>

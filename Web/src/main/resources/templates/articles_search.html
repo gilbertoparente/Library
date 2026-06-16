@@ -10,13 +10,10 @@
 
 <div th:replace="~{fragments/navbar :: menu_superior}"></div>
 
-
-
-<div class="container">
+<div class="container py-4">
     <div class="card border-0 shadow-sm mb-4">
         <div class="card-body">
             <form th:action="@{/articles/search}" method="get" class="row g-3">
-
                 <div class="col-md-4">
                     <label class="form-label small fw-bold">Pesquisa Geral</label>
                     <input type="text" name="query" class="form-control" th:value="${lastQuery}" placeholder="Título, DOI ou Keywords...">
@@ -70,32 +67,32 @@
                         <small class="text-muted" th:text="${article.doi}"></small>
                     </td>
                     <td>
-                            <span th:each="t : ${article.thematics}"
-                                  class="badge bg-info text-dark me-1"
-                                  th:text="${t.description}"></span>
+                        <span th:each="t : ${article.thematics}"
+                              class="badge bg-info text-dark me-1"
+                              th:text="${t.description}"></span>
                     </td>
                     <td th:text="${article.displayAuthors}"></td>
                     <td class="fw-bold text-primary" th:text="${#numbers.formatCurrency(article.getFullPrice())}"></td>
-                        <td class="text-center">
-                            <div class="btn-group btn-group-sm">
-                                <a th:href="@{/articles/details/{id}(id=${article.idArticle})}"
-                               class="btn btn-outline-primary" title="Ver Detalhes">
+
+                    <td class="text-center">
+                        <div class="btn-group btn-group-sm">
+                            <a th:href="@{/articles/details/{id}(id=${article.idArticle})}" class="btn btn-outline-primary" title="Ver Detalhes">
                                 <i class="bi bi-eye"></i>
-                                    </a>
+                            </a>
 
-                                <th:block th:if="${session.userRole == 'READER'}">
+                            <th:block th:if="${session.loggedUser != null}">
 
-                                    <a th:if="${article.price == 0 or article.price == null}"
+                                <a th:if="${article.price == 0 or article.price == null}"
                                    th:href="@{/articles/acquire-free/{id}(id=${article.idArticle})}"
                                    class="btn btn-info text-white" title="Adicionar à minha Biblioteca">
                                     <i class="bi bi-journal-plus"></i>
-                                    </a>
+                                </a>
 
-                                        <a th:if="${article.price > 0}"
-                                           th:href="@{/articles/buy/{id}(id=${article.idArticle})}"
-                                           class="btn btn-success" title="Comprar Artigo">
-                                            <i class="bi bi-cart-plus"></i>
-                                        </a>
+                                <a th:if="${article.price > 0}"
+                                   th:href="@{/articles/buy/{id}(id=${article.idArticle})}"
+                                   class="btn btn-success" title="Comprar Artigo">
+                                    <i class="bi bi-cart-plus"></i>
+                                </a>
 
                             </th:block>
                         </div>

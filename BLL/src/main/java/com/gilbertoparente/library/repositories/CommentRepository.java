@@ -14,4 +14,6 @@ public interface CommentRepository extends JpaRepository<EntityComments, Integer
     List<EntityComments> findByUser_IdUser(int idUser);
     List<EntityComments> findByParentComment_IdComment(int idParentComment);
     List<EntityComments> findByStatus(int status);
+
+    List<EntityComments> findByArticle_IdArticle(int idArticle);
 }

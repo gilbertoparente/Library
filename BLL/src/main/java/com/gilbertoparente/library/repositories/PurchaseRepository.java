@@ -24,6 +24,7 @@ public interface PurchaseRepository extends JpaRepository<EntityPurchases, Integ
 
     boolean existsByUser_IdUserAndArticle_IdArticleAndStatus(int idUser, int idArticle, String status);
 
+    boolean existsByUser_IdUserAndArticle_IdArticle(int idUser, int idArticle);
 
 
 
